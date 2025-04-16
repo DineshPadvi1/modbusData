@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PDF_File_Reader;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -16,7 +17,8 @@ namespace modbusData
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1());
+            Application.Run(new RMC_ModBus());
+            //Application.Run(new Form1());
         }
     }
 }
