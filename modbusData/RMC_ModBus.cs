@@ -9,6 +9,9 @@ using System.Windows.Forms;
 using Dapper;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Threading.Tasks;
+using System.Data.Common;
+using Uniproject.Classes;
 
 namespace PDF_File_Reader
 {
@@ -16,6 +19,9 @@ namespace PDF_File_Reader
     {
         public  string sqliteDbPath = System.IO.Path.Combine(Application.StartupPath, "Database\\UniproData.db");
         private BackgroundWorker backgroundWorker;
+
+        // Remove BackgroundWorker from declarations
+        // private BackgroundWorker backgroundWorker;
 
         public RMC_ModBus()
         {
@@ -26,38 +32,33 @@ namespace PDF_File_Reader
                 .WriteTo.File(Path.Combine(Application.StartupPath, "log.txt"), rollingInterval: RollingInterval.Day)
                 .CreateLogger();
 
-            backgroundWorker = new BackgroundWorker
-            {
-                WorkerReportsProgress = true,
-                WorkerSupportsCancellation = true
-            };
+            sqliteDbPath = Path.Combine(Application.StartupPath, "Database", "UniproData.db");
 
+            if (!File.Exists(sqliteDbPath))
+            {
+                Log.Error("Database not found at: {Path}", sqliteDbPath);
+                MessageBox.Show("Database file not found!");
+                return;
+            }
+            backgroundWorker = new BackgroundWorker();
             backgroundWorker.DoWork += BackgroundWorker_DoWork;
             backgroundWorker.RunWorkerCompleted += BackgroundWorker_RunWorkerCompleted;
-            backgroundWorker.ProgressChanged += BackgroundWorker_ProgressChanged;
+            backgroundWorker.WorkerReportsProgress = false;
+            backgroundWorker.WorkerSupportsCancellation = true ;
 
-            this.Load += RMC_ModBus_Load;
-             sqliteDbPath = Path.Combine(
-    Application.StartupPath,
-    "Database",
-    "UniproData.db"
-);
+            //this.Load += RMC_ModBus_Load;
+        }
+        private void RMC_ModBus_Load_2(object sender, EventArgs e)
+        {
+            //RMC_ModBus_Load();
+        }
 
-// Add this check before using the database
-if (!File.Exists(sqliteDbPath))
-{
-    Log.Error("Database not found at: {Path}", sqliteDbPath);
-    MessageBox.Show("Database file not found!");
-    return;
-}
-}
-
-        private async void RMC_ModBus_Load(object sender, EventArgs e)
+        private async Task RMC_ModBus_Load()
         {
             try
             {
-                var dt = LoadDataTo_DataTable();
-                ConvertData(dt);
+                var dt = await LoadDataTo_DataTableAsync();
+                await ConvertDataAsync(dt);
                 //InsertData(dt);
             }
             catch (Exception ex)
@@ -66,32 +67,31 @@ if (!File.Exists(sqliteDbPath))
             }
         }
 
-        private void ConvertData(DataTable dt)
+        private async Task ConvertDataAsync(DataTable dt)  
         {
             try
             {
-                string connectionString = $"Data Source={sqliteDbPath};Version=3;";
-
-                using (var connection = new SQLiteConnection(connectionString))
+                var tasks = new List<Task>();
+                foreach (DataRow row in dt.Rows)
                 {
-                    connection.Open();
-
-                    foreach (DataRow row in dt.Rows)
-                    {
-                        Float_Big_Endian_ABCD(string.Join(" ", row["data"]), row["date"].ToString(), row["length"].ToString(), Convert.ToInt32( row["id"]));
-                    }
+                    await Float_Big_Endian_ABCDAsync(
+                        string.Join(" ", row["data"]),
+                        row["date"].ToString(),
+                        row["length"].ToString(),
+                        Convert.ToInt32(row["id"])
+                    );
+                     Task.Delay(10).Wait(); // Optional delay to prevent overwhelming the database
                 }
-
-                Log.Information("Data inserted successfully using Dapper.");
+                await Task.WhenAll(tasks); // Process rows concurrently
             }
             catch (Exception ex)
             {
-                Log.Error("InsertData error: {Message}", ex.Message);
+                Log.Error("ConvertData error: {Message}", ex.Message);
             }
         }
 
 
-        public void Float_Big_Endian_ABCD(string input,string datetime1,string length, int id)
+        public async Task Float_Big_Endian_ABCDAsync(string input, string datetime1, string length, int id)
         {
             try
             {
@@ -108,9 +108,9 @@ if (!File.Exists(sqliteDbPath))
 
                 List<float> floatValues = new List<float>();
 
-                using (StreamWriter writer = new StreamWriter(filePath))
-                {
-                    writer.WriteLine("Converted Float Values (Big Endian):\n");
+                //using (StreamWriter writer = new StreamWriter(filePath))
+                //{
+                    //await writer.WriteLineAsync("Converted Float Values (Big Endian):\n");
 
                     for (int i = 0; i < bytes.Length; i += 4)
                     {
@@ -128,11 +128,11 @@ if (!File.Exists(sqliteDbPath))
                         float value = BitConverter.ToSingle(floatBytes, 0);
                         floatValues.Add(value);
 
-                        writer.WriteLine($"{i / 4:D2}: {value}");
+                        //await writer.WriteLineAsync($"{i / 4:D2}: {value}");
                     }
-                }
+                //}
 
-                InsertFloatValuesIntoDatabase(floatValues,  datetime1,  length, id);
+                await InsertFloatValuesIntoDatabaseAsync(floatValues, datetime1, length, id);
 
                 //MessageBox.Show("Float values written to file and database:\n" + filePath, "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
@@ -143,136 +143,352 @@ if (!File.Exists(sqliteDbPath))
             }
         }
 
-        private void InsertFloatValuesIntoDatabase(List<float> floatValues, string datetime1, string length,int id)
+        private async Task InsertFloatValuesIntoDatabaseAsync(List<float> floatValues, string datetime1, string length, int id)
         {
             try
             {
+                string datetime11="";
+
+                double length1=0;
+
+                double Agg1=0;
+                double Agg2=0;
+                double Agg3=0;
+                double Agg4=0;
+
+                double Cem1=0;
+                double Cem2=0;
+                double Cem3=0;
+                double Cem4=0;
+
+                double Water1=0;
+                double Water2=0;
+
+
+                //if (length == "119" || length == "87" || length == "65") return;
+
+                // Create DataTable and DataRow
+                DataTable dt = new DataTable();
+                DataRow row = dt.NewRow();
+
                 string connectionString = $"Data Source={sqliteDbPath};Version=3;";
                 using (var connection = new SQLiteConnection(connectionString))
                 {
-                    connection.Open();
+                    await connection.OpenAsync();
 
                     var parameters = new DynamicParameters();
                     var columnNames = new List<string>();
                     var paramNames = new List<string>();
 
-                    // Add datetime1 and length first
+                    // datetime1 and length
                     columnNames.Add("datetime1");
                     paramNames.Add("@datetime1");
                     parameters.Add("@datetime1", datetime1);
+                    dt.Columns.Add("datetime1");
+                    row["datetime1"] = datetime1;
 
                     columnNames.Add("length");
                     paramNames.Add("@length");
                     parameters.Add("@length", length);
+                    dt.Columns.Add("length");
+                    row["length"] = length;
 
-                    // Add float values as f1 to f200
                     for (int i = 0; i < floatValues.Count && i < 200; i++)
                     {
                         string column = $"f{i + 1}";
+                        string value = floatValues[i].ToString("G", CultureInfo.InvariantCulture);
+
                         columnNames.Add(column);
                         paramNames.Add($"@{column}");
-                        parameters.Add($"@{column}", floatValues[i].ToString("G", CultureInfo.InvariantCulture));
+                        parameters.Add($"@{column}", value);
+
+                        if (!dt.Columns.Contains(column))
+                            dt.Columns.Add(column);
+                        row[column] = value;
                     }
 
-                    // Fill remaining columns with empty string if fewer than 200 values
                     for (int i = floatValues.Count; i < 200; i++)
                     {
                         string column = $"f{i + 1}";
                         columnNames.Add(column);
                         paramNames.Add($"@{column}");
                         parameters.Add($"@{column}", "");
+
+                        if (!dt.Columns.Contains(column))
+                            dt.Columns.Add(column);
+                        row[column] = "";
                     }
 
-                    // Final INSERT query
                     string query = $"INSERT INTO DataForAnalysis ({string.Join(",", columnNames)}) VALUES ({string.Join(",", paramNames)})";
-                    connection.Execute(query, parameters);
-                    string update = $"Update dataset SET Status=1 where id={id};";
-                    connection.Execute(update);
+                    await connection.ExecuteAsync(query, parameters);
+
+                    string update = $"UPDATE dataset SET Status=1 WHERE id={id};";
+                    await connection.ExecuteAsync(update);
+
                     Log.Information("DataForAnalysis insertion complete: {Count} floats, datetime1 = {DT}, length = {Len}", floatValues.Count, datetime1, length);
                 }
+
+
+
+                // Add the row to DataTable if needed
+                dt.Rows.Add(row);
+
+                 
+                // Update UI only if safe, no nulls or exceptions
+                if (length == "139") // production data
+                {
+                    /*********** MANUAL ***************/
+
+                    // AGGREGATES
+                    UpdateActualValuestoUI(txtagg1, GetSafeValue(row, "f5"));
+                    
+                    UpdateActualValuestoUI(txtagg2, "0");
+                    UpdateActualValuestoUI(txtagg3, "0");
+                    UpdateActualValuestoUI(txtagg4, "0");
+                    UpdateActualValuestoUI(txtagg5, "0");
+
+                    // CEMENT
+                    UpdateActualValuestoUI(txtCement1, GetSafeValue(row, "f11"));
+                    UpdateActualValuestoUI(txtCement2, "0");
+                    UpdateActualValuestoUI(txtCement3, "0");
+                    UpdateActualValuestoUI(txtCement4, "0");
+
+                    // WATER
+                    UpdateActualValuestoUI(txtwater1, GetSafeValue(row, "f17"));
+
+                    /*********** ACTUAL ***************/
+                    UpdateActualValuestoUI(txtAgg, GetSafeValue(row, "f7"));
+                    Agg1 = Convert.ToDouble(GetSafeValue(row, "f7"));
+
+                    UpdateActualValuestoUI(txtCem, GetSafeValue(row, "f13"));
+                    Cem1 = Convert.ToDouble(GetSafeValue(row, "f13"));
+
+                    UpdateActualValuestoUI(txtWater, GetSafeValue(row, "f19"));
+                    Water1 = Convert.ToDouble(GetSafeValue(row, "f19"));
+
+                    string formatted = string.Empty;
+                    if (DateTime.TryParse(datetime1, out DateTime date1))
+                    {
+                         formatted = date1.ToString("yyyy HH:mm:ss.fffffff");
+                        Console.WriteLine(formatted); // Output: Apr 14, 2025 18:18:05.8720780
+                    }
+                    else
+                    {
+                        Console.WriteLine("Invalid datetime format.");
+                    }
+                    try
+                    {
+
+                        string query = $@"
+INSERT INTO analyse 
+(datetime1, length, Agg1, Agg2, Agg3, Agg4, Cem1, Cem2, Cem3, Cem4, Water1, Water2) 
+VALUES 
+('{formatted}', {length1}, {Agg1}, {Agg2}, {Agg3}, {Agg4}, {Cem1}, {Cem2}, {Cem3}, {Cem4}, {Water1}, {Water2});
+";
+                        //clsFunctions.AdoData(query);
+                    }
+                    catch { }
+
+
+                }
+
+                if (length == "167") // start/stop data
+                {
+                    string f4 = GetSafeValue(row, "f4");
+                    if (f4 == "512") { }
+                    string f23 = GetSafeValue(row, "f23");
+                    if (f4 == "512" /*&& f23 == "4.591775E-40" */) // this means batch ended
+                    {
+                        //MessageBox.Show("Batch ended!");
+                    }
+                }
+
+                // insert data into mdb microsoft access database.
+
+
+
+                // You can store dt in a class-level variable or log/export it if needed
             }
             catch (Exception ex)
             {
                 Log.Error("InsertFloatValuesIntoDatabase error: {Message}", ex.Message);
             }
         }
-
-
-
-
-
-
-
-        private void InsertData(DataTable dt)
+        // Helper function to safely get values
+        private static string GetSafeValue(DataRow r, string colName)
         {
             try
             {
-                string connectionString = $"Data Source={sqliteDbPath};Version=3;";
-
-                using (var connection = new SQLiteConnection(connectionString))
+                if (r.Table.Columns.Contains(colName))
                 {
-                    connection.Open();
-
-                    foreach (DataRow row in dt.Rows)
+                    var value = r[colName];
+                    if (value != DBNull.Value && !string.IsNullOrWhiteSpace(value?.ToString()))
                     {
-                        var parameters = new DynamicParameters();
-
-                        // Build column list and parameter list
-                        var columnNames = new List<string>();
-                        var paramNames = new List<string>();
-
-                        for (int i = 1; i <= 200; i++)
-                        {
-                            string column = $"f{i}";
-                            columnNames.Add(column);
-                            paramNames.Add($"@{column}");
-
-                            parameters.Add($"@{column}", row[column] ?? DBNull.Value);
-                        }
-
-                        string query = $"INSERT INTO DataForAnalysis ({string.Join(",", columnNames)}) " +
-                                       $"VALUES ({string.Join(",", paramNames)})";
-
-                        connection.Execute(query, parameters);
+                        return value.ToString();
                     }
                 }
+            }
+            catch
+            {
+                // Ignore exception, return default
+            }
+            return "0";
+        }
 
-                Log.Information("Data inserted successfully using Dapper.");
+        //private async Task InsertFloatValuesIntoDatabaseAsync_workingbutld(List<float> floatValues, string datetime1, string length, int id)
+        //{
+        //    try
+        //    {
+        //        if (length == "119" || length == "87" || length == "65") return;
+        //        string connectionString = $"Data Source={sqliteDbPath};Version=3;";
+        //        using (var connection = new SQLiteConnection(connectionString))
+        //        {
+        //            await connection.OpenAsync();
+
+        //            var parameters = new DynamicParameters();
+        //            var columnNames = new List<string>();
+        //            var paramNames = new List<string>();
+
+        //            // Add datetime1 and length first
+        //            columnNames.Add("datetime1");
+        //            paramNames.Add("@datetime1");
+        //            parameters.Add("@datetime1", datetime1);
+
+        //            columnNames.Add("length");
+        //            paramNames.Add("@length");
+        //            parameters.Add("@length", length);
+
+        //            // Add float values as f1 to f200
+        //            for (int i = 0; i < floatValues.Count && i < 200; i++)
+        //            {
+        //                string column = $"f{i + 1}";
+        //                columnNames.Add(column);
+        //                paramNames.Add($"@{column}");
+        //                parameters.Add($"@{column}", floatValues[i].ToString("G", CultureInfo.InvariantCulture));
+
+
+        //                //update ui with its value here 
+        //                if (length == "139") // production data
+        //                {
+        //                    if (column == "f7")
+        //                    {
+        //                        UpdateActualValuestoUI(column, floatValues[i].ToString("G", CultureInfo.InvariantCulture));
+        //                        //await Task.Delay(500);
+        //                    }
+        //                    else if (column == "f13") 
+        //                    {
+        //                        UpdateActualValuestoUI(column, floatValues[i].ToString("G", CultureInfo.InvariantCulture));
+        //                        //await Task.Delay(500);
+        //                    }
+        //                    else if (column == "f19")
+        //                    {
+        //                        UpdateActualValuestoUI(column, floatValues[i].ToString("G", CultureInfo.InvariantCulture));
+        //                        //await Task.Delay(500);
+        //                    }
+        //                }
+        //                else if (length == "167") // start / stop data
+        //                {
+        //                    if (column == "f4" && (floatValues[i].ToString("G", CultureInfo.InvariantCulture) == "512" || floatValues[i].ToString("G", CultureInfo.InvariantCulture) == "0"))
+        //                        MessageBox.Show("Batch ended!");
+        //                    var d = floatValues[i].ToString("G", CultureInfo.InvariantCulture);
+        //                }
+        //                else
+        //                    Console.WriteLine("length not matched: "+ length);
+
+        //            }
+        //            //UpdateActualValuestoUI(datetime1, datetime1);
+        //            // Fill remaining columns with empty string if fewer than 200 values
+        //            for (int i = floatValues.Count; i < 200; i++)
+        //            {
+        //                string column = $"f{i + 1}";
+        //                columnNames.Add(column);
+        //                paramNames.Add($"@{column}");
+        //                parameters.Add($"@{column}", "");
+        //            }
+
+        //            // Final INSERT query
+        //            string query = $"INSERT INTO DataForAnalysis ({string.Join(",", columnNames)}) VALUES ({string.Join(",", paramNames)})";
+        //            await connection.ExecuteAsync(query, parameters);
+        //            string update = $"Update dataset SET Status=1 where id={id};";
+        //            await connection.ExecuteAsync(update);
+        //            Log.Information("DataForAnalysis insertion complete: {Count} floats, datetime1 = {DT}, length = {Len}", floatValues.Count, datetime1, length);
+
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        Log.Error("InsertFloatValuesIntoDatabase error: {Message}", ex.Message);
+        //    }
+        //}
+
+        public void UpdateActualValuestoUI(TextBox targetTextBox, string value)
+        {
+            try
+            {
+                if (targetTextBox.InvokeRequired)
+                {
+                    targetTextBox.Invoke(new Action(() => UpdateActualValuestoUI(targetTextBox, value)));
+                    return;
+                }
+
+                targetTextBox.Text = value;
             }
             catch (Exception ex)
             {
-                Log.Error("InsertData error: {Message}", ex.Message);
+                Log.Error("UpdateActualValuestoUI error: {Message}", ex.Message);
             }
         }
 
-
-        private DataTable  LoadDataTo_DataTable()
+        public void UpdateActualValuestoUI_oldd(string colname, string value)
         {
             try
             {
-                string connectionString = $"Data Source={sqliteDbPath};Version=3;";
-
-                using (var connection = new SQLiteConnection(connectionString))
+                if (txtAgg.InvokeRequired || txtCem.InvokeRequired)
                 {
-                    connection.Open();
-
-                    string query = "SELECT * FROM dataset where Status=0;";
-
-                    using (var command = new SQLiteCommand(query, connection))
-                    using (var adapter = new SQLiteDataAdapter(command))
-                    {
-                        var dataTable = new DataTable();
-                        adapter.Fill(dataTable);
-
-                        return dataTable;
-                    }
+                    txtAgg.Invoke(new Action(() => UpdateActualValuestoUI_oldd(colname, value)));
+                    return;
                 }
-                return null; 
+
+                switch (colname)
+                {
+                    case "f7":
+                        txtAgg.Text = value;
+                        break;
+                    case "f13":
+                        txtCem.Text = value;
+                        break;
+                    case "f19":
+                        txtWater.Text = value;
+                        break;
+                }
             }
             catch (Exception ex)
             {
-                
-                Log.Error("LoadDataIntoGrid error: {Message}", ex.Message);
+                Log.Error("UpdateActualValuestoUI error: {Message}", ex.Message);
+            }
+        }
+
+        private async Task<DataTable> LoadDataTo_DataTableAsync()
+        {
+            try
+            {
+                using (var connection = new SQLiteConnection($"Data Source={sqliteDbPath};Version=3;"))
+                {
+                    await connection.OpenAsync();
+
+                    string query = "SELECT * FROM dataset WHERE Status = 0 ORDER BY datetime(date) ASC;";
+                    using (var command = new SQLiteCommand(query, connection))
+                    using (var reader = await command.ExecuteReaderAsync())
+                    {
+                        var dataTable = new DataTable();
+                        dataTable.Load(reader); // Still sync but very fast in most cases
+                        return dataTable;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Log.Error("LoadDataTo_DataTableAsync error: {Message}", ex.Message);
                 return null;
             }
         }
@@ -281,13 +497,16 @@ if (!File.Exists(sqliteDbPath))
 
 
 
-        private void BackgroundWorker_DoWork(object sender, DoWorkEventArgs e)
+        bool flag = false;
+        private async void BackgroundWorker_DoWork(object sender, DoWorkEventArgs e)
         {
             try
             {
-                while (!backgroundWorker.CancellationPending)
+                flag = false;
+                while (!backgroundWorker.CancellationPending||!flag)
                 {
-                    // background task logic
+                    await RMC_ModBus_Load();
+                    Task.Delay(10).Wait();
                 }
             }
             catch (Exception ex)
@@ -315,6 +534,26 @@ if (!File.Exists(sqliteDbPath))
             {
                 Log.Information("Background task completed successfully.");
             }
+        }
+
+        private void btnStart_Click(object sender, EventArgs e)
+        {
+            if(backgroundWorker.IsBusy)
+            {
+                MessageBox.Show("Background worker is already running.");
+                return;
+            }
+            backgroundWorker.RunWorkerAsync();
+        }
+
+        private void btnstop_Click(object sender, EventArgs e)
+        {
+            if(backgroundWorker.IsBusy)
+            {
+                backgroundWorker.CancelAsync();
+
+            }
+            flag = true;
         }
     }
 }

@@ -1,0 +1,250 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Data.OleDb;
+using System.Diagnostics;
+using System.IO;
+using System.IO.Ports;
+using System.Net;
+using System.Net.Http;
+using System.Net.NetworkInformation;
+using System.Text.RegularExpressions;
+using System.Windows.Forms;
+
+namespace Uniproject.Classes
+{
+    public static class clsFunctions
+    {
+
+        public static string batchconnstr = "Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + Application.StartupPath + "\\Database\\";
+        // public static string batchconnstrR7 = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" + Application.StartupPath + "\\Database\\";      //BT
+        public static string batchconnstrR7 = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" + ""; //BK14april
+
+        public static string imgPath = Application.StartupPath + "\\img";
+        public static string solutionPath = "";//clsFunctions.GetConnectionstrSetup_Path();
+        public static string RegFilePath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\vtIEpmLP";
+
+        public static string regName = "VIPLHMSCADA";
+        public static string serialKey = "QTR56-MLYH1-PTS8T-4SMH9-PG89Y";
+
+        public static string DeviceID = "";                 // BhaveshT
+        public static string dept = "";                     // 18 may
+        public static string aliasName = "";
+        public static string activeDeptName = "";
+        public static string activePlantCode = "";
+        public static string activeDeviceID = "";
+        public static string activeDesciption = "";
+        public static string activePlantType = "";
+
+        public static bool flag = false;
+
+        public static string HMI_Unique_ID = "";
+
+        public static string pingResponse = "";
+        public static DataTable LatestUpdates_Dt = new DataTable();
+
+        public static string expiryMessage = "";
+
+        public static int DocketHours = 24;         // 24/04/2024 : BhaveshT
+        public static DateTime timeNow;
+        public static DateTime minDateTime;
+
+        public static bool shouldClose = false;
+
+        //-------------------------------------------
+
+
+        public static string TipperInterval = "59";         // 25/04/2024 : BhaveshT
+
+        public static bool isExpiryCheckedForPType = false;
+
+        //static OleDbConnection con = new OleDbConnection(batchconnstr + "HotMixScada.mdb;");
+        internal static OleDbConnection con = new OleDbConnection(batchconnstr + "UniPro.mdb;Persist Security Info=true ;Jet OLEDB:Database Password=Unipro0073; ");//
+
+        // 24/11/2023 BhaveshT - made it public
+        public static OleDbConnection conns = new OleDbConnection(batchconnstr + "Setup.mdb; Persist Security Info=true ;Jet OLEDB:Database Password=vasssetup;");//Annu
+
+        //private static OleDbConnection con = new OleDbConnection(clsFunctions.batchconnstr + "UniPro.mdb;Persist Security Info=true ;Jet OLEDB:Database Password=Unipro0073; ");
+        //private static OleDbConnection conns = new OleDbConnection(clsFunctions.batchconnstr + "Setup.mdb; Persist Security Info=true ;Jet OLEDB:Database Password=vasssetup;");
+
+        private static string mydbstr = nameof(mydbstr);
+
+        public static string loggerfunc()
+        {
+            string sFi1ePath = "";
+            try
+            {
+                // added by BhaveshT
+                string sF01derName = Application.StartupPath + @"\Logs\";
+                if (!Directory.Exists(sF01derName))
+                    Directory.CreateDirectory(sF01derName);
+
+                sFi1ePath = sF01derName + "Error_Unipro.log";
+            }
+            catch (Exception e)
+            {
+                //clsFunctions_comman.ErrorLog("error in logger function" + e.Message);
+            }
+            return sFi1ePath;
+        }
+
+        // 08/02/2024 - BhaveshT : Use Unipro_Setup table instead of Connection_setup ------------------------
+
+        public static string getConnectionString = GetConnString();
+
+
+        public static string GetConnString()
+        {
+            try
+            {
+                //getConnectionString = Convert.ToString(clsFunctions.loadSingleValueSetup("SELECT ConnectionString FROM Unipro_Setup where Status = 'Y' "));
+                return getConnectionString;
+            }
+            catch (Exception ex)
+            {
+                return getConnectionString;
+            }
+        }
+
+        //------------------------
+
+        public static void getdateTimeString()
+        {
+            try
+            {
+                //timeNow = Convert.ToDateTime(DateTime.Now.ToString("hh:mm:ss tt"));
+                //minDateTime = Convert.ToDateTime(DateTime.Now.ToString());
+
+                //timeNow = DateTime.Parse(DateTime.Now.ToLongTimeString());
+                //minDateTime = DateTime.Parse(DateTime.Now.ToString());
+            }
+            catch (Exception ex)
+            {
+                clsFunctions.ErrorLog("getdateTimeString" + ex.Message);
+            }
+        }
+
+        public static string IP = "";
+        public static string Port = "";
+
+        public static string VIPLBatchNo = "";
+        public static string ClientBatchNo = "";
+        public static string ClientDate = "";
+        public static string ClientTime = "";
+        public static DataTable viplList = new DataTable();
+        public static DataTable clientList = new DataTable();
+        public static DataTable viplTransList = new DataTable();
+        public static DataTable clientTransList = new DataTable();
+        public static string desc = "";
+        public static string PlantType;
+        public static string DataImportPath;
+        public static string IsEgaleReg;
+        public static int IsRegSoftware;
+        public static string regfilestatus;
+        public static OleDbConnection client_conn;
+        //public static MySqlConnection MySqlcilent;
+        public static string regNo;
+        public static string VITPLTableName;
+        public static string SourceTableName;
+        public static string VITPLTableNameBD;
+        public static string SourceTableNameBD;
+
+        // 24/11/2023 BhaveshT - made it public
+        public static DataTable sourceTable;
+        public static DataTable sourceTrnsTable;
+
+        public static string batchendflag;
+        public static string endtime;
+        public static string CustCode;
+        public static string sitename;
+        public static string plantcode;
+
+        //added by Dinesh date:21/12/2023
+        static DateTime Expirydate = default(DateTime);
+
+        //added by Dinesh for fetching api from table
+
+        public static string setIpAddress = "";
+        public static string setPort = "";
+        public static string URL = "";
+        public static string regURL = "";
+        public static string protocol = "http";
+        //for Bitumen
+        public static string endpoint = "";
+        public static string plantEndPoint = "";
+
+        // for RMC
+        public static string batchDetails_endpoint = "";
+        public static string batch_endpoint = "";
+        public static bool validHostName = false;
+        //this varibale is for checking expiry of plant api
+        public static string apiLink = "";
+        public static bool protoolFlag = false;
+
+        static clsFunctions()
+        {
+            getdateTimeString();
+            //DataTable dataTable = new DataTable();
+            //try
+            //{
+            //}
+            //catch (Exception ex)
+            //{
+            //}
+        }
+
+
+        public static string plantCode = "";    // clsFunctions.loadSingleValueSetup("Select PlantCode from PlantSetup"); // 19 may
+
+        //----------------------- Insert Error Details in Plant_Error_Log Table ------------------------
+
+        public static int AdoData(string query)
+        {
+            try
+            {
+                if (clsFunctions.con.State == ConnectionState.Closed)
+                    clsFunctions.con.Open();
+                return new OleDbCommand(query, clsFunctions.con).ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                clsFunctions.ErrorLog("Exception: clsFunctions.AdoData - " + ex.Message + " | query => " + query);
+                return 0;
+            }
+        }
+        public static void ErrorLog(string sMessage)
+        {
+            StreamWriter streamWriter = (StreamWriter)null;
+
+            try
+            {
+
+                string path = Application.StartupPath + "\\Logs\\";
+                if (!Directory.Exists(path))
+                    Directory.CreateDirectory(path);
+
+                //streamWriter = new StreamWriter(path + "Error_log" + DateTime.Now.ToString("dd_MM_yyyy") + ".log", true);
+                //streamWriter.WriteLine(DateTime.Now.ToString("dd/MM/yyyy") + " " + sMessage + Environment.NewLine);
+
+                // 19/01/2024 - BhaveshT : renamed the file
+
+                streamWriter = new StreamWriter(path + "Error_Unipro_" + DateTime.Now.ToString("MMMM-yyyy") + ".log", true);
+                streamWriter.WriteLine(DateTime.Now.ToString("dd/MM/yyyy hh:mm:ss tt - ") + " " + sMessage + Environment.NewLine);
+
+            }
+            catch (Exception ex)
+            {
+                //int num = (int)MessageBox.Show("error: " + ex.Message + " Description " + sMessage);
+            }
+            finally
+            {
+                if (streamWriter != null)
+                {
+                    streamWriter.Flush();
+                    streamWriter.Dispose();
+                }
+            }
+        }
+
+    }
+}
