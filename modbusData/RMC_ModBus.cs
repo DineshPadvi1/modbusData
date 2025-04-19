@@ -285,7 +285,7 @@ INSERT INTO analyse
 VALUES 
 ('{formatted}', {length1}, {Agg1}, {Agg2}, {Agg3}, {Agg4}, {Cem1}, {Cem2}, {Cem3}, {Cem4}, {Water1}, {Water2});
 ";
-                        //clsFunctions.AdoData(query);
+                        clsFunctions.AdoData(query);
                     }
                     catch { }
 
