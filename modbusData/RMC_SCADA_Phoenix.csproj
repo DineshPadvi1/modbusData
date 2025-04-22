@@ -52,6 +52,9 @@
     <Reference Include="Serilog, Version=4.2.0.0, Culture=neutral, PublicKeyToken=24c2f752a8e58a10, processorArchitecture=MSIL">
       <HintPath>..\packages\Serilog.4.2.0\lib\net471\Serilog.dll</HintPath>
     </Reference>
+    <Reference Include="Serilog.Sinks.Console, Version=6.0.0.0, Culture=neutral, PublicKeyToken=24c2f752a8e58a10, processorArchitecture=MSIL">
+      <HintPath>..\packages\Serilog.Sinks.Console.6.0.0\lib\net471\Serilog.Sinks.Console.dll</HintPath>
+    </Reference>
     <Reference Include="Serilog.Sinks.File, Version=6.0.0.0, Culture=neutral, PublicKeyToken=24c2f752a8e58a10, processorArchitecture=MSIL">
       <HintPath>..\packages\Serilog.Sinks.File.6.0.0\lib\net471\Serilog.Sinks.File.dll</HintPath>
     </Reference>
@@ -110,13 +113,29 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Classes\clsFunctions.cs" />
+    <Compile Include="Classes\clsFunctions_comman.cs" />
     <Compile Include="Classes\clsSqLite.cs" />
+    <Compile Include="Classes\clsVariables.cs" />
+    <Compile Include="Classes\LogService.cs" />
+    <Compile Include="Classes\TimeHelper.cs" />
     <Compile Include="Classes\UniproDbContext.cs" />
-    <Compile Include="Form1.cs">
+    <Compile Include="Form2.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="Form2.Designer.cs">
+      <DependentUpon>Form2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Masters\ReceipeMaster_RMC.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Masters\ReceipeMaster_RMC.Designer.cs">
+      <DependentUpon>ReceipeMaster_RMC.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Masters\TripperMaster.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Masters\TripperMaster.designer.cs">
+      <DependentUpon>TripperMaster.cs</DependentUpon>
     </Compile>
     <Compile Include="Model\UniproSetup.cs" />
     <Compile Include="Program.cs" />
@@ -127,8 +146,14 @@
     <Compile Include="RMC_ModBus.Designer.cs">
       <DependentUpon>RMC_ModBus.cs</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="Form1.resx">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <EmbeddedResource Include="Form2.resx">
+      <DependentUpon>Form2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Masters\ReceipeMaster_RMC.resx">
+      <DependentUpon>ReceipeMaster_RMC.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Masters\TripperMaster.resx">
+      <DependentUpon>TripperMaster.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

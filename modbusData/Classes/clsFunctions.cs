@@ -30,9 +30,9 @@ namespace Uniproject.Classes
         public static string DeviceID = "";                 // BhaveshT
         public static string dept = "";                     // 18 may
         public static string aliasName = "";
-        public static string activeDeptName = "";
-        public static string activePlantCode = "";
-        public static string activeDeviceID = "";
+        public static string activeDeptName = "PMC";
+        public static string activePlantCode = "3"; //warning please remove this from here
+        public static string activeDeviceID = "12345566";
         public static string activeDesciption = "";
         public static string activePlantType = "";
 
@@ -105,6 +105,93 @@ namespace Uniproject.Classes
                 return getConnectionString;
             }
         }
+        public static void GetWorkOrderData_Like(ComboBox WorknName, TextBox WorkCode, ComboBox ContractorName, TextBox PlantCode, TextBox ContractorCode, Label WorkType)
+        {
+            //------------ When workname is longer than 255, use then use LIKE workname to fetch Work order data. --------------------------
+
+            try
+            {
+                DataTable dt = new DataTable();
+
+                string workname = "%" + WorknName.Text + "%";
+
+                string query = "SELECT * FROM workorder " +
+                               "WHERE workname LIKE '" + workname.Replace("'", "''") + "' " +
+                               "AND WorkType = '" + clsFunctions.activeDeptName.Replace("'", "''") + "' " +
+                               "AND ContractorName = '" + ContractorName.Text.Replace("'", "''") + "' ";
+
+                // Fetch the data into a DataTable
+                dt = Uniproject.Classes.clsFunctions_comman.fillDatatable(query);
+
+                if (dt.Rows.Count != 0)
+                {
+                    //SiteCode.Text = dt.Rows[0]["workorderid"].ToString();
+                    WorkCode.Text = dt.Rows[0]["Workno"].ToString();
+                    ContractorCode.Text = dt.Rows[0]["ContractorID"].ToString();
+                    WorkType.Text = dt.Rows[0]["Worktype"].ToString();
+                    PlantCode.Text = clsFunctions.activePlantCode;
+                }
+            }
+            catch (Exception ex)
+            {
+                clsFunctions.ErrorLog("[Exception] clsFunctions.GetWorkOrderData_Like() - " + ex.Message);
+            }
+
+        }
+
+        public static void checknewcolumn(string clm, string datatype, string table)
+        {
+            try
+            {
+                string cmdText = "Select " + clm + " from " + table + " ";
+                if (clsFunctions.con.State == ConnectionState.Closed)
+                    clsFunctions.con.Open();
+                new OleDbDataAdapter(new OleDbCommand(cmdText, clsFunctions.con)).Fill(new DataTable());
+            }
+            catch (Exception ex)
+            {
+                clsFunctions.AdoData("alter table " + table + " add column " + clm + " " + datatype);
+            }
+        }
+
+        public static DataTable fillDatatable(string query)
+        {
+            DataTable dataTable = new DataTable();
+            try
+            {
+                if (clsFunctions.con.State == ConnectionState.Closed)
+                    clsFunctions.con.Open();
+
+                new OleDbDataAdapter(new OleDbCommand(query, clsFunctions.con)).Fill(dataTable);
+            }
+            catch (Exception ex)
+            {
+                ////clsFunctions.ErrorLog("FillDataTable : " + ex.Message + "query Description " + query);
+            }
+            return dataTable;
+        }
+
+        public static string loadSingleValueSetup(string Query)
+        {
+            string str = "0";
+            try
+            {
+                if (clsFunctions.conns.State == ConnectionState.Closed)
+                    clsFunctions.conns.Open();
+                OleDbDataAdapter oleDbDataAdapter = new OleDbDataAdapter(new OleDbCommand(Query, clsFunctions.conns));
+                DataTable dataTable = new DataTable();
+                oleDbDataAdapter.Fill(dataTable);
+                if (dataTable.Rows.Count > 0)
+                    str = dataTable.Rows[0][0].ToString();
+                return str;
+            }
+            catch (Exception ex)
+            {
+                int num = (int)MessageBox.Show("loadSingleValueSetup : " + ex.Message + "query Description " + Query);
+                return str;
+            }
+        }
+
 
         //------------------------
 
@@ -121,6 +208,71 @@ namespace Uniproject.Classes
             catch (Exception ex)
             {
                 clsFunctions.ErrorLog("getdateTimeString" + ex.Message);
+            }
+        }
+        public static void FillCombo(string Query, ComboBox cmb)
+        {
+            try
+            {
+                if (clsFunctions.con.State == ConnectionState.Closed)
+                    clsFunctions.con.Open();
+                OleDbDataAdapter oleDbDataAdapter = new OleDbDataAdapter(new OleDbCommand(Query, clsFunctions.con));
+                DataTable dataTable = new DataTable();
+
+                cmb.DataSource = null;
+                cmb.Items.Clear();
+                oleDbDataAdapter.Fill(dataTable);
+                if (dataTable.Rows.Count <= 0)
+                    return;
+                foreach (DataRow row in (InternalDataCollectionBase)dataTable.Rows)
+                {
+                    if (row[0].ToString().Trim() != "")
+                        cmb.Items.Add(row[0]);
+                }
+            }
+            catch (Exception ex)
+            {
+                int num = (int)MessageBox.Show("FillCombo : " + ex.Message);
+            }
+        }
+
+        public static void FillWorkOrderFromContractor(ComboBox cmbConName, ComboBox cmbWorkName, TextBox txtConCode, ComboBox cmbJobSite)
+        {
+            try
+            {
+                txtConCode.Text = "";
+                try
+                {
+                    cmbJobSite.SelectedIndex = -1;
+                }
+                catch { }
+
+                clsFunctions.FillCombo("Select Distinct workname from workorder where WorkType = '" + clsFunctions.activeDeptName + "' AND ContractorName = '" + cmbConName.Text + "' AND iscompleted <> 'Y' ", cmbWorkName);
+
+                try
+                {
+                    cmbWorkName.SelectedIndex = 0;
+                }
+                catch { }
+            }
+
+            catch (Exception ex)
+            {
+                clsFunctions_comman.ErrorLog("Exception at FillWorkOrderFromContractor : " + ex.Message);
+            }
+        }
+        public static string FillContractorInCombo(ComboBox ContractorNameCombo, string activeDept)
+        {
+            string a = "0";
+            try
+            {
+                clsFunctions_comman.FillCombo("Select Distinct ContractorName from workorder where WorkType = '" + activeDept + "' AND iscompleted <> 'Y' ", ContractorNameCombo);
+                return a = "1";
+            }
+            catch (Exception ex)
+            {
+                clsFunctions.ErrorLog("[Exception] clsFunctions.FillContractorInCombo - " + ex.Message);
+                return a = "0";
             }
         }
 

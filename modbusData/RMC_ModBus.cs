@@ -13,6 +13,14 @@ using System.Threading.Tasks;
 using System.Data.Common;
 using Uniproject.Classes;
 using System.Collections.Concurrent;
+using System.Net.NetworkInformation;
+using System.Threading;
+using Uniproject.Classes.Model;
+using Uniproject.RMC_forms.Masters;
+using Uniproject.Masters;
+using System.Data.SqlClient;
+using System.Security.Policy;
+using System.Collections.Specialized;
 
 namespace PDF_File_Reader
 {
@@ -23,7 +31,11 @@ namespace PDF_File_Reader
         ConcurrentDictionary<string, object> dataDict = new ConcurrentDictionary<string, object>();
         // Remove BackgroundWorker from declarations
         // private BackgroundWorker backgroundWorker;
+        clsVariables clsVar = new clsVariables();
 
+        // varialbe for sub batch end
+        int subBatchEnd = 1;
+        //clsVarTuskar clsVarT = new clsVarTuskar();
         public RMC_ModBus()
         {
             InitializeComponent();
@@ -46,16 +58,17 @@ namespace PDF_File_Reader
             backgroundWorker.RunWorkerCompleted += BackgroundWorker_RunWorkerCompleted;
             backgroundWorker.WorkerReportsProgress = false;
             backgroundWorker.WorkerSupportsCancellation = true ;
-
-            //this.Load += RMC_ModBus_Load;
-
-
+             
 
         }
         private void RMC_ModBus_Load_2(object sender, EventArgs e)
         {
-            //RMC_ModBus_Load();
-           // Float_Big_Endian_ABCDAsync("", "", "");
+            clsFunctions.activeDeptName = "PMC";
+      clsFunctions.activePlantCode = "3"; //warning please remove this from here
+        txtRDMBatchNO.Text = clsFunctions_comman.GetMaxId("Select MAX(Batch_No) from Batch_Dat_Trans").ToString();
+            
+            loadComboData();
+            addNameSetupToDGV();
         }
 
         private async Task RMC_ModBus_Load()
@@ -64,7 +77,7 @@ namespace PDF_File_Reader
             {
                 var dt = await LoadDataTo_DataTableAsync();
                 await ConvertDataAsync(dt);
-                //InsertData(dt);
+                 
             }
             catch (Exception ex)
             {
@@ -85,9 +98,9 @@ namespace PDF_File_Reader
                         row["length"].ToString(),
                         Convert.ToInt32(row["id"])
                     );
-                     Task.Delay(100).Wait(); // Optional delay to prevent overwhelming the database
+                     Task.Delay(100).Wait();  
                 }
-                await Task.WhenAll(tasks); // Process rows concurrently
+                await Task.WhenAll(tasks);  
             }
             catch (Exception ex)
             {
@@ -100,7 +113,7 @@ namespace PDF_File_Reader
         {
             try
             {
-                //if (length == "179")
+                if (length == "179")
                 {
                     string[] hexBytes = input.Split(new[] { ' ', '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries);
 
@@ -141,6 +154,7 @@ namespace PDF_File_Reader
 
                     /***************************************************************************************/
 
+                    // Convert the byte array to float values
 
                     for (int i = 0; i < bytes.Length; i += 4)
                     {
@@ -194,6 +208,8 @@ namespace PDF_File_Reader
             }
         }
 
+        bool sub_Batch_Flag = false;
+        int counter = 0;
         private async Task InsertFloatValuesIntoDatabaseAsync(List<float> floatValues, string datetime1, string length, int id)
         {
             try
@@ -202,18 +218,47 @@ namespace PDF_File_Reader
 
                 double length1=0;
 
-                double Agg1=0;
-                double Agg2=0;
-                double Agg3=0;
-                double Agg4=0;
+                // Aggregates
+                double Agg1_Actual = 0;
+                double Agg1_Target = 0;
 
-                double Cem1=0;
-                double Cem2=0;
-                double Cem3=0;
-                double Cem4=0;
+                double Agg2_Actual = 0;
+                double Agg2_Target = 0;
 
-                double Water1=0;
-                double Water2=0;
+                double Agg3_Actual = 0;
+                double Agg3_Target = 0;
+
+                double Agg4_Actual = 0;
+                double Agg4_Target = 0;
+
+                // Cements
+                double Cem1_Actual = 0;
+                double Cem1_Target = 0;
+
+                double Cem2_Actual = 0;
+                double Cem2_Target = 0;
+
+                double Cem3_Actual = 0;
+                double Cem3_Target = 0;
+
+                double Cem4_Actual = 0;
+                double Cem4_Target = 0;
+
+                // Water
+                double Water1_Actual = 0;
+                double Water1_Target = 0;
+
+                double Water2_Actual = 0;
+                double Water2_Target = 0;
+
+                // Admixtures
+                double admix11_Actual = 0;
+                double admix11_Target = 0;
+
+                double admix12_Actual = 0;
+                double admix12_Target = 0;
+
+                double Batch_Size = 0;
 
 
                 //if (length == "119" || length == "87" || length == "65") return;
@@ -280,46 +325,122 @@ namespace PDF_File_Reader
                 }
 
 
-
-                
-
+                 
                  
                 // Update UI only if safe, no nulls or exceptions
-                if (length == "139") // production data
+                if (length == "179") // production data
                 {
 
                     // Add the row to DataTable if needed
                     dt.Rows.Add(row);
 
-                    /*********** MANUAL ***************/
+                    /*********** Auto ***************/
+
+                    //TARGETS
 
                     // AGGREGATES
-                    UpdateActualValuestoUI(txtagg1, GetSafeValue(row, "f5"));
-                    
-                    UpdateActualValuestoUI(txtagg2, "0");
-                    UpdateActualValuestoUI(txtagg3, "0");
+                    UpdateActualValuestoUI(txtagg1, GetSafeValue(row, "f3")); // agg1
+                    Agg1_Target = Convert.ToDouble(GetSafeValue(row, "f3"));
+
+                    UpdateActualValuestoUI(txtagg2, GetSafeValue(row, "f2")); /// agg2
+                    Agg2_Target = Convert.ToDouble(GetSafeValue(row, "f2"));
+
+
+                    UpdateActualValuestoUI(txtagg3, GetSafeValue(row, "f5"));//GetSafeValue(row, "f4"));
+                    Agg3_Target = Convert.ToDouble(GetSafeValue(row, "f5"));
+
+
                     UpdateActualValuestoUI(txtagg4, "0");
+
                     UpdateActualValuestoUI(txtagg5, "0");
 
                     // CEMENT
-                    UpdateActualValuestoUI(txtCement1, GetSafeValue(row, "f11"));
+                    UpdateActualValuestoUI(txtCement1, GetSafeValue(row, "f6"));
+                    Cem1_Target = Convert.ToDouble(GetSafeValue(row, "f6"));
+
+
                     UpdateActualValuestoUI(txtCement2, "0");
                     UpdateActualValuestoUI(txtCement3, "0");
                     UpdateActualValuestoUI(txtCement4, "0");
 
                     // WATER
-                    UpdateActualValuestoUI(txtwater1, GetSafeValue(row, "f17"));
+                    UpdateActualValuestoUI(txtwater1, GetSafeValue(row, "f7"));
+                    Water1_Target = Convert.ToDouble(GetSafeValue(row, "f7"));
+
+                    //batch size
+                    UpdateActualValuestoUI(txtbatchsize, GetSafeValue(row, "f9"));
+                    Batch_Size = Convert.ToDouble(GetSafeValue(row, "f9"));
                     /*******************************************************************************************/
 
-                    /*********** ACTUAL ***************/
-                    UpdateActualValuestoUI(txtAgg, GetSafeValue(row, "f7"));
-                    Agg1 = Convert.ToDouble(GetSafeValue(row, "f7"));
-                    dataDict["agg1"] = Agg1;
-                    UpdateActualValuestoUI(txtCem, GetSafeValue(row, "f13"));
-                    Cem1 = Convert.ToDouble(GetSafeValue(row, "f13"));
 
-                    UpdateActualValuestoUI(txtWater, GetSafeValue(row, "f19"));
-                    Water1 = Convert.ToDouble(GetSafeValue(row, "f19"));
+
+
+                    /*********** ACTUAL ***************/
+                    UpdateActualValuestoUI(txtAGG1_Act, Convert.ToDouble(GetSafeValue(row, "f26")).ToString("0.00"));  // AGG1
+                    Agg1_Actual = Convert.ToDouble(GetSafeValue(row, "f26"));
+                    dataDict["agg1"] = Agg1_Actual;
+
+                    UpdateActualValuestoUI(txtAGG2_Act, Convert.ToDouble(GetSafeValue(row, "f25")).ToString("0.00"));  // AGG2
+                    Agg2_Actual = Convert.ToDouble(GetSafeValue(row, "f25"));
+                    dataDict["agg2"] = Agg2_Actual;
+
+                    UpdateActualValuestoUI(txtAGG3_Act, Convert.ToDouble(GetSafeValue(row, "f28")).ToString("0.00"));  // CSAND
+                    Agg3_Actual = Convert.ToDouble(GetSafeValue(row, "f28"));
+                    dataDict["agg3"] = Agg3_Actual;
+
+                    UpdateActualValuestoUI(txtCEM1_Act, Convert.ToDouble(GetSafeValue(row, "f29")).ToString("0.00"));  // CEM1
+                    Cem1_Actual = Convert.ToDouble(GetSafeValue(row, "f29"));
+                    dataDict["Cem1"] = Cem1_Actual;
+
+                    UpdateActualValuestoUI(txtWTR1_Act, Convert.ToDouble(GetSafeValue(row, "f30")).ToString("0.00"));  // Water1
+                    Water1_Actual = Convert.ToDouble(GetSafeValue(row, "f30"));
+                    dataDict["Water1"] = Water1_Actual;
+
+                    UpdateActualValuestoUI(txtADM11_Act, "0.00");  // admix11
+                    admix11_Actual = Convert.ToDouble(0);
+                    dataDict["Admix11"] = admix11_Actual;
+
+                    UpdateActualValuestoUI(txtADM12_Act, "0.00");  // admix22
+                    admix12_Actual = Convert.ToDouble(0);
+                    dataDict["Admix12"] = admix12_Actual;
+
+
+
+                    ///*********** ACTUAL ***************/
+                    //UpdateActualValuestoUI(txtAGG1_Act, GetSafeValue(row, "f26"));  //AGG1
+                    //Agg1 = Convert.ToDouble(GetSafeValue(row, "f26"));
+                    //dataDict["agg1"] = Agg1;
+
+
+                    //UpdateActualValuestoUI(txtAGG2_Act, GetSafeValue(row, "f25"));  //AGG2
+                    //Agg2 = Convert.ToDouble(GetSafeValue(row, "f25"));                   
+                    //dataDict["agg2"] = Agg2;
+
+                    //UpdateActualValuestoUI(txtAGG3_Act, GetSafeValue(row, "f28"));   //CSAND
+                    //Agg3 = Convert.ToDouble(GetSafeValue(row, "f28"));                  
+                    //dataDict["agg3"] = Agg3;
+
+
+                    //UpdateActualValuestoUI(txtCEM1_Act, GetSafeValue(row, "f29"));   //CEM1
+                    //Cem1 = Convert.ToDouble(GetSafeValue(row, "f29"));              
+                    //dataDict["Cem1"] = Cem1;
+
+                    //UpdateActualValuestoUI(txtWTR1_Act, GetSafeValue(row, "f30"));   //Water1
+                    //Water1 = Convert.ToDouble(GetSafeValue(row, "f30"));
+                    //dataDict["Water1"] = Water1;
+
+                    //UpdateActualValuestoUI(txtADM11_Act, "0");//GetSafeValue(row, "f30"));   //admix11
+                    //admix11 = Convert.ToDouble(0);
+                    //dataDict["Admix11"] = admix11;
+
+                    //UpdateActualValuestoUI(txtADM12_Act, "0");//GetSafeValue(row, "f30"));   //admix22
+                    //admix12 = Convert.ToDouble(0);
+                    //dataDict["Admix12"] = admix12;
+                    
+
+                     
+                    
+                    
 
                     string formatted = string.Empty;
                     if (DateTime.TryParse(datetime1, out DateTime date1))
@@ -333,21 +454,191 @@ namespace PDF_File_Reader
                     }
                     try
                     {
+                        // Read value
+                        bool isRunning = SharedFlags.Flags.GetOrAdd("IsRunning", false);
+                        if (isRunning)
+                        {
+                            // to store from here
+                            if (row["f13"].ToString() == "2.204052E-39" && counter <= 4 && !sub_Batch_Flag)
+                            {
+                                counter++;
+                                if (counter == 4)
+                                {
 
-                        string query = $@"
-INSERT INTO analyse 
-(datetime1, length, Agg1, Agg2, Agg3, Agg4, Cem1, Cem2, Cem3, Cem4, Water1, Water2) 
-VALUES 
-('{formatted}', {length1}, {Agg1}, {Agg2}, {Agg3}, {Agg4}, {Cem1}, {Cem2}, {Cem3}, {Cem4}, {Water1}, {Water2});
-";
-                        clsFunctions.AdoData(query);
+                                    string query = $@"
+                                            INSERT INTO Batch_Transaction (
+                                                Batch_No, Batch_Index, Batch_Date, Batch_Time, Batch_Time_Text, Batch_Year,
+                                                Consistancy, Production_Qty, Ordered_Qty, Returned_Qty, WithThisLoad, Batch_Size,
+                                                Gate1_Actual, Gate1_Target, Gate1_Moisture,
+                                                Gate2_Actual, Gate2_Target, Gate2_Moisture,
+                                                Gate3_Actual, Gate3_Target, Gate3_Moisture,
+                                                Gate4_Actual, Gate4_Target, Gate4_Moisture,
+                                                Gate5_Actual, Gate5_Target, Gate5_Moisture,
+                                                Gate6_Actual, Gate6_Target, Gate6_Moisture,
+                                                Cement1_Actual, Cement1_Target, Cement1_Correction,
+                                                Cement2_Actual, Cement2_Target, Cement2_Correction,
+                                                Cement3_Actual, Cement3_Target, Cement3_Correction,
+                                                Cement4_Actual, Cement4_Target, Cement4_Correction,
+                                                Filler1_Actual, Filler1_Target, Filler1_Correction,
+                                                Water1_Actual, Water1_Target, Water1_Correction,
+                                                Water2_Actual, Water2_Target, Water2_Correction,
+                                                Silica_Actual, Silica_Target, Silica_Correction,
+                                                Slurry_Actual, Slurry_Target, Slurry_Correction,
+                                                Adm1_Actual1, Adm1_Target1, Adm1_Correction1,
+                                                Adm1_Actual2, Adm1_Target2, Adm1_Correction2,
+                                                Adm2_Actual1, Adm2_Target1, Adm2_Correction1,
+                                                Adm2_Actual2, Adm2_Target2, Adm2_Correction2,
+                                                Pigment_Actual, Pigment_Target,
+                                                Plant_No, Balance_Wtr, tUpload1, tUpload2
+                                            )
+                                            VALUES (
+                                                '{GetTextSafe(txtRDMBatchNO)}', '{subBatchEnd}', '{DateTime.Now.Date.ToString("yyyy-MM-dd")}', '{DateTime.Now.ToString("hh:mm:ss tt")}', '{DateTime.Now.ToString("hh:mm:ss tt")}', '{DateTime.Now.Year}',
+                                                '0', '{/*Quantity*/ 0}', '{/*ordered*/ 0}', '0', '{/*delivered*/ 0}', '{Batch_Size}',
+
+                                                '{Agg1_Actual}', '{Agg1_Target}', '0',
+                                                '{Agg2_Actual}', '{Agg2_Target}', '0',
+                                                '{Agg3_Actual}', '{Agg3_Target}', '0',
+                                                '{Agg4_Actual}', '{Agg4_Target}', '0',
+                                                '{0}', '{0}', '0',
+                                                '{0}', '{0}', '0',
+
+                                                '{Cem1_Actual}', '{Cem1_Target}', '0',
+                                                '{Cem2_Actual}', '{Cem2_Target}', '0',
+                                                '{Cem3_Actual}', '{Cem3_Target}', '0',
+                                                '{Cem4_Actual}', '{Cem4_Target}', '0',
+
+                                                '{/*Filler1_Actual*/ 0}', '{0}', '0',
+                                                '{Water1_Actual}', '{Water1_Target}', '0',
+                                                '{Water2_Actual}', '{Water2_Target}', '0',
+                                                '{/*Silica_Actual*/ 0}', '{0}', '0',
+                                                '{/*Slurry_Actual*/0}', '{0}', '0',
+
+                                                '{admix11_Actual}', '{admix11_Target}', '0',
+                                                '{/*Adm1_Actual2*/0}', '{0}', '0',
+                                                '{/*Adm2_Actual1*/0}', '{0}', '0',
+                                                '{/*Adm2_Actual2*/0}', '{0}', '0',
+
+                                                '0', '0', '{GetTextSafe(txtplantcode)}', '{/*Batch_End*/ 0}', '0', '0'
+                                            );";
+
+
+                                    clsFunctions.AdoData(query);
+                                    AddRowSafe(dgv1, subBatchEnd, GetTextSafe(txtRDMBatchNO), Convert.ToDateTime(datetime1).ToString("yyyy-MM-dd"), Convert.ToDateTime(datetime1).ToString("hh:mm:ss tt"), Agg1_Actual, Agg2_Actual, Agg3_Actual, Agg4_Actual, 0, 0,
+                                                            Cem1_Actual, Cem2_Actual, 0, 0, 0, Water1_Actual, Water2_Actual,
+                                                            admix11_Actual, admix12_Actual, 0, 0, 0, 0);
+
+                                    counter = 0;
+                                    sub_Batch_Flag = true;
+
+                                }
+
+                            }
+                            else
+                            {
+                                counter = 0;
+                            }
+
+
+
+
+
+
+                            //if (row["f13"].ToString() == "2.204052E-39" && !sub_Batch_Flag) // sub batch end
+                            //{
+                            //    //subBatchEnd++;
+
+                            //    sub_Batch_Flag = true;
+
+
+
+
+
+                            //}
+
+                            if (row["f13"].ToString() == "1.504633E-36" && sub_Batch_Flag) // new batch start
+                                                                                           //if (row["f13"].ToString() == "1.469368E-39" && sub_Batch_Flag) // new batch start
+                            {
+                                sub_Batch_Flag = false;
+                                subBatchEnd++;
+
+                            }
+
+
+
+
+
+                            //trans data
+
+                            string insertToTransQuery = "insert into Batch_Dat_Trans (Batch_No,Batch_Date,Batch_Time,Batch_Time_Text,Batch_Start_Time,Batch_End_Time,Batch_Year,Batcher_Name,Batcher_User_Level,Customer_Code,Recipe_Code,"
+                               + "Recipe_Name,Mixing_Time,Mixer_Capacity,strength,Site,Truck_No,Truck_Driver,Production_Qty,Ordered_Qty,Returned_Qty,WithThisLoad,Batch_Size,Order_No,Schedule_Id,Gate1_Target,"
+                               + "Gate2_Target,Gate3_Target,Gate4_Target,Gate5_Target,Gate6_Target,Cement1_Target,Cement2_Target,Cement3_Target,Cement4_Target,Filler_Target,Water1_Target,slurry_Target,Water2_Target,"
+                               + "Silica_Target,Adm1_Target1,Adm1_Target2,Adm2_Target1,Adm2_Target2,Cost_Per_Mtr_Cube,Total_Cost,Plant_No,Weighed_Net_Weight,Weigh_Bridge_Stat,tExportStatus,tUpload1,tUpload2, WO_Code, Cust_Name, Site_ID, InsertType) values('" + GetTextSafe(txtRDMBatchNO)
+                               + "','" + Convert.ToDateTime(datetime1).ToString("yyyy-MM-dd") + "','" + Convert.ToDateTime(datetime1).ToString("hh:mm:ss tt") + "','" + Convert.ToDateTime(datetime1).ToString("hh:mm:ss tt") + "','" + Convert.ToDateTime(datetime1).ToString("hh:mm:ss tt") + "','" + Convert.ToDateTime(datetime1).ToString("hh:mm:ss tt") + "','" + Convert.ToDateTime(clsVar.Batch_Date).ToString("yyyy")
+                               + "','" + 0 + "','" + 0 + "','" + GetTextSafe(cmbContractor) + "','" + GetTextSafe(cmbRecipe) + "','" + GetTextSafe(cmbRecipe) + "','" + /*clsVar.Mixing_Time*/ 0
+                               + "','" + Batch_Size + "','" + /*clsVar.strength*/0 + "','" + GetTextSafe(cmbjobsite) + "','" + GetTextSafe(cmbRDMVehicle) + "','" + "NA" + "','" + /*clsVar.Production_Qty*/0
+                               + "','" + /*clsVar.Ordered_Qty*/0 + "','" + /*clsVar.Returned_Qty*/0 + "','" + /*clsVar.WithThisLoad*/0 + "','" + Batch_Size + "','" + /*clsVar.Order_No*/0 + "','" +/* clsVar.Schedule_Id */0 + "','" + Agg1_Target
+                               + "','" + Agg2_Target + "','" + Agg3_Target + "','" + Agg4_Target + "','" + 0 + "','" + 0 + "','" + Cem1_Target
+                               + "','" + Cem2_Target + "','" + Cem3_Target + "','" + Cem4_Target + "','" + /*clsVar.Filler_Target*/0 + "','" + Water1_Target + "','" + /*clsVar.slurry_Target*/0
+                               + "','" + Water2_Target + "','" + /*clsVar.Silica_Target*/0 + "','" + admix11_Target + "','" + admix12_Target + "','" +/* Convert.ToDouble(rowForTrans["ADMIX3TRG"])*/0 + "','" + /*clsVar.Adm2_Target2*/0
+                               + "','" + /*clsVar.Cost_Per_Mtr_Cube*/0 + "','" + /*clsVar.Total_Cost*/0 + "','" + GetTextSafe(txtplantcode) + "','" + /*clsVar.Weighed_Net_Weight*/0 + "','" + /*clsVar.Weigh_Bridge_Stat*/0 + "','N','0','0','" + GetTextSafe(txtworkid) + "','" + GetTextSafe(cmbContractor) + "',0, 'A')";
+
+                            //return clsFunctions_comman.Ado(insertToTransQuery);
+
+
+                            //string query_Trans = "insert into Batch_Dat_Trans (Batch_No,Batch_Date,Batch_Time,Batch_Time_Text,Batch_Start_Time,Batch_End_Time,Batch_Year,Batcher_Name,Batcher_User_Level,Customer_Code,Recipe_Code,"
+                            //           + "Recipe_Name,Mixing_Time,Mixer_Capacity,strength,Site,Truck_No,Truck_Driver,Production_Qty,Ordered_Qty,Returned_Qty,WithThisLoad,Batch_Size,Order_No,Schedule_Id,Gate1_Target,"
+                            //           + "Gate2_Target,Gate3_Target,Gate4_Target,Gate5_Target,Gate6_Target,Cement1_Target,Cement2_Target,Cement3_Target,Cement4_Target,Filler_Target,Water1_Target,slurry_Target,Water2_Target,"
+                            //           + "Silica_Target,Adm1_Target1,Adm1_Target2,Adm2_Target1,Adm2_Target2,Cost_Per_Mtr_Cube,Total_Cost,Plant_No,Weighed_Net_Weight,Weigh_Bridge_Stat,tExportStatus,tUpload1,tUpload2, WO_Code, Cust_Name, Site_ID, InsertType) values('" + GetTextSafe(txtRDMBatchNO)
+                            //           + "','" + Convert.ToDateTime(datetime1).ToString("yyyy-MM-dd") + "','" + Convert.ToDateTime(datetime1).ToString("hh:mm:ss tt") + "','" + Convert.ToDateTime(datetime1).ToString("hh:mm:ss tt") + "','" + Convert.ToDateTime(datetime1).ToString("hh:mm:ss tt")
+                            //           + "','" + Convert.ToDateTime(datetime1).ToString("hh:mm:ss tt")  + "','" + Convert.ToDateTime(datetime1).ToString("yyyy") + "','" + "0" + "','" + "0" + "','" + GetTextSafe(cmbContractor) + "','" + GetTextSafe(cmbRecipe)
+                            //           + "','" + GetTextSafe(cmbRecipe) + "','" + "0" + "','" + GetTextSafe(txtbatchsize) + "','" + "0" + "','" + GetTextSafe(cmbjobsite)
+                            //           + "','" + GetTextSafe(cmbRDMVehicle) + "','" + "NA" + "','" + /*Quantity*/0 + "','" + /*ordered*/0 + "','" + "0" /*return qnty*/
+                            //           + "','" + /*delivered*/0 /*withthisload*/ + "','" + Batch_Size + "','" + "0"/*order number*/ + "','" + "0" + "','" + Agg1_Target
+                            //           + "','" + Agg2_Target + "','" + Agg3_Target + "','" + Agg4_Target + "','" + /*Gate5_Target*/0 + "','" + /*Gate6_Target*/0 + "','" + Cem1_Target + "','" + Cement2_Target + "','" + Cement2_Target + "','" + Cement4_Target + "','" + Filler1_Target
+                            //           + "','" + Water1_Target + "','" + Slurry_Target + "','" + Water2_Target + "','" + Silica_Target + "','" + Adm1_Target1
+                            //           + "','" + Adm1_Target2 + "','" + Adm2_Target1 + "','" + Adm2_Target2 + "','" + "0" + "','" + "0"
+                            //           + "','" + plantCode + "','" + "0"/*Weighed_Net_Weight*/ + "','" + "0"/*Weigh_Bridge_Stat*/ + "','" + "N" + "','" + 0 + "','" + 0 + "','" + WorkOrder + "','" + customerName + "',0, 'A')";
+
+                            //await AdoData(query_Trans);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                        }
+                        //string query = $@"
+                        //INSERT INTO Batch_Dat_Transaction 
+                        //(datetime1, length, Agg1, Agg2, Agg3, Agg4, Cem1, Cem2, Cem3, Cem4, Water1, Water2, Admix11) 
+                        //VALUES 
+                        //('{formatted}', {length1}, {Agg1}, {Agg2}, {Agg3}, {Agg4}, {Cem1}, {Cem2}, {Cem3}, {Cem4}, {Water1}, {Water2});
+                        //";
+
+                        //clsFunctions.AdoData(query);
                     }
                     catch { }
 
 
                 }
 
-                if (length == "167") // start/stop data
+                //if (length == "137") // start/stop data
+                //{
+                     
+                //}
+
+
+                if (length == "") // start/stop data
                 {
                     string f4 = GetSafeValue(row, "f4");
                     if (f4 == "512") { }
@@ -369,6 +660,86 @@ VALUES
                 Log.Error("InsertFloatValuesIntoDatabase error: {Message}", ex.Message);
             }
         }
+
+        //public int insertDataIntoTrans()
+        //{
+        //    try
+        //    {
+        //        DataRow rowForTrans = clsVarTuskar.dt_CYCLEDATA.Rows[rowIndex - 1];
+
+        //        if (rowIndex == dgv1.Rows.Count)          //if (reccnt == dgv1.Rows.Count)
+        //        {
+        //            //DateTime date = DateTime.ParseExact(clsVar.Batch_Date, "M/d/yyyy", CultureInfo.InvariantCulture);
+        //            //clsVar.Batch_Date = date.ToString("dd/MM/yyyy");
+
+        //            //var a = DateAndTime.DateValue(Convert.ToDateTime(clsVar.Batch_Date).ToShortDateString());
+
+        //            // Inserting data into Batch_Trans
+        //            // 19/12/2023 - BhaveshT : Inserting 'A' for Auto in InsertType column of Batch_Dat_Trans
+
+        //            insertToTransQuery = "insert into Batch_Dat_Trans (Batch_No,Batch_Date,Batch_Time,Batch_Time_Text,Batch_Start_Time,Batch_End_Time,Batch_Year,Batcher_Name,Batcher_User_Level,Customer_Code,Recipe_Code,"
+        //                   + "Recipe_Name,Mixing_Time,Mixer_Capacity,strength,Site,Truck_No,Truck_Driver,Production_Qty,Ordered_Qty,Returned_Qty,WithThisLoad,Batch_Size,Order_No,Schedule_Id,Gate1_Target,"
+        //                   + "Gate2_Target,Gate3_Target,Gate4_Target,Gate5_Target,Gate6_Target,Cement1_Target,Cement2_Target,Cement3_Target,Cement4_Target,Filler_Target,Water1_Target,slurry_Target,Water2_Target,"
+        //                   + "Silica_Target,Adm1_Target1,Adm1_Target2,Adm2_Target1,Adm2_Target2,Cost_Per_Mtr_Cube,Total_Cost,Plant_No,Weighed_Net_Weight,Weigh_Bridge_Stat,tExportStatus,tUpload1,tUpload2, WO_Code, Cust_Name, Site_ID, InsertType) values('" + clsVar.Batch_No
+        //                   + "','" + clsVar.Batch_Date + "','" + clsVar.Batch_Time + "','" + clsVar.Batch_Time + "','" + clsVar.Batch_Time + "','" + clsVar.Batch_End_Time + "','" + Convert.ToDateTime(clsVar.Batch_Date).ToString("yyyy")
+        //                   + "','" + clsVar.Batcher_Name + "','" + clsVar.Batcher_User_Level + "','" + txtcontractorid.Text + "','" + clsVar.Recipe_Name + "','" + clsVar.Recipe_Name + "','" + clsVar.Mixing_Time
+        //                   + "','" + clsVar.Mixer_Capacity + "','" + clsVar.strength + "','" + clsVar.SiteName + "','" + clsVar.Truck_No + "','" + clsVar.Truck_Driver + "','" + clsVar.Production_Qty
+        //                   + "','" + clsVar.Ordered_Qty + "','" + clsVar.Returned_Qty + "','" + clsVar.WithThisLoad + "','" + clsVar.Batch_Size + "','" + clsVar.Order_No + "','" + clsVar.Schedule_Id + "','" + Convert.ToDouble(rowForTrans["AGG1TRG"])
+        //                   + "','" + Convert.ToDouble(rowForTrans["AGG2TRG"]) + "','" + Convert.ToDouble(rowForTrans["AGG3TRG"]) + "','" + Convert.ToDouble(rowForTrans["AGG4TRG"]) + "','" + clsVar.Gate5_Target + "','" + clsVar.Gate6_Target + "','" + Convert.ToDouble(rowForTrans["CEMENT1TRG"])
+        //                   + "','" + Convert.ToDouble(rowForTrans["CEMENT2TRG"]) + "','" + Convert.ToDouble(rowForTrans["CEMENT3TRG"]) + "','" + clsVar.Cement4_Target + "','" + clsVar.Filler_Target + "','" + Convert.ToDouble(rowForTrans["WATER1TRG"]) + "','" + clsVar.slurry_Target
+        //                   + "','" + Convert.ToDouble(rowForTrans["WATER2TRG"]) + "','" + clsVar.Silica_Target + "','" + Convert.ToDouble(rowForTrans["ADMIX1TRG"]) + "','" + Convert.ToDouble(rowForTrans["ADMIX2TRG"]) + "','" + Convert.ToDouble(rowForTrans["ADMIX3TRG"]) + "','" + clsVar.Adm2_Target2
+        //                   + "','" + clsVar.Cost_Per_Mtr_Cube + "','" + clsVar.Total_Cost + "','" + clsVar.Plant_No + "','" + clsVar.Weighed_Net_Weight + "','" + clsVar.Weigh_Bridge_Stat + "','N','0','0','" + txtworkid.Text + "','" + cmbContractor.Text + "',0, 'A')";
+
+        //            return clsFunctions_comman.Ado(insertToTransQuery);
+        //        }
+        //        else
+        //        {
+        //            clsFunctions_comman.Ado("delete from Batch_Transaction where Batch_No=" + cmbbatchno.Text);
+        //            MessageBox.Show("Record Not saved", "MSG", MessageBoxButtons.OKCancel, MessageBoxIcon.Information);
+        //            return 0;
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        if (ex.Message.Contains("There is no row at position -1"))
+        //        {
+        //            return 0;
+        //        }
+        //        else
+        //        {
+        //            MessageBox.Show("Exception: Record Not saved" + ex.Message);
+        //            clsFunctions_comman.Ado("delete from Batch_Transaction where Batch_No=" + cmbbatchno.Text);
+        //            return 0;
+        //        }
+        //    }
+        //}
+
+
+        private string GetTextSafe(Control control)
+        {
+            if (control.InvokeRequired)
+            {
+                return (string)control.Invoke(new Func<string>(() => control.Text));
+            }
+            else
+            {
+                return control.Text;
+            }
+        }
+
+        private void AddRowSafe(DataGridView dgv, params object[] values)
+        {
+            if (dgv.InvokeRequired)
+            {
+                dgv.Invoke(new Action(() => dgv.Rows.Add(values)));
+            }
+            else
+            {
+                dgv.Rows.Add(values);
+            }
+        }
+
+
         // Helper function to safely get values
         private static string GetSafeValue(DataRow r, string colName)
         {
@@ -494,34 +865,34 @@ VALUES
             }
         }
 
-        public void UpdateActualValuestoUI_oldd(string colname, string value)
-        {
-            try
-            {
-                if (txtAgg.InvokeRequired || txtCem.InvokeRequired)
-                {
-                    txtAgg.Invoke(new Action(() => UpdateActualValuestoUI_oldd(colname, value)));
-                    return;
-                }
+        //public void UpdateActualValuestoUI_oldd(string colname, string value)
+        //{
+        //    try
+        //    {
+        //        if (txtAgg.InvokeRequired || txtCem.InvokeRequired)
+        //        {
+        //            txtAgg.Invoke(new Action(() => UpdateActualValuestoUI_oldd(colname, value)));
+        //            return;
+        //        }
 
-                switch (colname)
-                {
-                    case "f7":
-                        txtAgg.Text = value;
-                        break;
-                    case "f13":
-                        txtCem.Text = value;
-                        break;
-                    case "f19":
-                        txtWater.Text = value;
-                        break;
-                }
-            }
-            catch (Exception ex)
-            {
-                Log.Error("UpdateActualValuestoUI error: {Message}", ex.Message);
-            }
-        }
+        //        switch (colname)
+        //        {
+        //            case "f7":
+        //                txtAgg.Text = value;
+        //                break;
+        //            case "f13":
+        //                txtCem.Text = value;
+        //                break;
+        //            case "f19":
+        //                txtWater.Text = value;
+        //                break;
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        Log.Error("UpdateActualValuestoUI error: {Message}", ex.Message);
+        //    }
+        //}
 
         private async Task<DataTable> LoadDataTo_DataTableAsync()
         {
@@ -531,7 +902,9 @@ VALUES
                 {
                     await connection.OpenAsync();
 
-                    string query = "SELECT * FROM dataset WHERE Status = 0 ORDER BY datetime(date) ASC;";
+
+                    string query = "SELECT * FROM dataset WHERE Status = 0 AND length=179 ORDER BY datetime(date) ASC;";
+                    //string query = "SELECT * FROM dataset WHERE Status = 0 ORDER BY datetime(date) ASC;";
                     using (var command = new SQLiteCommand(query, connection))
                     using (var reader = await command.ExecuteReaderAsync())
                     {
@@ -558,10 +931,10 @@ VALUES
             try
             {
                 flag = false;
-                while (!backgroundWorker.CancellationPending||!flag)
+                while (!backgroundWorker.CancellationPending)
                 {
                     await RMC_ModBus_Load();
-                    Task.Delay(10).Wait();
+                    Task.Delay(100).Wait();
                 }
             }
             catch (Exception ex)
@@ -593,7 +966,11 @@ VALUES
 
         private void btnStart_Click(object sender, EventArgs e)
         {
-            if(backgroundWorker.IsBusy)
+            btnStart.Enabled = false;
+            btnstop.Enabled = true;
+            // Toggle value safely (example)
+            SharedFlags.Flags.AddOrUpdate("IsRunning", true, (key, oldValue) => !oldValue);
+            if (backgroundWorker.IsBusy)
             {
                 MessageBox.Show("Background worker is already running.");
                 return;
@@ -603,12 +980,198 @@ VALUES
 
         private void btnstop_Click(object sender, EventArgs e)
         {
-            if(backgroundWorker.IsBusy)
+            btnStart.Enabled = true;
+            btnstop.Enabled = false;
+
+            //// Set value
+            //SharedFlags.Flags["IsRunning"] = true;
+
+           
+
+            // Toggle value safely (example)
+            SharedFlags.Flags.AddOrUpdate("IsRunning", false, (key, oldValue) => !oldValue);
+
+
+            //if (backgroundWorker.IsBusy)
+            //{
+            //    backgroundWorker.CancelAsync();
+
+            //}
+            //flag = true;
+        }
+
+        private void btnClose_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void loadComboData()
+        {
+            try
             {
-                backgroundWorker.CancelAsync();
+                //clsFunctions_comman.FillCombo_D_ASIT("Select Distinct ContractorName from workorder", cmbContractor);
+
+               
+                        SetDateTimeToController();
+                  
+
+                //------------------
+                clsFunctions.checknewcolumn("iscompleted", "Text(255)", "workorder");
+                clsFunctions.FillContractorInCombo(cmbContractor, clsFunctions.activeDeptName);
+                txtplantcode.Text = clsFunctions.activePlantCode;
+                clsFunctions_comman.FillCombo("select distinct tipperno from tblTipperdetails where tipperno <> ''", cmbRDMVehicle);
+                clsVar.Plant_No = Convert.ToInt32(txtplantcode.Text);
+
+                clsFunctions_comman.FillCombo_D_ASIT("Select Distinct Recipe_Code from Recipe_Master order by Recipe_Code", cmbRecipe);
 
             }
-            flag = true;
+            catch (Exception ex)
+            {
+                MessageBox.Show("Exception at loadComboData(): " + ex.Message);
+                clsFunctions_comman.ErrorLog("Exception at loadComboData(): " + ex.Message);
+            }
+        }
+        public DateTime DateToday;
+        public void SetDateTimeToController()             
+        {
+            try
+            { 
+
+                DateToday = DateTime.Now.Date; // assign only the date part (no time)
+                txtDateToday.Text = DateToday.ToString("yyyy-MM-dd", System.Globalization.CultureInfo.InvariantCulture);
+                 
+                Thread.Sleep(500);
+            }
+            catch (Exception ex)
+            {
+                clsFunctions.ErrorLog($"[Exception] SetDateTimeToController() - {ex.Message}\nStackTrace: {ex.StackTrace}");
+            }
+
+        }
+
+        private void addNameSetupToDGV()
+        {
+            try
+            {
+                
+                DataTable dt = clsFunctions.fillDatatable("select Gate1Name,Gate2Name,Gate3Name,Gate4Name,Gate5Name,Gate6Name,Cem1Name,Cem2Name,Cem3Name,Cem4Name,FillName,Wtr1Name,wtr2Name,Admix1Name,Admix2Name from NameSetup where tInfo='O' and Batch_No=2"); //WHERE Batch_No=3
+
+                dgv1.Columns.Add("Sr_No", "SrNo");
+                dgv1.Columns.Add("_batchNo", "BatchNo");
+                dgv1.Columns.Add("_date", "Date");
+
+               
+                dgv1.Columns.Add("_time", "Time");
+
+                foreach (DataColumn col in dt.Columns)
+                {
+                    if (dt.Rows[0][col].ToString().Trim() != "")
+                    {
+                        dgv1.Columns.Add(dt.Rows[0][col].ToString(), dt.Rows[0][col].ToString());
+                        if (dt.Rows[0][col].ToString().Trim() == "" || dt.Rows[0][col].ToString().Trim() == "0" || dt.Rows[0][col].ToString().Trim() == "-")
+                        {
+                            dgv1.Columns[dt.Rows[0][col].ToString()].Visible = false;
+                        }
+                    }
+                }
+                dgv1.Columns.Add("WtrCorr", "WtrCorr");
+                
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Exception at addNameSetupToDGV(): " + ex.Message);
+                clsFunctions_comman.ErrorLog("Exception at addNameSetupToDGV(): " + ex.Message);
+            }
+        }
+
+        private void cmbContractor_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            clsFunctions.FillWorkOrderFromContractor(cmbContractor, cmbWorkName, txtcontractorid, cmbjobsite);
+        }
+
+        private void cmbWorkName_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                try
+                {
+                    if (cmbWorkName.Text != "")
+                    {
+                        DataTable dt = clsFunctions_comman.fillDatatable("Select * from workorder where workname = '" + cmbWorkName.Text + "' AND WorkType = '" + clsFunctions.activeDeptName + "' AND ContractorName = '" + cmbContractor.Text + "' ");
+
+                        if (dt.Rows.Count != 0)
+                        {
+                            txtworkid.Text = dt.Rows[0]["Workno"].ToString();
+                            txtcontractorid.Text = dt.Rows[0]["ContractorID"].ToString();
+                            clsVar.Customer_Code = txtcontractorid.Text;
+                            lblworktype.Text = dt.Rows[0]["Worktype"].ToString();
+                        }
+                        else
+                        {
+                            //------------ When workname is longer than 255, use then use LIKE workname to fetch Work order data. --------------------------
+
+                            try
+                            {
+                                clsFunctions.GetWorkOrderData_Like(cmbWorkName, txtworkid, cmbContractor, txtplantcode, txtcontractorid, lblworktype);
+                                clsVar.Customer_Code = txtcontractorid.Text;
+                            }
+                            catch
+                            { }
+                        }
+                    }
+
+                    clsFunctions_comman.FillCombo_D_ASIT("Select Distinct SiteName from Site_Master where workorderID='" + txtworkid.Text + "'", cmbjobsite);
+                    try
+                    { cmbjobsite.SelectedIndex = 0; }
+                    catch
+                    { }
+
+                }
+                catch (Exception ex)
+                {
+                    clsFunctions_comman.ErrorLog("cmbWorkName_SelectedIndexChanged():- " + ex.Message);
+                }
+            }
+            catch (Exception ex)
+            {
+                //MessageBox.Show("Exception at cmbWorkName_SelectedIndexChanged: " + ex.Message);
+                clsFunctions_comman.ErrorLog("Exception at cmbWorkName_SelectedIndexChanged : " + ex.Message);
+            }
+        }
+
+        private void btnClear_Click(object sender, EventArgs e)
+        {
+          
+        }
+
+        private void btnRecipe_Click(object sender, EventArgs e)
+        {
+            ReceipeMaster_RMC d = new ReceipeMaster_RMC();
+            d.ShowDialog();
+        }
+
+        private void btnVehicle_Click(object sender, EventArgs e)
+        {
+            TipperMaster tipper = new TipperMaster();
+            tipper.ShowDialog();
+        }
+
+        private void cmbRecipe_Click(object sender, EventArgs e)
+        {
+            clsFunctions_comman.FillCombo_D_ASIT("Select Distinct Recipe_Code from Recipe_Master order by Recipe_Code", cmbRecipe);
+        }
+
+        private void cmbRDMVehicle_Click(object sender, EventArgs e)
+        {
+            clsFunctions_comman.FillCombo("select distinct tipperno from tblTipperdetails where tipperno <> ''", cmbRDMVehicle);
         }
     }
+
+   
+
+    public static class SharedFlags
+    {
+        public static ConcurrentDictionary<string, bool> Flags = new ConcurrentDictionary<string, bool>();
+    }
+
 }
