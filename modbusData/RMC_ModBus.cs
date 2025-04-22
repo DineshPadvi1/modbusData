@@ -12,6 +12,7 @@ using System.Globalization;
 using System.Threading.Tasks;
 using System.Data.Common;
 using Uniproject.Classes;
+using System.Collections.Concurrent;
 
 namespace PDF_File_Reader
 {
@@ -19,7 +20,7 @@ namespace PDF_File_Reader
     {
         public  string sqliteDbPath = System.IO.Path.Combine(Application.StartupPath, "Database\\UniproData.db");
         private BackgroundWorker backgroundWorker;
-
+        ConcurrentDictionary<string, object> dataDict = new ConcurrentDictionary<string, object>();
         // Remove BackgroundWorker from declarations
         // private BackgroundWorker backgroundWorker;
 
@@ -47,10 +48,14 @@ namespace PDF_File_Reader
             backgroundWorker.WorkerSupportsCancellation = true ;
 
             //this.Load += RMC_ModBus_Load;
+
+
+
         }
         private void RMC_ModBus_Load_2(object sender, EventArgs e)
         {
             //RMC_ModBus_Load();
+           // Float_Big_Endian_ABCDAsync("", "", "");
         }
 
         private async Task RMC_ModBus_Load()
@@ -80,7 +85,7 @@ namespace PDF_File_Reader
                         row["length"].ToString(),
                         Convert.ToInt32(row["id"])
                     );
-                     Task.Delay(10).Wait(); // Optional delay to prevent overwhelming the database
+                     Task.Delay(100).Wait(); // Optional delay to prevent overwhelming the database
                 }
                 await Task.WhenAll(tasks); // Process rows concurrently
             }
@@ -95,33 +100,77 @@ namespace PDF_File_Reader
         {
             try
             {
-                string[] hexBytes = input.Split(new[] { ' ', '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries);
-
-                byte[] bytes = new byte[hexBytes.Length];
-                for (int i = 0; i < hexBytes.Length; i++)
+                //if (length == "179")
                 {
-                    bytes[i] = byte.Parse(hexBytes[i], NumberStyles.HexNumber);
-                }
+                    string[] hexBytes = input.Split(new[] { ' ', '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries);
 
-                // Define file path
-                string filePath = Path.Combine(Application.StartupPath, "Float_Big_Endian_ABCD_FloatOutput.txt");
+                    byte[] bytes = new byte[hexBytes.Length];
+                    for (int i = 0; i < hexBytes.Length; i++)
+                    {
+                        bytes[i] = byte.Parse(hexBytes[i], NumberStyles.HexNumber);
+                    }
 
-                List<float> floatValues = new List<float>();
+                    // Define file path
+                    string filePath = Path.Combine(Application.StartupPath, "Float_Big_Endian_ABCD_FloatOutput.txt");
 
-                //using (StreamWriter writer = new StreamWriter(filePath))
-                //{
+                    List<float> floatValues = new List<float>();
+
+                    /*****************************WORKING COPY***********************************************/
+                    //using (StreamWriter writer = new StreamWriter(filePath))
+                    //{
                     //await writer.WriteLineAsync("Converted Float Values (Big Endian):\n");
+
+                    ////////for (int i = 0; i < bytes.Length; i += 4)
+                    ////////{
+                    ////////    if (i + 3 >= bytes.Length) break;
+
+                    ////////    byte[] floatBytes = new byte[4];
+                    ////////    floatBytes[0] = bytes[i];
+                    ////////    floatBytes[1] = bytes[i + 1];
+                    ////////    floatBytes[2] = bytes[i + 2];
+                    ////////    floatBytes[3] = bytes[i + 3];
+
+                    ////////    if (BitConverter.IsLittleEndian)
+                    ////////        Array.Reverse(floatBytes);
+
+                    ////////    float value = BitConverter.ToSingle(floatBytes, 0);
+                    ////////    floatValues.Add(value);
+
+                    ////////    //await writer.WriteLineAsync($"{i / 4:D2}: {value}");
+                    ////////}
+
+                    /***************************************************************************************/
+
 
                     for (int i = 0; i < bytes.Length; i += 4)
                     {
-                        if (i + 3 >= bytes.Length) break;
-
                         byte[] floatBytes = new byte[4];
-                        floatBytes[0] = bytes[i];
-                        floatBytes[1] = bytes[i + 1];
-                        floatBytes[2] = bytes[i + 2];
-                        floatBytes[3] = bytes[i + 3];
 
+                        // Ensure we don't go out of bounds
+                        if (i + 3 < bytes.Length)
+                        {
+                            floatBytes[0] = bytes[i];
+                            floatBytes[1] = bytes[i + 1];
+                            floatBytes[2] = bytes[i + 2];
+                            floatBytes[3] = bytes[i + 3];
+                        }
+                        else
+                        {
+                            // Padding for the last chunk
+                            int bytesRemaining = bytes.Length - i;
+                            for (int j = 0; j < bytesRemaining; j++)
+                            {
+                                floatBytes[j] = bytes[i + j];
+                            }
+
+                            // Add padding (zeros) for the remaining space
+                            for (int j = bytesRemaining; j < 4; j++)
+                            {
+                                floatBytes[j] = 0;
+                            }
+                        }
+
+                        // Reverse the byte array if the system is little-endian
                         if (BitConverter.IsLittleEndian)
                             Array.Reverse(floatBytes);
 
@@ -130,11 +179,13 @@ namespace PDF_File_Reader
 
                         //await writer.WriteLineAsync($"{i / 4:D2}: {value}");
                     }
-                //}
+                    //}
 
-                await InsertFloatValuesIntoDatabaseAsync(floatValues, datetime1, length, id);
+                    await InsertFloatValuesIntoDatabaseAsync(floatValues, datetime1, length, id);
 
-                //MessageBox.Show("Float values written to file and database:\n" + filePath, "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    //MessageBox.Show("Float values written to file and database:\n" + filePath, "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                //return;
             }
             catch (Exception ex)
             {
@@ -230,13 +281,16 @@ namespace PDF_File_Reader
 
 
 
-                // Add the row to DataTable if needed
-                dt.Rows.Add(row);
+                
 
                  
                 // Update UI only if safe, no nulls or exceptions
                 if (length == "139") // production data
                 {
+
+                    // Add the row to DataTable if needed
+                    dt.Rows.Add(row);
+
                     /*********** MANUAL ***************/
 
                     // AGGREGATES
@@ -255,11 +309,12 @@ namespace PDF_File_Reader
 
                     // WATER
                     UpdateActualValuestoUI(txtwater1, GetSafeValue(row, "f17"));
+                    /*******************************************************************************************/
 
                     /*********** ACTUAL ***************/
                     UpdateActualValuestoUI(txtAgg, GetSafeValue(row, "f7"));
                     Agg1 = Convert.ToDouble(GetSafeValue(row, "f7"));
-
+                    dataDict["agg1"] = Agg1;
                     UpdateActualValuestoUI(txtCem, GetSafeValue(row, "f13"));
                     Cem1 = Convert.ToDouble(GetSafeValue(row, "f13"));
 
@@ -269,7 +324,7 @@ namespace PDF_File_Reader
                     string formatted = string.Empty;
                     if (DateTime.TryParse(datetime1, out DateTime date1))
                     {
-                         formatted = date1.ToString("yyyy HH:mm:ss.fffffff");
+                         formatted = date1.ToString("yyyy-MM-dd HH:mm:ss.fffffff");
                         Console.WriteLine(formatted); // Output: Apr 14, 2025 18:18:05.8720780
                     }
                     else
@@ -297,7 +352,7 @@ VALUES
                     string f4 = GetSafeValue(row, "f4");
                     if (f4 == "512") { }
                     string f23 = GetSafeValue(row, "f23");
-                    if (f4 == "512" /*&& f23 == "4.591775E-40" */) // this means batch ended
+                    if (f4 == "512" && f23 == "4.591775E-40") // this means batch ended
                     {
                         //MessageBox.Show("Batch ended!");
                     }
