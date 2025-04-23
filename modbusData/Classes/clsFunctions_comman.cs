@@ -4,6 +4,7 @@ using System.Data.OleDb;
 using System.IO;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
+using Uniproject.UtilityTools;
 namespace Uniproject.Classes
 {
     public static class clsFunctions_comman
@@ -63,6 +64,13 @@ namespace Uniproject.Classes
                 loadForm = clsFunctions.loadSingleValueSetup("select FormName from DbInfo where status='Y'");
                 return loadForm;
             }
+        }
+
+        public static void UniBox(string message)
+        {
+            UniBox box = new UniBox(message);
+            box.ShowDialog();
+
         }
 
         //-----------------------------------------------------------------------------------------------------------------------------------------

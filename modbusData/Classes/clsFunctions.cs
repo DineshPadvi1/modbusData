@@ -30,9 +30,9 @@ namespace Uniproject.Classes
         public static string DeviceID = "";                 // BhaveshT
         public static string dept = "";                     // 18 may
         public static string aliasName = "";
-        public static string activeDeptName = "PMC";
-        public static string activePlantCode = "3"; //warning please remove this from here
-        public static string activeDeviceID = "12345566";
+        public static string activeDeptName = "";
+        public static string activePlantCode = ""; //warning please remove this from here
+        public static string activeDeviceID = "";
         public static string activeDesciption = "";
         public static string activePlantType = "";
 
@@ -87,6 +87,29 @@ namespace Uniproject.Classes
             }
             return sFi1ePath;
         }
+        public static void FillComboValueID(
+       string Query,
+       ComboBox cmb,
+       string DisplayMember,
+       string ValueMember)
+        {
+            try
+            {
+                if (clsFunctions.con.State == ConnectionState.Closed)
+                    clsFunctions.con.Open();
+                OleDbDataAdapter oleDbDataAdapter = new OleDbDataAdapter(new OleDbCommand(Query, clsFunctions.con));
+                DataTable dataTable = new DataTable();
+                cmb.Items.Clear();
+                oleDbDataAdapter.Fill(dataTable);
+                cmb.DisplayMember = DisplayMember;
+                cmb.ValueMember = ValueMember;
+                cmb.DataSource = (object)dataTable;
+            }
+            catch (Exception ex)
+            {
+                int num = (int)MessageBox.Show("FillCombo : " + ex.Message);
+            }
+        }
 
         // 08/02/2024 - BhaveshT : Use Unipro_Setup table instead of Connection_setup ------------------------
 
@@ -105,6 +128,71 @@ namespace Uniproject.Classes
                 return getConnectionString;
             }
         }
+        public static string GetActivePlantCodeFromServerMapping()
+        {
+            string pCode = "";
+            try
+            {
+                pCode = clsFunctions.loadSingleValueSetup("Select PlantCode from ServerMapping where Flag = 'Y' ");
+
+                if (pCode == "")
+                {
+                    //clsFunctions_comman.UniBox("Please set Department for Production");
+                    return "";
+                }
+                activePlantCode = pCode;
+                return pCode;
+            }
+            catch (Exception ex)
+            {
+                pCode = "";
+            }
+            return pCode;
+        }
+
+
+        public static int IsSiteExist(string woCode, string site)
+        {
+            int count = 0;
+            try
+            {
+                woCode = woCode.Trim();
+                site = site.Trim();
+
+                count = clsFunctions_comman.loadintvalue("SELECT COUNT(*) FROM Site_Master WHERE WorkOrderID = '" + woCode + "' AND SiteName = '" + site + "' ");
+                return count;
+            }
+            catch
+            {
+                return count;
+            }
+        }
+
+
+        public static void FillCombo_setup(string Query, ComboBox cmb)
+        {
+            try
+            {
+                if (clsFunctions.conns.State == ConnectionState.Closed)
+                    clsFunctions.conns.Open();
+                OleDbDataAdapter oleDbDataAdapter = new OleDbDataAdapter(new OleDbCommand(Query, clsFunctions.conns));
+                DataTable dataTable = new DataTable();
+                cmb.Items.Clear();
+                oleDbDataAdapter.Fill(dataTable);
+                if (dataTable.Rows.Count <= 0)
+                    return;
+                foreach (DataRow row in (InternalDataCollectionBase)dataTable.Rows)
+                {
+                    if (row[0].ToString().Trim() != "")
+                        cmb.Items.Add(row[0]);
+                }
+            }
+            catch (Exception ex)
+            {
+                int num = (int)MessageBox.Show("FillCombo : " + ex.Message);
+            }
+        }
+
         public static void GetWorkOrderData_Like(ComboBox WorknName, TextBox WorkCode, ComboBox ContractorName, TextBox PlantCode, TextBox ContractorCode, Label WorkType)
         {
             //------------ When workname is longer than 255, use then use LIKE workname to fetch Work order data. --------------------------
@@ -261,6 +349,28 @@ namespace Uniproject.Classes
                 clsFunctions_comman.ErrorLog("Exception at FillWorkOrderFromContractor : " + ex.Message);
             }
         }
+
+        public static string loadSingleValue(string Query)
+        {
+            string str = "0";
+            try
+            {
+                if (clsFunctions.con.State == ConnectionState.Closed)
+                    clsFunctions.con.Open();
+                OleDbDataAdapter oleDbDataAdapter = new OleDbDataAdapter(new OleDbCommand(Query, clsFunctions.con));
+                DataTable dataTable = new DataTable();
+                oleDbDataAdapter.Fill(dataTable);
+                if (dataTable.Rows.Count > 0)
+                    str = dataTable.Rows[0][0].ToString();
+                return str;
+            }
+            catch (Exception ex)
+            {
+                clsFunctions_comman.ErrorLog("FillCombo : " + ex.Message + "query Description " + Query);
+                return "0";
+            }
+        }
+
         public static string FillContractorInCombo(ComboBox ContractorNameCombo, string activeDept)
         {
             string a = "0";
@@ -364,6 +474,41 @@ namespace Uniproject.Classes
                 return 0;
             }
         }
+
+        public static DataTable fillDatatable_setup(string query)
+        {
+            DataTable dataTable = new DataTable();
+            try
+            {
+                new OleDbDataAdapter(new OleDbCommand(query, clsFunctions.conns)).Fill(dataTable);
+            }
+            catch (Exception ex)
+            {
+                int num = (int)MessageBox.Show("FillDataTable : " + ex.Message + "query Description " + query);
+            }
+            return dataTable;
+        }
+        public static string GetActiveDeptNameFromServerMapping()
+        {
+            string deptname = "";
+            try
+            {
+                deptname = clsFunctions.loadSingleValueSetup("Select deptname from ServerMapping where Flag = 'Y' ");
+
+                if (deptname == "")
+                {
+                   // clsFunctions_comman.UniBox("Please set Department for Production");
+                    return "";
+                }
+                return deptname;
+            }
+            catch (Exception ex)
+            {
+                deptname = "";
+            }
+            return deptname;
+        }
+
         public static void ErrorLog(string sMessage)
         {
             StreamWriter streamWriter = (StreamWriter)null;

@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Uniproject;
+using Uniproject.Classes;
 
 namespace modbusData
 {
@@ -17,7 +19,9 @@ namespace modbusData
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new RMC_ModBus());
+            //Application.Run(new mdiMain());
+            SingleApplication.Run(new mdiMain());//S
+            //Application.Run(new RMC_ModBus());
             //Application.Run(new Form1());
         }
     }

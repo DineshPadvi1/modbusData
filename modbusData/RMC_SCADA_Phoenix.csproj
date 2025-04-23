@@ -8,7 +8,7 @@
     <ProjectGuid>{7C1A862B-10E8-451A-8ED8-6796F2C1F14A}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <RootNamespace>modbusData</RootNamespace>
-    <AssemblyName>modbusData</AssemblyName>
+    <AssemblyName>RMC_SCADA_Phoenix</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -36,6 +36,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>exe.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="Dapper, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Dapper.2.1.66\lib\net461\Dapper.dll</HintPath>
@@ -48,6 +51,9 @@
     </Reference>
     <Reference Include="Microsoft.Bcl.AsyncInterfaces, Version=9.0.0.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Bcl.AsyncInterfaces.9.0.1\lib\net462\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.13.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="Serilog, Version=4.2.0.0, Culture=neutral, PublicKeyToken=24c2f752a8e58a10, processorArchitecture=MSIL">
       <HintPath>..\packages\Serilog.4.2.0\lib\net471\Serilog.dll</HintPath>
@@ -117,13 +123,26 @@
     <Compile Include="Classes\clsSqLite.cs" />
     <Compile Include="Classes\clsVariables.cs" />
     <Compile Include="Classes\LogService.cs" />
+    <Compile Include="Classes\SingleApplication.cs" />
     <Compile Include="Classes\TimeHelper.cs" />
+    <Compile Include="Classes\UniBox.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Classes\UniBox.designer.cs">
+      <DependentUpon>UniBox.cs</DependentUpon>
+    </Compile>
     <Compile Include="Classes\UniproDbContext.cs" />
     <Compile Include="Form2.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Form2.Designer.cs">
       <DependentUpon>Form2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Masters\CustomerMaster.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Masters\CustomerMaster.Designer.cs">
+      <DependentUpon>CustomerMaster.cs</DependentUpon>
     </Compile>
     <Compile Include="Masters\ReceipeMaster_RMC.cs">
       <SubType>Form</SubType>
@@ -137,6 +156,19 @@
     <Compile Include="Masters\TripperMaster.designer.cs">
       <DependentUpon>TripperMaster.cs</DependentUpon>
     </Compile>
+    <Compile Include="Masters\WorkMaster.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Masters\WorkMaster.designer.cs">
+      <DependentUpon>WorkMaster.cs</DependentUpon>
+    </Compile>
+    <Compile Include="mdiMain.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="mdiMain.Designer.cs">
+      <DependentUpon>mdiMain.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Model\clsJobSiteSync.cs" />
     <Compile Include="Model\UniproSetup.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -146,14 +178,26 @@
     <Compile Include="RMC_ModBus.Designer.cs">
       <DependentUpon>RMC_ModBus.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Classes\UniBox.resx">
+      <DependentUpon>UniBox.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Form2.resx">
       <DependentUpon>Form2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Masters\CustomerMaster.resx">
+      <DependentUpon>CustomerMaster.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Masters\ReceipeMaster_RMC.resx">
       <DependentUpon>ReceipeMaster_RMC.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Masters\TripperMaster.resx">
       <DependentUpon>TripperMaster.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Masters\WorkMaster.resx">
+      <DependentUpon>WorkMaster.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="mdiMain.resx">
+      <DependentUpon>mdiMain.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -183,7 +227,41 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\359.gif" />
+    <None Include="Resources\apple-mail.png" />
+    <None Include="Resources\BatchPrint.png" />
+    <None Include="Resources\bg.png" />
+    <None Include="Resources\bg1.png" />
+    <None Include="Resources\BlueStrip.png" />
+    <None Include="Resources\bttn.jpg" />
+    <None Include="Resources\C1040-Capital-perspective21.bmp" />
+    <None Include="Resources\call.png" />
+    <None Include="Resources\compLogo.png" />
+    <None Include="Resources\compLogo1.png" />
+    <None Include="Resources\compLogo3.png" />
+    <None Include="Resources\construcion-site2.jpg" />
+    <None Include="Resources\construcion-site2-min.jpg" />
+    <None Include="Resources\construction-site.jpg" />
+    <None Include="Resources\construction-site-min.jpg" />
+    <None Include="Resources\Consumption.jpg" />
+    <None Include="Resources\Cutomer_Master.png" />
+    <None Include="Resources\data-privacy.png" />
+    <None Include="Resources\dc.png" />
+    <None Include="Resources\diffuse-819384_1280.jpg" />
+    <None Include="Resources\download %281%29.jpg" />
+    <None Include="Resources\download.jpg" />
+    <None Include="Resources\icons8-foundation-501.png" />
+    <None Include="Resources\icons8-material-641.png" />
+    <None Include="Resources\tipper.jpg" />
+    <None Include="Resources\icons8-concrete-mixer-641.png" />
+    <None Include="Resources\icons8-contractor-48.png" />
+    <None Include="Resources\report.jpg" />
+    <None Include="Resources\icons8-remote-64.png" />
+    <Content Include="exe.ico" />
     <Content Include="script.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Masters\NewFolder1\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

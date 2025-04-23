@@ -21,6 +21,8 @@ using Uniproject.Masters;
 using System.Data.SqlClient;
 using System.Security.Policy;
 using System.Collections.Specialized;
+using System.Diagnostics;
+using System.Linq;
 
 namespace PDF_File_Reader
 {
@@ -63,8 +65,17 @@ namespace PDF_File_Reader
         }
         private void RMC_ModBus_Load_2(object sender, EventArgs e)
         {
-            clsFunctions.activeDeptName = "PMC";
-      clsFunctions.activePlantCode = "3"; //warning please remove this from here
+            try
+            {
+                if (backgroundWorker.IsBusy)
+                {
+                    //MessageBox.Show("Background worker is already running.");
+                    return;
+                }
+                backgroundWorker.RunWorkerAsync();
+            }
+            catch { }
+            
         txtRDMBatchNO.Text = clsFunctions_comman.GetMaxId("Select MAX(Batch_No) from Batch_Dat_Trans").ToString();
             
             loadComboData();
@@ -1085,12 +1096,45 @@ namespace PDF_File_Reader
                 Log.Information("Background task completed successfully.");
             }
         }
+        public static void StartExeIfNotRunning(string exePath, string arguments = "")
+        {
+            try
+            {
+                string exeNameWithoutExtension = Path.GetFileNameWithoutExtension(exePath);
+
+                // Check if any process with this name is already running
+                bool isRunning = Process.GetProcessesByName(exeNameWithoutExtension).Any();
+
+                if (!isRunning)
+                {
+                    ProcessStartInfo startInfo = new ProcessStartInfo
+                    {
+                        FileName = exePath,
+                        Arguments = arguments,
+                        UseShellExecute = true
+                    };
+
+                    Process.Start(startInfo);
+                }
+                else
+                {
+                    //MessageBox.Show($"{exeNameWithoutExtension} is already running.", "Info");
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error starting executable: " + ex.Message, "Error");
+            }
+        }
+
 
         private void btnStart_Click(object sender, EventArgs e)
         {
             subBatchEnd = 1;
             btnStart.Enabled = false;
             btnstop.Enabled = true;
+            string path = Path.Combine(Application.StartupPath, "Database\\bhumi_final.exe");
+            StartExeIfNotRunning(path);
 
 
 

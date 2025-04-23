@@ -344,7 +344,7 @@ namespace PDF_File_Reader
             this.gbAct1.Margin = new System.Windows.Forms.Padding(4);
             this.gbAct1.Name = "gbAct1";
             this.gbAct1.Padding = new System.Windows.Forms.Padding(4);
-            this.gbAct1.Size = new System.Drawing.Size(261, 105);
+            this.gbAct1.Size = new System.Drawing.Size(236, 105);
             this.gbAct1.TabIndex = 142;
             this.gbAct1.TabStop = false;
             // 
@@ -385,11 +385,11 @@ namespace PDF_File_Reader
             this.gbAct2.Controls.Add(this.txtCEM4_Act);
             this.gbAct2.Controls.Add(this.label64);
             this.gbAct2.Controls.Add(this.label65);
-            this.gbAct2.Location = new System.Drawing.Point(375, -1);
+            this.gbAct2.Location = new System.Drawing.Point(350, -1);
             this.gbAct2.Margin = new System.Windows.Forms.Padding(4);
             this.gbAct2.Name = "gbAct2";
             this.gbAct2.Padding = new System.Windows.Forms.Padding(4);
-            this.gbAct2.Size = new System.Drawing.Size(202, 105);
+            this.gbAct2.Size = new System.Drawing.Size(170, 105);
             this.gbAct2.TabIndex = 143;
             this.gbAct2.TabStop = false;
             // 
@@ -500,7 +500,7 @@ namespace PDF_File_Reader
             this.gbSet1.Controls.Add(this.label44);
             this.gbSet1.Controls.Add(this.label32);
             this.gbSet1.Controls.Add(this.label30);
-            this.gbSet1.Location = new System.Drawing.Point(1140, -1);
+            this.gbSet1.Location = new System.Drawing.Point(966, -1);
             this.gbSet1.Margin = new System.Windows.Forms.Padding(4);
             this.gbSet1.Name = "gbSet1";
             this.gbSet1.Padding = new System.Windows.Forms.Padding(4);
@@ -707,7 +707,7 @@ namespace PDF_File_Reader
             this.btnstop.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.btnstop.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnstop.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.btnstop.Location = new System.Drawing.Point(1778, 37);
+            this.btnstop.Location = new System.Drawing.Point(1604, 37);
             this.btnstop.Margin = new System.Windows.Forms.Padding(4);
             this.btnstop.Name = "btnstop";
             this.btnstop.Size = new System.Drawing.Size(129, 32);
@@ -1042,13 +1042,14 @@ namespace PDF_File_Reader
             this.btnClear.BackColor = System.Drawing.SystemColors.MenuHighlight;
             this.btnClear.Font = new System.Drawing.Font("Calibri", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnClear.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.btnClear.Location = new System.Drawing.Point(1778, 69);
+            this.btnClear.Location = new System.Drawing.Point(1604, 69);
             this.btnClear.Margin = new System.Windows.Forms.Padding(4);
             this.btnClear.Name = "btnClear";
             this.btnClear.Size = new System.Drawing.Size(64, 32);
             this.btnClear.TabIndex = 39;
             this.btnClear.Text = "CLEAR";
             this.btnClear.UseVisualStyleBackColor = false;
+            this.btnClear.Visible = false;
             this.btnClear.Click += new System.EventHandler(this.btnClear_Click);
             // 
             // btnStart
@@ -1056,7 +1057,7 @@ namespace PDF_File_Reader
             this.btnStart.BackColor = System.Drawing.Color.ForestGreen;
             this.btnStart.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnStart.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.btnStart.Location = new System.Drawing.Point(1778, 4);
+            this.btnStart.Location = new System.Drawing.Point(1604, 4);
             this.btnStart.Margin = new System.Windows.Forms.Padding(4);
             this.btnStart.Name = "btnStart";
             this.btnStart.Size = new System.Drawing.Size(129, 32);
@@ -1233,13 +1234,14 @@ namespace PDF_File_Reader
             this.btnClose.BackColor = System.Drawing.SystemColors.MenuHighlight;
             this.btnClose.Font = new System.Drawing.Font("Calibri", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnClose.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.btnClose.Location = new System.Drawing.Point(1843, 69);
+            this.btnClose.Location = new System.Drawing.Point(1669, 69);
             this.btnClose.Margin = new System.Windows.Forms.Padding(4);
             this.btnClose.Name = "btnClose";
             this.btnClose.Size = new System.Drawing.Size(64, 32);
             this.btnClose.TabIndex = 151;
             this.btnClose.Text = "CLOSE";
             this.btnClose.UseVisualStyleBackColor = false;
+            this.btnClose.Visible = false;
             this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
             // 
             // lblTarget
@@ -1248,7 +1250,7 @@ namespace PDF_File_Reader
             this.lblTarget.BackColor = System.Drawing.SystemColors.InactiveCaptionText;
             this.lblTarget.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblTarget.ForeColor = System.Drawing.Color.LawnGreen;
-            this.lblTarget.Location = new System.Drawing.Point(1028, 37);
+            this.lblTarget.Location = new System.Drawing.Point(854, 37);
             this.lblTarget.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblTarget.Name = "lblTarget";
             this.lblTarget.Size = new System.Drawing.Size(93, 24);
@@ -1279,7 +1281,7 @@ namespace PDF_File_Reader
             this.gbSet3.Controls.Add(this.txtwater2);
             this.gbSet3.Controls.Add(this.label12);
             this.gbSet3.Controls.Add(this.txtfiller);
-            this.gbSet3.Location = new System.Drawing.Point(1492, -1);
+            this.gbSet3.Location = new System.Drawing.Point(1318, -1);
             this.gbSet3.Margin = new System.Windows.Forms.Padding(4);
             this.gbSet3.Name = "gbSet3";
             this.gbSet3.Padding = new System.Windows.Forms.Padding(4);
@@ -1355,8 +1357,6 @@ namespace PDF_File_Reader
             // 
             // panel5
             // 
-            this.panel5.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.panel5.BackColor = System.Drawing.SystemColors.HotTrack;
             this.panel5.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.panel5.Controls.Add(this.btnClose);
@@ -1391,11 +1391,11 @@ namespace PDF_File_Reader
             this.gbAct4.Controls.Add(this.txtADM11_Act);
             this.gbAct4.Controls.Add(this.txtADM12_Act);
             this.gbAct4.Controls.Add(this.label58);
-            this.gbAct4.Location = new System.Drawing.Point(804, -1);
+            this.gbAct4.Location = new System.Drawing.Point(707, -1);
             this.gbAct4.Margin = new System.Windows.Forms.Padding(4);
             this.gbAct4.Name = "gbAct4";
             this.gbAct4.Padding = new System.Windows.Forms.Padding(4);
-            this.gbAct4.Size = new System.Drawing.Size(169, 105);
+            this.gbAct4.Size = new System.Drawing.Size(133, 105);
             this.gbAct4.TabIndex = 145;
             this.gbAct4.TabStop = false;
             // 
@@ -1514,7 +1514,7 @@ namespace PDF_File_Reader
             this.gbSet4.Controls.Add(this.txtadmix2);
             this.gbSet4.Controls.Add(this.label7);
             this.gbSet4.Controls.Add(this.label52);
-            this.gbSet4.Location = new System.Drawing.Point(1631, -1);
+            this.gbSet4.Location = new System.Drawing.Point(1457, -1);
             this.gbSet4.Margin = new System.Windows.Forms.Padding(4);
             this.gbSet4.Name = "gbSet4";
             this.gbSet4.Padding = new System.Windows.Forms.Padding(4);
@@ -1637,7 +1637,7 @@ namespace PDF_File_Reader
             this.gbSet2.Controls.Add(this.txtCement1);
             this.gbSet2.Controls.Add(this.txtCement4);
             this.gbSet2.Controls.Add(this.txtCement3);
-            this.gbSet2.Location = new System.Drawing.Point(1350, -1);
+            this.gbSet2.Location = new System.Drawing.Point(1176, -1);
             this.gbSet2.Margin = new System.Windows.Forms.Padding(4);
             this.gbSet2.Name = "gbSet2";
             this.gbSet2.Padding = new System.Windows.Forms.Padding(4);
@@ -1760,11 +1760,11 @@ namespace PDF_File_Reader
             this.gbAct3.Controls.Add(this.txtWTR2_Act);
             this.gbAct3.Controls.Add(this.label60);
             this.gbAct3.Controls.Add(this.txtWTR1_Act);
-            this.gbAct3.Location = new System.Drawing.Point(585, -1);
+            this.gbAct3.Location = new System.Drawing.Point(528, -1);
             this.gbAct3.Margin = new System.Windows.Forms.Padding(4);
             this.gbAct3.Name = "gbAct3";
             this.gbAct3.Padding = new System.Windows.Forms.Padding(4);
-            this.gbAct3.Size = new System.Drawing.Size(210, 105);
+            this.gbAct3.Size = new System.Drawing.Size(171, 105);
             this.gbAct3.TabIndex = 144;
             this.gbAct3.TabStop = false;
             // 
