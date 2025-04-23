@@ -104,6 +104,8 @@ namespace PDF_File_Reader
             this.btnClear = new System.Windows.Forms.Button();
             this.btnStart = new System.Windows.Forms.Button();
             this.pnlComman = new System.Windows.Forms.Panel();
+            this.btnVehicle = new System.Windows.Forms.Button();
+            this.btnRecipe = new System.Windows.Forms.Button();
             this.label53 = new System.Windows.Forms.Label();
             this.cmbRecipe = new System.Windows.Forms.ComboBox();
             this.label22 = new System.Windows.Forms.Label();
@@ -162,8 +164,6 @@ namespace PDF_File_Reader
             this.txtRDMBatchNO = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
             this.cmbRDMVehicle = new System.Windows.Forms.ComboBox();
-            this.btnRecipe = new System.Windows.Forms.Button();
-            this.btnVehicle = new System.Windows.Forms.Button();
             this.gbAct1.SuspendLayout();
             this.gbAct2.SuspendLayout();
             this.gbSet1.SuspendLayout();
@@ -906,7 +906,7 @@ namespace PDF_File_Reader
             // 
             this.label40.AutoSize = true;
             this.label40.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold);
-            this.label40.Location = new System.Drawing.Point(17, 89);
+            this.label40.Location = new System.Drawing.Point(2, 97);
             this.label40.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label40.Name = "label40";
             this.label40.Size = new System.Drawing.Size(81, 24);
@@ -1018,7 +1018,7 @@ namespace PDF_File_Reader
             // 
             this.label39.AutoSize = true;
             this.label39.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label39.Location = new System.Drawing.Point(17, 11);
+            this.label39.Location = new System.Drawing.Point(6, 11);
             this.label39.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label39.Name = "label39";
             this.label39.Size = new System.Drawing.Size(106, 24);
@@ -1083,6 +1083,36 @@ namespace PDF_File_Reader
             this.pnlComman.Name = "pnlComman";
             this.pnlComman.Size = new System.Drawing.Size(1920, 53);
             this.pnlComman.TabIndex = 21;
+            // 
+            // btnVehicle
+            // 
+            this.btnVehicle.BackColor = System.Drawing.SystemColors.MenuHighlight;
+            this.btnVehicle.Font = new System.Drawing.Font("Calibri", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnVehicle.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.btnVehicle.Location = new System.Drawing.Point(1778, 12);
+            this.btnVehicle.Margin = new System.Windows.Forms.Padding(4);
+            this.btnVehicle.Name = "btnVehicle";
+            this.btnVehicle.Size = new System.Drawing.Size(129, 32);
+            this.btnVehicle.TabIndex = 153;
+            this.btnVehicle.Text = "Add Vehicle";
+            this.btnVehicle.UseVisualStyleBackColor = false;
+            this.btnVehicle.Visible = false;
+            this.btnVehicle.Click += new System.EventHandler(this.btnVehicle_Click);
+            // 
+            // btnRecipe
+            // 
+            this.btnRecipe.BackColor = System.Drawing.SystemColors.MenuHighlight;
+            this.btnRecipe.Font = new System.Drawing.Font("Calibri", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnRecipe.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.btnRecipe.Location = new System.Drawing.Point(1645, 12);
+            this.btnRecipe.Margin = new System.Windows.Forms.Padding(4);
+            this.btnRecipe.Name = "btnRecipe";
+            this.btnRecipe.Size = new System.Drawing.Size(109, 32);
+            this.btnRecipe.TabIndex = 152;
+            this.btnRecipe.Text = "Add Recipe";
+            this.btnRecipe.UseVisualStyleBackColor = false;
+            this.btnRecipe.Visible = false;
+            this.btnRecipe.Click += new System.EventHandler(this.btnRecipe_Click);
             // 
             // label53
             // 
@@ -1875,36 +1905,6 @@ namespace PDF_File_Reader
             this.cmbRDMVehicle.Size = new System.Drawing.Size(194, 32);
             this.cmbRDMVehicle.TabIndex = 111;
             this.cmbRDMVehicle.Click += new System.EventHandler(this.cmbRDMVehicle_Click);
-            // 
-            // btnRecipe
-            // 
-            this.btnRecipe.BackColor = System.Drawing.SystemColors.MenuHighlight;
-            this.btnRecipe.Font = new System.Drawing.Font("Calibri", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnRecipe.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.btnRecipe.Location = new System.Drawing.Point(1645, 12);
-            this.btnRecipe.Margin = new System.Windows.Forms.Padding(4);
-            this.btnRecipe.Name = "btnRecipe";
-            this.btnRecipe.Size = new System.Drawing.Size(109, 32);
-            this.btnRecipe.TabIndex = 152;
-            this.btnRecipe.Text = "Add Recipe";
-            this.btnRecipe.UseVisualStyleBackColor = false;
-            this.btnRecipe.Visible = false;
-            this.btnRecipe.Click += new System.EventHandler(this.btnRecipe_Click);
-            // 
-            // btnVehicle
-            // 
-            this.btnVehicle.BackColor = System.Drawing.SystemColors.MenuHighlight;
-            this.btnVehicle.Font = new System.Drawing.Font("Calibri", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnVehicle.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.btnVehicle.Location = new System.Drawing.Point(1778, 12);
-            this.btnVehicle.Margin = new System.Windows.Forms.Padding(4);
-            this.btnVehicle.Name = "btnVehicle";
-            this.btnVehicle.Size = new System.Drawing.Size(129, 32);
-            this.btnVehicle.TabIndex = 153;
-            this.btnVehicle.Text = "Add Vehicle";
-            this.btnVehicle.UseVisualStyleBackColor = false;
-            this.btnVehicle.Visible = false;
-            this.btnVehicle.Click += new System.EventHandler(this.btnVehicle_Click);
             // 
             // RMC_ModBus
             // 
