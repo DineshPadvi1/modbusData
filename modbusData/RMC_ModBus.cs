@@ -210,6 +210,8 @@ namespace PDF_File_Reader
 
         bool sub_Batch_Flag = false;
         int counter = 0;
+        bool flagForTrans = false;
+        string Batch_Start_Time = string.Empty; 
         private async Task InsertFloatValuesIntoDatabaseAsync(List<float> floatValues, string datetime1, string length, int id)
         {
             try
@@ -492,7 +494,7 @@ namespace PDF_File_Reader
                                                 Plant_No, Balance_Wtr, tUpload1, tUpload2
                                             )
                                             VALUES (
-                                                '{GetTextSafe(txtRDMBatchNO)}', '{subBatchEnd}', '{DateTime.Now.Date.ToString("yyyy-MM-dd")}', '{DateTime.Now.ToString("hh:mm:ss tt")}', '{DateTime.Now.ToString("hh:mm:ss tt")}', '{DateTime.Now.Year}',
+                                                '{GetTextSafe(txtRDMBatchNO)}', '{subBatchEnd}', '{Convert.ToDateTime(datetime1).ToString("yyyy-MM-dd")}', '{Convert.ToDateTime(datetime1).ToString("hh:mm:ss tt")}', '{Convert.ToDateTime(datetime1).ToString("hh:mm:ss tt")}', '{Convert.ToDateTime(datetime1).ToString("yyyy")}',
                                                 '0', '{/*Quantity*/ 0}', '{/*ordered*/ 0}', '0', '{/*delivered*/ 0}', '{Batch_Size}',
 
                                                 '{Agg1_Actual}', '{Agg1_Target}', '0',
@@ -529,6 +531,11 @@ namespace PDF_File_Reader
 
                                     counter = 0;
                                     sub_Batch_Flag = true;
+                                    flagForTrans = true;
+                                    if(subBatchEnd == 1)
+                                    {
+                                        Batch_Start_Time = Convert.ToDateTime(datetime1).ToString("hh:mm:ss tt");
+                                    }
 
                                 }
 
@@ -567,20 +574,20 @@ namespace PDF_File_Reader
 
 
 
-                            //trans data
+                            //trans data working
 
-                            string insertToTransQuery = "insert into Batch_Dat_Trans (Batch_No,Batch_Date,Batch_Time,Batch_Time_Text,Batch_Start_Time,Batch_End_Time,Batch_Year,Batcher_Name,Batcher_User_Level,Customer_Code,Recipe_Code,"
-                               + "Recipe_Name,Mixing_Time,Mixer_Capacity,strength,Site,Truck_No,Truck_Driver,Production_Qty,Ordered_Qty,Returned_Qty,WithThisLoad,Batch_Size,Order_No,Schedule_Id,Gate1_Target,"
-                               + "Gate2_Target,Gate3_Target,Gate4_Target,Gate5_Target,Gate6_Target,Cement1_Target,Cement2_Target,Cement3_Target,Cement4_Target,Filler_Target,Water1_Target,slurry_Target,Water2_Target,"
-                               + "Silica_Target,Adm1_Target1,Adm1_Target2,Adm2_Target1,Adm2_Target2,Cost_Per_Mtr_Cube,Total_Cost,Plant_No,Weighed_Net_Weight,Weigh_Bridge_Stat,tExportStatus,tUpload1,tUpload2, WO_Code, Cust_Name, Site_ID, InsertType) values('" + GetTextSafe(txtRDMBatchNO)
-                               + "','" + Convert.ToDateTime(datetime1).ToString("yyyy-MM-dd") + "','" + Convert.ToDateTime(datetime1).ToString("hh:mm:ss tt") + "','" + Convert.ToDateTime(datetime1).ToString("hh:mm:ss tt") + "','" + Convert.ToDateTime(datetime1).ToString("hh:mm:ss tt") + "','" + Convert.ToDateTime(datetime1).ToString("hh:mm:ss tt") + "','" + Convert.ToDateTime(clsVar.Batch_Date).ToString("yyyy")
-                               + "','" + 0 + "','" + 0 + "','" + GetTextSafe(cmbContractor) + "','" + GetTextSafe(cmbRecipe) + "','" + GetTextSafe(cmbRecipe) + "','" + /*clsVar.Mixing_Time*/ 0
-                               + "','" + Batch_Size + "','" + /*clsVar.strength*/0 + "','" + GetTextSafe(cmbjobsite) + "','" + GetTextSafe(cmbRDMVehicle) + "','" + "NA" + "','" + /*clsVar.Production_Qty*/0
-                               + "','" + /*clsVar.Ordered_Qty*/0 + "','" + /*clsVar.Returned_Qty*/0 + "','" + /*clsVar.WithThisLoad*/0 + "','" + Batch_Size + "','" + /*clsVar.Order_No*/0 + "','" +/* clsVar.Schedule_Id */0 + "','" + Agg1_Target
-                               + "','" + Agg2_Target + "','" + Agg3_Target + "','" + Agg4_Target + "','" + 0 + "','" + 0 + "','" + Cem1_Target
-                               + "','" + Cem2_Target + "','" + Cem3_Target + "','" + Cem4_Target + "','" + /*clsVar.Filler_Target*/0 + "','" + Water1_Target + "','" + /*clsVar.slurry_Target*/0
-                               + "','" + Water2_Target + "','" + /*clsVar.Silica_Target*/0 + "','" + admix11_Target + "','" + admix12_Target + "','" +/* Convert.ToDouble(rowForTrans["ADMIX3TRG"])*/0 + "','" + /*clsVar.Adm2_Target2*/0
-                               + "','" + /*clsVar.Cost_Per_Mtr_Cube*/0 + "','" + /*clsVar.Total_Cost*/0 + "','" + GetTextSafe(txtplantcode) + "','" + /*clsVar.Weighed_Net_Weight*/0 + "','" + /*clsVar.Weigh_Bridge_Stat*/0 + "','N','0','0','" + GetTextSafe(txtworkid) + "','" + GetTextSafe(cmbContractor) + "',0, 'A')";
+                            //string insertToTransQuery = "insert into Batch_Dat_Trans (Batch_No,Batch_Date,Batch_Time,Batch_Time_Text,Batch_Start_Time,Batch_End_Time,Batch_Year,Batcher_Name,Batcher_User_Level,Customer_Code,Recipe_Code,"
+                            //   + "Recipe_Name,Mixing_Time,Mixer_Capacity,strength,Site,Truck_No,Truck_Driver,Production_Qty,Ordered_Qty,Returned_Qty,WithThisLoad,Batch_Size,Order_No,Schedule_Id,Gate1_Target,"
+                            //   + "Gate2_Target,Gate3_Target,Gate4_Target,Gate5_Target,Gate6_Target,Cement1_Target,Cement2_Target,Cement3_Target,Cement4_Target,Filler_Target,Water1_Target,slurry_Target,Water2_Target,"
+                            //   + "Silica_Target,Adm1_Target1,Adm1_Target2,Adm2_Target1,Adm2_Target2,Cost_Per_Mtr_Cube,Total_Cost,Plant_No,Weighed_Net_Weight,Weigh_Bridge_Stat,tExportStatus,tUpload1,tUpload2, WO_Code, Cust_Name, Site_ID, InsertType) values('" + GetTextSafe(txtRDMBatchNO)
+                            //   + "','" + Convert.ToDateTime(datetime1).ToString("yyyy-MM-dd") + "','" + Convert.ToDateTime(datetime1).ToString("hh:mm:ss tt") + "','" + Convert.ToDateTime(datetime1).ToString("hh:mm:ss tt") + "','" + Convert.ToDateTime(datetime1).ToString("hh:mm:ss tt") + "','" + Convert.ToDateTime(datetime1).ToString("hh:mm:ss tt") + "','" + Convert.ToDateTime(clsVar.Batch_Date).ToString("yyyy")
+                            //   + "','" + 0 + "','" + 0 + "','" + GetTextSafe(cmbContractor) + "','" + GetTextSafe(cmbRecipe) + "','" + GetTextSafe(cmbRecipe) + "','" + /*clsVar.Mixing_Time*/ 0
+                            //   + "','" + Batch_Size + "','" + /*clsVar.strength*/0 + "','" + GetTextSafe(cmbjobsite) + "','" + GetTextSafe(cmbRDMVehicle) + "','" + "NA" + "','" + /*clsVar.Production_Qty*/0
+                            //   + "','" + /*clsVar.Ordered_Qty*/0 + "','" + /*clsVar.Returned_Qty*/0 + "','" + /*clsVar.WithThisLoad*/0 + "','" + Batch_Size + "','" + /*clsVar.Order_No*/0 + "','" +/* clsVar.Schedule_Id */0 + "','" + Agg1_Target
+                            //   + "','" + Agg2_Target + "','" + Agg3_Target + "','" + Agg4_Target + "','" + 0 + "','" + 0 + "','" + Cem1_Target
+                            //   + "','" + Cem2_Target + "','" + Cem3_Target + "','" + Cem4_Target + "','" + /*clsVar.Filler_Target*/0 + "','" + Water1_Target + "','" + /*clsVar.slurry_Target*/0
+                            //   + "','" + Water2_Target + "','" + /*clsVar.Silica_Target*/0 + "','" + admix11_Target + "','" + admix12_Target + "','" +/* Convert.ToDouble(rowForTrans["ADMIX3TRG"])*/0 + "','" + /*clsVar.Adm2_Target2*/0
+                            //   + "','" + /*clsVar.Cost_Per_Mtr_Cube*/0 + "','" + /*clsVar.Total_Cost*/0 + "','" + GetTextSafe(txtplantcode) + "','" + /*clsVar.Weighed_Net_Weight*/0 + "','" + /*clsVar.Weigh_Bridge_Stat*/0 + "','N','0','0','" + GetTextSafe(txtworkid) + "','" + GetTextSafe(cmbContractor) + "',0, 'A')";
 
                             //return clsFunctions_comman.Ado(insertToTransQuery);
 
@@ -615,6 +622,121 @@ namespace PDF_File_Reader
 
 
 
+
+
+                        }
+                        else
+                        {
+                            if (flagForTrans)
+                            {
+                                string query ="Update Batch_Transaction set Balance_Wtr='1' " +
+    "WHERE Batch_Index = (SELECT MAX(Batch_Index) FROM Batch_Transaction WHERE Batch_No = " + GetTextSafe(txtRDMBatchNO) + ") " +
+    "AND Batch_No = " + GetTextSafe(txtRDMBatchNO);
+
+                                clsFunctions.AdoData(query);
+
+
+
+
+                                DataTable dt1 = new DataTable();
+                                dt1 = clsFunctions_comman.fillDatatable(
+    "SELECT TOP 1 * FROM Batch_Transaction " +
+    "WHERE Batch_Index = (SELECT MAX(Batch_Index) FROM Batch_Transaction WHERE Batch_No = " + GetTextSafe(txtRDMBatchNO) + ") " +
+    "AND Batch_No = " + GetTextSafe(txtRDMBatchNO) + ""
+);
+                                DataRow row1 = dt1.Rows[0]; // Since you're using TOP 1
+
+                                //string batchDate = Convert.ToDateTime(row1["Batch_Date"]).ToString("MM/dd/yyyy");
+                                string Batch_End_Time = Convert.ToDateTime(row1["Batch_Time"]).ToString("HH:mm:ss");
+                                //string batchYear = row1["Batch_Year"].ToString();
+
+                                //DataRow row1 = dt1.Rows[0]; // Since you're using TOP 1
+
+                                //string batchDate = Convert.ToDateTime(row1["Batch_Date"]).ToString("MM/dd/yyyy");
+                                //string batchTime = Convert.ToDateTime(row1["Batch_Time"]).ToString("HH:mm:ss");
+                                //string batchYear = row1["Batch_Year"].ToString();
+
+
+                                //string query = $@"
+                                //            INSERT INTO Batch_Transaction (
+                                //                Batch_No, Batch_Index, Batch_Date, Batch_Time, Batch_Time_Text, Batch_Year,
+                                //                Consistancy, Production_Qty, Ordered_Qty, Returned_Qty, WithThisLoad, Batch_Size,
+                                //                Gate1_Actual, Gate1_Target, Gate1_Moisture,
+                                //                Gate2_Actual, Gate2_Target, Gate2_Moisture,
+                                //                Gate3_Actual, Gate3_Target, Gate3_Moisture,
+                                //                Gate4_Actual, Gate4_Target, Gate4_Moisture,
+                                //                Gate5_Actual, Gate5_Target, Gate5_Moisture,
+                                //                Gate6_Actual, Gate6_Target, Gate6_Moisture,
+                                //                Cement1_Actual, Cement1_Target, Cement1_Correction,
+                                //                Cement2_Actual, Cement2_Target, Cement2_Correction,
+                                //                Cement3_Actual, Cement3_Target, Cement3_Correction,
+                                //                Cement4_Actual, Cement4_Target, Cement4_Correction,
+                                //                Filler1_Actual, Filler1_Target, Filler1_Correction,
+                                //                Water1_Actual, Water1_Target, Water1_Correction,
+                                //                Water2_Actual, Water2_Target, Water2_Correction,
+                                //                Silica_Actual, Silica_Target, Silica_Correction,
+                                //                Slurry_Actual, Slurry_Target, Slurry_Correction,
+                                //                Adm1_Actual1, Adm1_Target1, Adm1_Correction1,
+                                //                Adm1_Actual2, Adm1_Target2, Adm1_Correction2,
+                                //                Adm2_Actual1, Adm2_Target1, Adm2_Correction1,
+                                //                Adm2_Actual2, Adm2_Target2, Adm2_Correction2,
+                                //                Pigment_Actual, Pigment_Target,
+                                //                Plant_No, Balance_Wtr, tUpload1, tUpload2
+                                //            )
+                                //            VALUES (
+                                //                '{GetTextSafe(txtRDMBatchNO)}', '{subBatchEnd++}', #{row1["Batch_Date"].ToString()}#, #{row1["Batch_Time"].ToString()}', '{row1["Batch_Time"].ToString()}', '{row1["Batch_Year"].ToString()}',
+                                //                '0', '{/*Quantity*/ 0}', '{/*ordered*/ 0}', '0', '{/*delivered*/ 0}', '{Batch_Size}',
+
+                                //                '{0}', '{0}', '0',
+                                //                '{0}', '{0}', '0',
+                                //                '{0}', '{0}', '0',
+                                //                '{0}', '{0}', '0',
+                                //                '{0}', '{0}', '0',
+                                //                '{0}', '{0}', '0',
+
+                                //                '{0}', '{0}', '0',
+                                //                '{0}', '{0}', '0',
+                                //                '{0}', '{0}', '0',
+                                //                '{0}', '{0}', '0',
+
+                                //                '{/*Filler1_Actual*/ 0}', '{0}', '0',
+                                //                '{0}', '{0}', '0',
+                                //                '{0}', '{0}', '0',
+                                //                '{/*Silica_Actual*/ 0}', '{0}', '0',
+                                //                '{/*Slurry_Actual*/0}', '{0}', '0',
+
+                                //                '{0}', '{0}', '0',
+                                //                '{/*Adm1_Actual2*/0}', '{0}', '0',
+                                //                '{/*Adm2_Actual1*/0}', '{0}', '0',
+                                //                '{/*Adm2_Actual2*/0}', '{0}', '0',
+
+                                //                '0', '0', '{GetTextSafe(txtplantcode)}', '{/*Batch_End*/ 1}', '0', '0'
+                                //            );";
+
+
+
+
+
+                                string insertToTransQuery = "insert into Batch_Dat_Trans (Batch_No,Batch_Date,Batch_Time,Batch_Time_Text,Batch_Start_Time,Batch_End_Time,Batch_Year,Batcher_Name,Batcher_User_Level,Customer_Code,Recipe_Code,"
+                                  + "Recipe_Name,Mixing_Time,Mixer_Capacity,strength,Site,Truck_No,Truck_Driver,Production_Qty,Ordered_Qty,Returned_Qty,WithThisLoad,Batch_Size,Order_No,Schedule_Id,Gate1_Target,"
+                                  + "Gate2_Target,Gate3_Target,Gate4_Target,Gate5_Target,Gate6_Target,Cement1_Target,Cement2_Target,Cement3_Target,Cement4_Target,Filler_Target,Water1_Target,slurry_Target,Water2_Target,"
+                                  + "Silica_Target,Adm1_Target1,Adm1_Target2,Adm2_Target1,Adm2_Target2,Cost_Per_Mtr_Cube,Total_Cost,Plant_No,Weighed_Net_Weight,Weigh_Bridge_Stat,tExportStatus,tUpload1,tUpload2, WO_Code, Cust_Name, Site_ID, InsertType) values('" + GetTextSafe(txtRDMBatchNO)
+                                  + "','" + Convert.ToDateTime(datetime1).ToString("yyyy-MM-dd") + "','" + Convert.ToDateTime(Batch_Start_Time).ToString("hh:mm:ss tt") + "','" + Convert.ToDateTime(Batch_Start_Time).ToString("hh:mm:ss tt") + "','" + Convert.ToDateTime(Batch_Start_Time).ToString("hh:mm:ss tt") + "','" + Convert.ToDateTime(Batch_End_Time).ToString("hh:mm:ss tt") + "','" + Convert.ToDateTime(datetime1).ToString("yyyy")
+                                  + "','" + 0 + "','" + 0 + "','" + GetTextSafe(cmbContractor) + "','" + GetTextSafe(cmbRecipe) + "','" + GetTextSafe(cmbRecipe) + "','" + /*clsVar.Mixing_Time*/ 0
+                                  + "','" + Batch_Size + "','" + /*clsVar.strength*/0 + "','" + GetTextSafe(cmbjobsite) + "','" + GetTextSafe(cmbRDMVehicle) + "','" + "NA" + "','" + /*clsVar.Production_Qty*/0
+                                  + "','" + /*clsVar.Ordered_Qty*/0 + "','" + /*clsVar.Returned_Qty*/0 + "','" + /*clsVar.WithThisLoad*/0 + "','" + Batch_Size + "','" + /*clsVar.Order_No*/0 + "','" +/* clsVar.Schedule_Id */0 + "','" + Agg1_Target
+                                  + "','" + Agg2_Target + "','" + Agg3_Target + "','" + Agg4_Target + "','" + 0 + "','" + 0 + "','" + Cem1_Target
+                                  + "','" + Cem2_Target + "','" + Cem3_Target + "','" + Cem4_Target + "','" + /*clsVar.Filler_Target*/0 + "','" + Water1_Target + "','" + /*clsVar.slurry_Target*/0
+                                  + "','" + Water2_Target + "','" + /*clsVar.Silica_Target*/0 + "','" + admix11_Target + "','" + admix12_Target + "','" +/* Convert.ToDouble(rowForTrans["ADMIX3TRG"])*/0 + "','" + /*clsVar.Adm2_Target2*/0
+                                  + "','" + /*clsVar.Cost_Per_Mtr_Cube*/0 + "','" + /*clsVar.Total_Cost*/0 + "','" + GetTextSafe(txtplantcode) + "','" + /*clsVar.Weighed_Net_Weight*/0 + "','" + /*clsVar.Weigh_Bridge_Stat*/0 + "','N','0','0','" + GetTextSafe(txtworkid) + "','" + GetTextSafe(cmbContractor) + "',0, 'A')";
+
+
+                                clsFunctions.AdoData(insertToTransQuery);
+
+
+                                flagForTrans = false;
+                                subBatchEnd = 1;
+                            }
 
 
                         }
@@ -966,13 +1088,33 @@ namespace PDF_File_Reader
 
         private void btnStart_Click(object sender, EventArgs e)
         {
+            subBatchEnd = 1;
             btnStart.Enabled = false;
             btnstop.Enabled = true;
+
+
+
+            if (txtRDMBatchNO.InvokeRequired || dgv1.InvokeRequired)
+            {
+                txtRDMBatchNO.Invoke(new MethodInvoker(() =>
+                {
+                    txtRDMBatchNO.Text = clsFunctions_comman.GetMaxId("Select MAX(Batch_No) from Batch_Dat_Trans").ToString();
+                    //dgv1.Rows.Clear();
+                }));
+            }
+            else
+            {
+                txtRDMBatchNO.Text = clsFunctions_comman.GetMaxId("Select MAX(Batch_No) from Batch_Dat_Trans").ToString();
+                //dgv1.Rows.Clear();
+            }
+
+
+
             // Toggle value safely (example)
             SharedFlags.Flags.AddOrUpdate("IsRunning", true, (key, oldValue) => !oldValue);
             if (backgroundWorker.IsBusy)
             {
-                MessageBox.Show("Background worker is already running.");
+                //MessageBox.Show("Background worker is already running.");
                 return;
             }
             backgroundWorker.RunWorkerAsync();
@@ -982,15 +1124,16 @@ namespace PDF_File_Reader
         {
             btnStart.Enabled = true;
             btnstop.Enabled = false;
-
+            dgv1.Rows.Clear();
             //// Set value
             //SharedFlags.Flags["IsRunning"] = true;
 
-           
+
 
             // Toggle value safely (example)
             SharedFlags.Flags.AddOrUpdate("IsRunning", false, (key, oldValue) => !oldValue);
 
+           
 
             //if (backgroundWorker.IsBusy)
             //{

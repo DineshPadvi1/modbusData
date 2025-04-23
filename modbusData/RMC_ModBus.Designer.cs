@@ -906,7 +906,7 @@ namespace PDF_File_Reader
             // 
             this.label40.AutoSize = true;
             this.label40.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold);
-            this.label40.Location = new System.Drawing.Point(2, 97);
+            this.label40.Location = new System.Drawing.Point(6, 97);
             this.label40.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label40.Name = "label40";
             this.label40.Size = new System.Drawing.Size(81, 24);
