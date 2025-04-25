@@ -1919,7 +1919,7 @@ namespace PDF_File_Reader
             this.MinimumSize = new System.Drawing.Size(1036, 533);
             this.Name = "RMC_ModBus";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "RMC Modbus";
+            this.Text = "RMC_Scada_Phoenix";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.RMC_ModBus_Load_2);
             this.gbAct1.ResumeLayout(false);

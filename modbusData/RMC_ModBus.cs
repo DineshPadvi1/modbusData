@@ -172,6 +172,31 @@ namespace PDF_File_Reader
                     for (int i = 0; i < bytes.Length; i += 4)
                     {
                         byte[] floatBytes = new byte[4];
+                        List<string> stringValues = new List<string>();
+                        sbyte? twelfthChunkSByteValue = null;  // Store 12th chunk's first byte as sbyte
+
+                        // Check for the 12th chunk (index 44, since chunk index * 4 = byte index)
+                        if (i == 44) //f12
+                        {
+                            Array.Copy(bytes, i, floatBytes, 0, 4);
+
+                            if (BitConverter.IsLittleEndian)
+                                Array.Reverse(floatBytes);
+
+                            // Extract first byte as sbyte (signed)
+                            twelfthChunkSByteValue = unchecked((sbyte)floatBytes[0]);
+
+                            stringValues.Add($"12th Chunk (sbyte): {twelfthChunkSByteValue.Value}");
+                            Console.WriteLine($"The 12th chunk value (sbyte) is: {twelfthChunkSByteValue.Value}");
+                            if (twelfthChunkSByteValue.Value == -125)
+                            {
+                                //for testing 
+                            }
+                            // Correctly convert sbyte to float and store
+                            floatValues.Add((float)twelfthChunkSByteValue.Value);
+                            continue;
+                        }
+
 
                         // Ensure we don't go out of bounds
                         if (i + 3 < bytes.Length)
@@ -411,11 +436,11 @@ namespace PDF_File_Reader
                     Water1_Actual = Convert.ToDouble(GetSafeValue(row, "f30"));
                     dataDict["Water1"] = Water1_Actual;
 
-                    await UpdateActualValuestoUI(txtADM11_Act, "0.00");  // admix11
+                    await UpdateActualValuestoUI(txtADM11_Act, "0");  // admix11
                     admix11_Actual = Convert.ToDouble(0);
                     dataDict["Admix11"] = admix11_Actual;
 
-                    await UpdateActualValuestoUI(txtADM12_Act, "0.00");  // admix22
+                    await UpdateActualValuestoUI(txtADM12_Act, "0");  // admix22
                     admix12_Actual = Convert.ToDouble(0);
                     dataDict["Admix12"] = admix12_Actual;
 
