@@ -30,7 +30,8 @@ namespace PDF_File_Reader
     {
         public  string sqliteDbPath = System.IO.Path.Combine(Application.StartupPath, "Database\\UniproData.db");
         private BackgroundWorker backgroundWorker;
-        ConcurrentDictionary<string, object> dataDict = new ConcurrentDictionary<string, object>();
+        ConcurrentDictionary<string, object> dataDict = new ConcurrentDictionary<string, object>();  // Dictionary to store data
+
         // Remove BackgroundWorker from declarations
         // private BackgroundWorker backgroundWorker;
         clsVariables clsVar = new clsVariables();
@@ -65,6 +66,7 @@ namespace PDF_File_Reader
         }
         private void RMC_ModBus_Load_2(object sender, EventArgs e)
         {
+            btnstop.Enabled = false;
             try
             {
                 if (backgroundWorker.IsBusy)
@@ -352,36 +354,36 @@ namespace PDF_File_Reader
                     //TARGETS
 
                     // AGGREGATES
-                    UpdateActualValuestoUI(txtagg1, GetSafeValue(row, "f3")); // agg1
+                    await UpdateActualValuestoUI(txtagg1, GetSafeValue(row, "f3")); // agg1
                     Agg1_Target = Convert.ToDouble(GetSafeValue(row, "f3"));
 
-                    UpdateActualValuestoUI(txtagg2, GetSafeValue(row, "f2")); /// agg2
+                    await UpdateActualValuestoUI(txtagg2, GetSafeValue(row, "f2")); /// agg2
                     Agg2_Target = Convert.ToDouble(GetSafeValue(row, "f2"));
 
 
-                    UpdateActualValuestoUI(txtagg3, GetSafeValue(row, "f5"));//GetSafeValue(row, "f4"));
+                    await UpdateActualValuestoUI(txtagg3, GetSafeValue(row, "f5"));//GetSafeValue(row, "f4"));
                     Agg3_Target = Convert.ToDouble(GetSafeValue(row, "f5"));
 
 
-                    UpdateActualValuestoUI(txtagg4, "0");
+                    await UpdateActualValuestoUI(txtagg4, "0");
 
-                    UpdateActualValuestoUI(txtagg5, "0");
+                    await UpdateActualValuestoUI(txtagg5, "0");
 
                     // CEMENT
-                    UpdateActualValuestoUI(txtCement1, GetSafeValue(row, "f6"));
+                    await UpdateActualValuestoUI(txtCement1, GetSafeValue(row, "f6"));
                     Cem1_Target = Convert.ToDouble(GetSafeValue(row, "f6"));
 
 
-                    UpdateActualValuestoUI(txtCement2, "0");
-                    UpdateActualValuestoUI(txtCement3, "0");
-                    UpdateActualValuestoUI(txtCement4, "0");
+                    await UpdateActualValuestoUI(txtCement2, "0");
+                    await UpdateActualValuestoUI(txtCement3, "0");
+                    await UpdateActualValuestoUI(txtCement4, "0");
 
                     // WATER
-                    UpdateActualValuestoUI(txtwater1, GetSafeValue(row, "f7"));
+                    await UpdateActualValuestoUI(txtwater1, GetSafeValue(row, "f7"));
                     Water1_Target = Convert.ToDouble(GetSafeValue(row, "f7"));
 
                     //batch size
-                    UpdateActualValuestoUI(txtbatchsize, GetSafeValue(row, "f9"));
+                    await UpdateActualValuestoUI(txtbatchsize, GetSafeValue(row, "f9"));
                     Batch_Size = Convert.ToDouble(GetSafeValue(row, "f9"));
                     /*******************************************************************************************/
 
@@ -389,31 +391,31 @@ namespace PDF_File_Reader
 
 
                     /*********** ACTUAL ***************/
-                    UpdateActualValuestoUI(txtAGG1_Act, Convert.ToDouble(GetSafeValue(row, "f26")).ToString("0.00"));  // AGG1
+                    await UpdateActualValuestoUI(txtAGG1_Act, Convert.ToDouble(GetSafeValue(row, "f26")).ToString("0.00"));  // AGG1
                     Agg1_Actual = Convert.ToDouble(GetSafeValue(row, "f26"));
                     dataDict["agg1"] = Agg1_Actual;
 
-                    UpdateActualValuestoUI(txtAGG2_Act, Convert.ToDouble(GetSafeValue(row, "f25")).ToString("0.00"));  // AGG2
+                    await UpdateActualValuestoUI(txtAGG2_Act, Convert.ToDouble(GetSafeValue(row, "f25")).ToString("0.00"));  // AGG2
                     Agg2_Actual = Convert.ToDouble(GetSafeValue(row, "f25"));
                     dataDict["agg2"] = Agg2_Actual;
 
-                    UpdateActualValuestoUI(txtAGG3_Act, Convert.ToDouble(GetSafeValue(row, "f28")).ToString("0.00"));  // CSAND
+                    await UpdateActualValuestoUI(txtAGG3_Act, Convert.ToDouble(GetSafeValue(row, "f28")).ToString("0.00"));  // CSAND
                     Agg3_Actual = Convert.ToDouble(GetSafeValue(row, "f28"));
                     dataDict["agg3"] = Agg3_Actual;
 
-                    UpdateActualValuestoUI(txtCEM1_Act, Convert.ToDouble(GetSafeValue(row, "f29")).ToString("0.00"));  // CEM1
+                    await UpdateActualValuestoUI(txtCEM1_Act, Convert.ToDouble(GetSafeValue(row, "f29")).ToString("0.00"));  // CEM1
                     Cem1_Actual = Convert.ToDouble(GetSafeValue(row, "f29"));
                     dataDict["Cem1"] = Cem1_Actual;
 
-                    UpdateActualValuestoUI(txtWTR1_Act, Convert.ToDouble(GetSafeValue(row, "f30")).ToString("0.00"));  // Water1
+                    await UpdateActualValuestoUI(txtWTR1_Act, Convert.ToDouble(GetSafeValue(row, "f30")).ToString("0.00"));  // Water1
                     Water1_Actual = Convert.ToDouble(GetSafeValue(row, "f30"));
                     dataDict["Water1"] = Water1_Actual;
 
-                    UpdateActualValuestoUI(txtADM11_Act, "0.00");  // admix11
+                    await UpdateActualValuestoUI(txtADM11_Act, "0.00");  // admix11
                     admix11_Actual = Convert.ToDouble(0);
                     dataDict["Admix11"] = admix11_Actual;
 
-                    UpdateActualValuestoUI(txtADM12_Act, "0.00");  // admix22
+                    await UpdateActualValuestoUI(txtADM12_Act, "0.00");  // admix22
                     admix12_Actual = Convert.ToDouble(0);
                     dataDict["Admix12"] = admix12_Actual;
 
@@ -980,13 +982,13 @@ namespace PDF_File_Reader
         //    }
         //}
 
-        public void UpdateActualValuestoUI(TextBox targetTextBox, string value)
+        public async Task UpdateActualValuestoUI(TextBox targetTextBox, string value)
         {
             try
             {
                 if (targetTextBox.InvokeRequired)
                 {
-                    targetTextBox.Invoke(new Action(() => UpdateActualValuestoUI(targetTextBox, value)));
+                    targetTextBox.Invoke(new Action(() =>  UpdateActualValuestoUI(targetTextBox, value)));
                     return;
                 }
 
@@ -1171,7 +1173,9 @@ namespace PDF_File_Reader
             dgv1.Rows.Clear();
             //// Set value
             //SharedFlags.Flags["IsRunning"] = true;
-
+             sub_Batch_Flag = false;
+             counter = 0;
+             //flagForTrans = false;
 
 
             // Toggle value safely (example)
