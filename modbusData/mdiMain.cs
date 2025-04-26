@@ -925,58 +925,14 @@ namespace Uniproject
 
         private void SW_Config_Click(object sender, EventArgs e)
         {
-            //------------------------ 21/12/2023 - BhaveshT ------------------------
 
-            try
-            {
-
-                // 05/12/2023 - BhaveshT
-                // Display a password prompt dialog to ask password after clicking on SW Configure Button
-
-                // Without password for testing
-                //Software_Configuration work = new Software_Configuration();
-                //work.Show();
-
-                // string password = Prompt.ShowDialog("Enter password", "SW Config");
-
-                // Compare the entered password with the pre-defined password
-
-                //if (IsFormOpen("Software_Configuration"))
-                //{
-                //    MessageBox.Show("The form is already open!");
-                //}
-                //else
-                //{
-                //    Software_Configuration sc = new Software_Configuration();
-                //    sc.Show();
-                //}
-
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Exception at SWConfig_Click: " + ex.Message);
-            }
         }
 
         //-------------------------------------------------------------------
 
         private void btnSelectDept_Click(object sender, EventArgs e)
         {
-            try
-            {
-                if (IsFormOpen("SelectAliasForProduction"))
-                {
-                    MessageBox.Show("The form is already open!");
-                }
-                else
-                {
 
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Exception at SelectAliasForProduction: " + ex.Message);
-            }
         }
 
         //-------------------------------------------------------------------

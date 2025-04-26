@@ -48,8 +48,12 @@ namespace Uniproject
             this.lblDateRenewal = new System.Windows.Forms.ToolStripStatusLabel();
             this.stripHelp = new System.Windows.Forms.ToolStripStatusLabel();
             this.internetStatusName = new System.Windows.Forms.ToolStripStatusLabel();
-            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.menuStrip2 = new System.Windows.Forms.MenuStrip();
+            this.PlantInfo = new System.Windows.Forms.ToolStripMenuItem();
+            this.WO_Mst = new System.Windows.Forms.ToolStripMenuItem();
+            this.Customer_Contractor = new System.Windows.Forms.ToolStripMenuItem();
+            this.ReceipeMst = new System.Windows.Forms.ToolStripMenuItem();
+            this.VehicleMst = new System.Windows.Forms.ToolStripMenuItem();
             this.ReportShow = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.lblHeading = new System.Windows.Forms.Label();
@@ -60,11 +64,7 @@ namespace Uniproject
             this.lb_workDept = new System.Windows.Forms.Label();
             this.updateBox = new System.Windows.Forms.RichTextBox();
             this.uploadInstruction = new System.Windows.Forms.Label();
-            this.PlantInfo = new System.Windows.Forms.ToolStripMenuItem();
-            this.WO_Mst = new System.Windows.Forms.ToolStripMenuItem();
-            this.Customer_Contractor = new System.Windows.Forms.ToolStripMenuItem();
-            this.ReceipeMst = new System.Windows.Forms.ToolStripMenuItem();
-            this.VehicleMst = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.statusStrip1.SuspendLayout();
             this.menuStrip2.SuspendLayout();
             this.SuspendLayout();
@@ -198,17 +198,6 @@ namespace Uniproject
             this.internetStatusName.Text = "Internet Connection  Status :";
             this.internetStatusName.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage;
             // 
-            // menuStrip1
-            // 
-            this.menuStrip1.BackColor = System.Drawing.Color.White;
-            this.menuStrip1.ImageScalingSize = new System.Drawing.Size(10, 10);
-            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
-            this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Padding = new System.Windows.Forms.Padding(4, 2, 0, 2);
-            this.menuStrip1.Size = new System.Drawing.Size(1742, 30);
-            this.menuStrip1.TabIndex = 19;
-            this.menuStrip1.Text = "Work Links";
-            // 
             // menuStrip2
             // 
             this.menuStrip2.BackColor = System.Drawing.Color.White;
@@ -222,12 +211,62 @@ namespace Uniproject
             this.VehicleMst,
             this.ReportShow,
             this.toolStripMenuItem1});
-            this.menuStrip2.Location = new System.Drawing.Point(0, 30);
+            this.menuStrip2.Location = new System.Drawing.Point(0, 24);
             this.menuStrip2.Name = "menuStrip2";
             this.menuStrip2.Padding = new System.Windows.Forms.Padding(4, 2, 0, 2);
             this.menuStrip2.Size = new System.Drawing.Size(1742, 89);
             this.menuStrip2.TabIndex = 20;
             this.menuStrip2.Text = "menuStrip2";
+            // 
+            // PlantInfo
+            // 
+            this.PlantInfo.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.PlantInfo.Image = global::modbusData.Properties.Resources.icons8_foundation_501;
+            this.PlantInfo.Name = "PlantInfo";
+            this.PlantInfo.Size = new System.Drawing.Size(133, 85);
+            this.PlantInfo.Text = "Live Batch Data";
+            this.PlantInfo.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.PlantInfo.Click += new System.EventHandler(this.PlantInfo_Click_1);
+            // 
+            // WO_Mst
+            // 
+            this.WO_Mst.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.WO_Mst.Image = global::modbusData.Properties.Resources.icons8_remote_64;
+            this.WO_Mst.Name = "WO_Mst";
+            this.WO_Mst.Size = new System.Drawing.Size(107, 85);
+            this.WO_Mst.Text = "Work Order";
+            this.WO_Mst.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.WO_Mst.Click += new System.EventHandler(this.WO_Mst_Click);
+            // 
+            // Customer_Contractor
+            // 
+            this.Customer_Contractor.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Customer_Contractor.Image = global::modbusData.Properties.Resources.icons8_contractor_48;
+            this.Customer_Contractor.Name = "Customer_Contractor";
+            this.Customer_Contractor.Size = new System.Drawing.Size(99, 85);
+            this.Customer_Contractor.Text = "Contractor";
+            this.Customer_Contractor.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.Customer_Contractor.Click += new System.EventHandler(this.Customer_Contractor_Click);
+            // 
+            // ReceipeMst
+            // 
+            this.ReceipeMst.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ReceipeMst.Image = global::modbusData.Properties.Resources.icons8_material_641;
+            this.ReceipeMst.Name = "ReceipeMst";
+            this.ReceipeMst.Size = new System.Drawing.Size(127, 85);
+            this.ReceipeMst.Text = "Design/Recipe";
+            this.ReceipeMst.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.ReceipeMst.Click += new System.EventHandler(this.ReceipeMst_Click_1);
+            // 
+            // VehicleMst
+            // 
+            this.VehicleMst.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.VehicleMst.Image = global::modbusData.Properties.Resources.icons8_concrete_mixer_641;
+            this.VehicleMst.Name = "VehicleMst";
+            this.VehicleMst.Size = new System.Drawing.Size(94, 85);
+            this.VehicleMst.Text = "Vehicle";
+            this.VehicleMst.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.VehicleMst.Click += new System.EventHandler(this.VehicleMst_Click_1);
             // 
             // ReportShow
             // 
@@ -335,55 +374,16 @@ namespace Uniproject
             this.uploadInstruction.Text = "Please upload data";
             this.uploadInstruction.Visible = false;
             // 
-            // PlantInfo
+            // menuStrip1
             // 
-            this.PlantInfo.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.PlantInfo.Image = global::modbusData.Properties.Resources.icons8_foundation_501;
-            this.PlantInfo.Name = "PlantInfo";
-            this.PlantInfo.Size = new System.Drawing.Size(133, 85);
-            this.PlantInfo.Text = "Live Batch Data";
-            this.PlantInfo.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.PlantInfo.Click += new System.EventHandler(this.PlantInfo_Click_1);
-            // 
-            // WO_Mst
-            // 
-            this.WO_Mst.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.WO_Mst.Image = global::modbusData.Properties.Resources.icons8_remote_64;
-            this.WO_Mst.Name = "WO_Mst";
-            this.WO_Mst.Size = new System.Drawing.Size(107, 85);
-            this.WO_Mst.Text = "Work Order";
-            this.WO_Mst.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.WO_Mst.Click += new System.EventHandler(this.WO_Mst_Click);
-            // 
-            // Customer_Contractor
-            // 
-            this.Customer_Contractor.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Customer_Contractor.Image = global::modbusData.Properties.Resources.icons8_contractor_48;
-            this.Customer_Contractor.Name = "Customer_Contractor";
-            this.Customer_Contractor.Size = new System.Drawing.Size(99, 85);
-            this.Customer_Contractor.Text = "Contractor";
-            this.Customer_Contractor.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.Customer_Contractor.Click += new System.EventHandler(this.Customer_Contractor_Click);
-            // 
-            // ReceipeMst
-            // 
-            this.ReceipeMst.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ReceipeMst.Image = global::modbusData.Properties.Resources.icons8_material_641;
-            this.ReceipeMst.Name = "ReceipeMst";
-            this.ReceipeMst.Size = new System.Drawing.Size(127, 85);
-            this.ReceipeMst.Text = "Design/Recipe";
-            this.ReceipeMst.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.ReceipeMst.Click += new System.EventHandler(this.ReceipeMst_Click_1);
-            // 
-            // VehicleMst
-            // 
-            this.VehicleMst.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.VehicleMst.Image = global::modbusData.Properties.Resources.icons8_concrete_mixer_641;
-            this.VehicleMst.Name = "VehicleMst";
-            this.VehicleMst.Size = new System.Drawing.Size(94, 85);
-            this.VehicleMst.Text = "Vehicle";
-            this.VehicleMst.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.VehicleMst.Click += new System.EventHandler(this.VehicleMst_Click_1);
+            this.menuStrip1.BackColor = System.Drawing.Color.White;
+            this.menuStrip1.ImageScalingSize = new System.Drawing.Size(10, 10);
+            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
+            this.menuStrip1.Name = "menuStrip1";
+            this.menuStrip1.Padding = new System.Windows.Forms.Padding(4, 2, 0, 2);
+            this.menuStrip1.Size = new System.Drawing.Size(1742, 24);
+            this.menuStrip1.TabIndex = 19;
+            this.menuStrip1.Text = "Work Links";
             // 
             // mdiMain
             // 
@@ -422,7 +422,6 @@ namespace Uniproject
 
         #endregion
         private System.Windows.Forms.StatusStrip statusStrip1;
-        private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.MenuStrip menuStrip2;
         private System.Windows.Forms.ToolStripMenuItem PlantInfo;
         private System.Windows.Forms.ToolStripMenuItem WO_Mst;
@@ -456,6 +455,7 @@ namespace Uniproject
         private System.Windows.Forms.ToolStripStatusLabel lblServiceStatusPWD;
         private System.Windows.Forms.Label uploadInstruction;
         private System.Windows.Forms.ToolStripStatusLabel stripHelp;
+        private System.Windows.Forms.MenuStrip menuStrip1;
     }
 }
 

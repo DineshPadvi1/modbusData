@@ -104,7 +104,11 @@ namespace PDF_File_Reader
             this.btnClear = new System.Windows.Forms.Button();
             this.btnStart = new System.Windows.Forms.Button();
             this.pnlComman = new System.Windows.Forms.Panel();
+            this.txtMixerCapacity = new System.Windows.Forms.TextBox();
+            this.txtRDM_ProdQty = new System.Windows.Forms.TextBox();
             this.btnVehicle = new System.Windows.Forms.Button();
+            this.label17 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
             this.btnRecipe = new System.Windows.Forms.Button();
             this.label53 = new System.Windows.Forms.Label();
             this.cmbRecipe = new System.Windows.Forms.ComboBox();
@@ -158,9 +162,9 @@ namespace PDF_File_Reader
             this.label11 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
             this.pnlRDMText = new System.Windows.Forms.Panel();
+            this.txtDriver = new System.Windows.Forms.TextBox();
+            this.label2 = new System.Windows.Forms.Label();
             this.lb_Recipe = new System.Windows.Forms.Label();
-            this.txtRDM_ProdQty = new System.Windows.Forms.TextBox();
-            this.label17 = new System.Windows.Forms.Label();
             this.txtRDMBatchNO = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
             this.cmbRDMVehicle = new System.Windows.Forms.ComboBox();
@@ -1030,7 +1034,7 @@ namespace PDF_File_Reader
             this.txtbatchsize.BackColor = System.Drawing.Color.White;
             this.txtbatchsize.Enabled = false;
             this.txtbatchsize.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtbatchsize.Location = new System.Drawing.Point(478, 7);
+            this.txtbatchsize.Location = new System.Drawing.Point(727, 7);
             this.txtbatchsize.Margin = new System.Windows.Forms.Padding(4);
             this.txtbatchsize.Name = "txtbatchsize";
             this.txtbatchsize.ReadOnly = true;
@@ -1072,7 +1076,11 @@ namespace PDF_File_Reader
             | System.Windows.Forms.AnchorStyles.Right)));
             this.pnlComman.BackColor = System.Drawing.Color.CornflowerBlue;
             this.pnlComman.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.pnlComman.Controls.Add(this.txtMixerCapacity);
+            this.pnlComman.Controls.Add(this.txtRDM_ProdQty);
             this.pnlComman.Controls.Add(this.btnVehicle);
+            this.pnlComman.Controls.Add(this.label17);
+            this.pnlComman.Controls.Add(this.label1);
             this.pnlComman.Controls.Add(this.btnRecipe);
             this.pnlComman.Controls.Add(this.label53);
             this.pnlComman.Controls.Add(this.cmbRecipe);
@@ -1084,6 +1092,31 @@ namespace PDF_File_Reader
             this.pnlComman.Name = "pnlComman";
             this.pnlComman.Size = new System.Drawing.Size(1920, 53);
             this.pnlComman.TabIndex = 21;
+            // 
+            // txtMixerCapacity
+            // 
+            this.txtMixerCapacity.BackColor = System.Drawing.Color.White;
+            this.txtMixerCapacity.Enabled = false;
+            this.txtMixerCapacity.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.5F);
+            this.txtMixerCapacity.Location = new System.Drawing.Point(489, 7);
+            this.txtMixerCapacity.Margin = new System.Windows.Forms.Padding(4);
+            this.txtMixerCapacity.Name = "txtMixerCapacity";
+            this.txtMixerCapacity.Size = new System.Drawing.Size(123, 29);
+            this.txtMixerCapacity.TabIndex = 119;
+            this.txtMixerCapacity.Text = "0";
+            // 
+            // txtRDM_ProdQty
+            // 
+            this.txtRDM_ProdQty.BackColor = System.Drawing.Color.White;
+            this.txtRDM_ProdQty.Enabled = false;
+            this.txtRDM_ProdQty.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.5F);
+            this.txtRDM_ProdQty.Location = new System.Drawing.Point(1003, 7);
+            this.txtRDM_ProdQty.Margin = new System.Windows.Forms.Padding(4);
+            this.txtRDM_ProdQty.Name = "txtRDM_ProdQty";
+            this.txtRDM_ProdQty.Size = new System.Drawing.Size(123, 29);
+            this.txtRDM_ProdQty.TabIndex = 116;
+            this.txtRDM_ProdQty.Text = "0";
+            this.txtRDM_ProdQty.Visible = false;
             // 
             // btnVehicle
             // 
@@ -1099,6 +1132,29 @@ namespace PDF_File_Reader
             this.btnVehicle.UseVisualStyleBackColor = false;
             this.btnVehicle.Visible = false;
             this.btnVehicle.Click += new System.EventHandler(this.btnVehicle_Click);
+            // 
+            // label17
+            // 
+            this.label17.AutoSize = true;
+            this.label17.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.25F, System.Drawing.FontStyle.Bold);
+            this.label17.Location = new System.Drawing.Point(912, 11);
+            this.label17.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(88, 20);
+            this.label17.TabIndex = 117;
+            this.label17.Text = "Prod. Qty.";
+            this.label17.Visible = false;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.25F, System.Drawing.FontStyle.Bold);
+            this.label1.Location = new System.Drawing.Point(346, 13);
+            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(130, 20);
+            this.label1.TabIndex = 120;
+            this.label1.Text = "Mixer Capacity:";
             // 
             // btnRecipe
             // 
@@ -1119,7 +1175,7 @@ namespace PDF_File_Reader
             // 
             this.label53.AutoSize = true;
             this.label53.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold);
-            this.label53.Location = new System.Drawing.Point(32, 15);
+            this.label53.Location = new System.Drawing.Point(16, 9);
             this.label53.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.label53.Name = "label53";
             this.label53.Size = new System.Drawing.Size(71, 24);
@@ -1131,19 +1187,20 @@ namespace PDF_File_Reader
             this.cmbRecipe.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbRecipe.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cmbRecipe.FormattingEnabled = true;
-            this.cmbRecipe.Location = new System.Drawing.Point(128, 4);
+            this.cmbRecipe.Location = new System.Drawing.Point(128, 5);
             this.cmbRecipe.Margin = new System.Windows.Forms.Padding(4);
             this.cmbRecipe.Name = "cmbRecipe";
             this.cmbRecipe.Size = new System.Drawing.Size(199, 32);
             this.cmbRecipe.TabIndex = 109;
             this.cmbRecipe.Tag = "cmbTuskRcp";
+            this.cmbRecipe.SelectedIndexChanged += new System.EventHandler(this.cmbRecipe_SelectedIndexChanged);
             this.cmbRecipe.Click += new System.EventHandler(this.cmbRecipe_Click);
             // 
             // label22
             // 
             this.label22.AutoSize = true;
             this.label22.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold);
-            this.label22.Location = new System.Drawing.Point(369, 15);
+            this.label22.Location = new System.Drawing.Point(620, 11);
             this.label22.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label22.Name = "label22";
             this.label22.Size = new System.Drawing.Size(100, 24);
@@ -1357,6 +1414,8 @@ namespace PDF_File_Reader
             // 
             // panel5
             // 
+            this.panel5.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.panel5.BackColor = System.Drawing.SystemColors.HotTrack;
             this.panel5.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.panel5.Controls.Add(this.btnClose);
@@ -1825,9 +1884,9 @@ namespace PDF_File_Reader
             | System.Windows.Forms.AnchorStyles.Right)));
             this.pnlRDMText.BackColor = System.Drawing.Color.YellowGreen;
             this.pnlRDMText.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.pnlRDMText.Controls.Add(this.txtDriver);
+            this.pnlRDMText.Controls.Add(this.label2);
             this.pnlRDMText.Controls.Add(this.lb_Recipe);
-            this.pnlRDMText.Controls.Add(this.txtRDM_ProdQty);
-            this.pnlRDMText.Controls.Add(this.label17);
             this.pnlRDMText.Controls.Add(this.txtRDMBatchNO);
             this.pnlRDMText.Controls.Add(this.label9);
             this.pnlRDMText.Controls.Add(this.cmbRDMVehicle);
@@ -1838,6 +1897,29 @@ namespace PDF_File_Reader
             this.pnlRDMText.Size = new System.Drawing.Size(1924, 37);
             this.pnlRDMText.TabIndex = 22;
             // 
+            // txtDriver
+            // 
+            this.txtDriver.BackColor = System.Drawing.Color.White;
+            this.txtDriver.Enabled = false;
+            this.txtDriver.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.5F);
+            this.txtDriver.Location = new System.Drawing.Point(630, 1);
+            this.txtDriver.Margin = new System.Windows.Forms.Padding(4);
+            this.txtDriver.Name = "txtDriver";
+            this.txtDriver.ReadOnly = true;
+            this.txtDriver.Size = new System.Drawing.Size(227, 29);
+            this.txtDriver.TabIndex = 120;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.25F, System.Drawing.FontStyle.Bold);
+            this.label2.Location = new System.Drawing.Point(566, 7);
+            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(56, 20);
+            this.label2.TabIndex = 119;
+            this.label2.Text = "Driver";
+            // 
             // lb_Recipe
             // 
             this.lb_Recipe.AutoSize = true;
@@ -1847,30 +1929,6 @@ namespace PDF_File_Reader
             this.lb_Recipe.Name = "lb_Recipe";
             this.lb_Recipe.Size = new System.Drawing.Size(0, 18);
             this.lb_Recipe.TabIndex = 118;
-            // 
-            // txtRDM_ProdQty
-            // 
-            this.txtRDM_ProdQty.BackColor = System.Drawing.Color.White;
-            this.txtRDM_ProdQty.Enabled = false;
-            this.txtRDM_ProdQty.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.5F);
-            this.txtRDM_ProdQty.Location = new System.Drawing.Point(663, 3);
-            this.txtRDM_ProdQty.Margin = new System.Windows.Forms.Padding(4);
-            this.txtRDM_ProdQty.Name = "txtRDM_ProdQty";
-            this.txtRDM_ProdQty.Size = new System.Drawing.Size(123, 29);
-            this.txtRDM_ProdQty.TabIndex = 116;
-            this.txtRDM_ProdQty.Visible = false;
-            // 
-            // label17
-            // 
-            this.label17.AutoSize = true;
-            this.label17.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.25F, System.Drawing.FontStyle.Bold);
-            this.label17.Location = new System.Drawing.Point(572, 7);
-            this.label17.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(88, 20);
-            this.label17.TabIndex = 117;
-            this.label17.Text = "Prod. Qty.";
-            this.label17.Visible = false;
             // 
             // txtRDMBatchNO
             // 
@@ -1904,6 +1962,7 @@ namespace PDF_File_Reader
             this.cmbRDMVehicle.Name = "cmbRDMVehicle";
             this.cmbRDMVehicle.Size = new System.Drawing.Size(194, 32);
             this.cmbRDMVehicle.TabIndex = 111;
+            this.cmbRDMVehicle.SelectedIndexChanged += new System.EventHandler(this.cmbRDMVehicle_SelectedIndexChanged);
             this.cmbRDMVehicle.Click += new System.EventHandler(this.cmbRDMVehicle_Click);
             // 
             // RMC_ModBus
@@ -1921,6 +1980,7 @@ namespace PDF_File_Reader
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "RMC_Scada_Phoenix";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.RMC_ModBus_FormClosing);
             this.Load += new System.EventHandler(this.RMC_ModBus_Load_2);
             this.gbAct1.ResumeLayout(false);
             this.gbAct1.PerformLayout();
@@ -2085,5 +2145,9 @@ namespace PDF_File_Reader
         private ComboBox cmbRDMVehicle;
         private Button btnVehicle;
         private Button btnRecipe;
+        private TextBox txtMixerCapacity;
+        private Label label1;
+        private TextBox txtDriver;
+        private Label label2;
     }
 }

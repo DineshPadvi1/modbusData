@@ -196,6 +196,7 @@
             this.txtbatchsize.Name = "txtbatchsize";
             this.txtbatchsize.Size = new System.Drawing.Size(185, 30);
             this.txtbatchsize.TabIndex = 56;
+            this.txtbatchsize.Text = "1";
             this.txtbatchsize.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtbatchsize_KeyPress);
             // 
             // lblinfo

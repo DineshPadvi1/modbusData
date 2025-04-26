@@ -9,6 +9,7 @@ using System.Net;
 using System.Net.Http;
 using System.Net.NetworkInformation;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Uniproject.Classes
@@ -475,6 +476,21 @@ namespace Uniproject.Classes
             }
         }
 
+        public static async Task<int> AdoDataAsync(string query)
+        {
+            try
+            {
+                if (clsFunctions.con.State == ConnectionState.Closed || clsFunctions.con.State == ConnectionState.Broken)
+                    await clsFunctions.con.OpenAsync();
+                return await new OleDbCommand(query, clsFunctions.con).ExecuteNonQueryAsync();
+            }
+            catch (Exception ex)
+            {
+                clsFunctions.ErrorLog("Exception: clsFunctions.AdoData - " + ex.Message + " | query => " + query);
+                return 0;
+            }
+        }
+
         public static DataTable fillDatatable_setup(string query)
         {
             DataTable dataTable = new DataTable();
@@ -542,6 +558,13 @@ namespace Uniproject.Classes
                 }
             }
         }
+
+        public static int loadRowCount(string query)
+        {
+            var dt = fillDatatable(query);
+            return dt?.Rows.Count ?? 0;
+        }
+
 
     }
 }
