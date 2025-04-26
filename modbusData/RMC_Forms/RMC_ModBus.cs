@@ -1484,11 +1484,21 @@ namespace PDF_File_Reader
 
         private void RMC_ModBus_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if(backgroundWorker.IsBusy)
+            if (!btnStart.Enabled)
+            {
+                MessageBox.Show("Batch is started cannot close the form. Please stop batch and then try to close the form!", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                e.Cancel = true; // This will cancel the form from closing
+                return;
+            }
+
+            if (backgroundWorker.IsBusy)
             {
                 backgroundWorker.CancelAsync();
             }
             Stop_backgroundWorker = true;
+
+
+
         }
 
         private void cmbRecipe_SelectedIndexChanged(object sender, EventArgs e)

@@ -303,6 +303,16 @@ namespace modbusData.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap exe {
+            get {
+                object obj = ResourceManager.GetObject("exe", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap icons8_concrete_mixer_641 {
             get {
                 object obj = ResourceManager.GetObject("icons8-concrete-mixer-641", resourceCulture);

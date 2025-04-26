@@ -16,6 +16,7 @@ using System.Windows.Forms;
 using Uniproject.Classes;
 using Uniproject.Masters;
 using Uniproject.RMC_forms.Masters;
+using Uniproject.SW_Configuration;
 
 namespace Uniproject
 {
@@ -923,17 +924,7 @@ namespace Uniproject
 
         //--------------------------------------------------------------------------------------------------------------------------------------------
 
-        private void SW_Config_Click(object sender, EventArgs e)
-        {
-
-        }
-
         //-------------------------------------------------------------------
-
-        private void btnSelectDept_Click(object sender, EventArgs e)
-        {
-
-        }
 
         //-------------------------------------------------------------------
 
@@ -1199,6 +1190,194 @@ namespace Uniproject
                 cm.MdiParent = this;
                 cm.Show();
             }
+        }
+
+        private void btn_uplaoder_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                errorBatchCount.Text = "000";
+                countPending.Text = "000";
+                countUploaded.Text = "000";
+
+                dgv_history.Rows.Clear();
+                dgv_pending.Rows.Clear();
+                getDataUploadStatus();
+                getDataPendingStatus();
+            }
+            catch (Exception ex)
+            {
+                clsFunctions.ErrorLog("[Exception] mdiMain - btn Uploader Refresh Click(): " + ex.Message);
+                throw;
+            }
+        }
+        private void getDataUploadStatus()      // Uploaded
+        {
+            try
+            {
+                // 10/01/2024 - BhaveshT : This will fetch and fill data from Batch_Transaction table for RMC
+
+                if (plantType.Contains("RMC"))
+                {
+                    //DataTable dt = clsFunctions.fillDatatable("select WO_Code, tUpload1 from Batch_Dat_Trans where tUpload1=1 order by Batch_No");
+                    DataTable dt = clsFunctions.fillDatatable("select WO_Code, Batch_No from Batch_Dat_Trans where tUpload1=1 order by Batch_No");
+
+                    dgv_history.Rows.Clear();
+                    foreach (DataRow row in dt.Rows)
+                    {
+                        //dgv_history.Rows.Add("", row["WO_Code"], row["tUpload1"]);
+                        dgv_history.Rows.Add("", row["Batch_No"], row["WO_Code"]);
+                    }
+
+                    errorBatchCount.Text = clsFunctions_comman.loadSinglevalue("SELECT COUNT(*) AS BatchCount FROM Batch_Dat_Trans WHERE tUpload1 NOT IN (1, 0)");
+                    countUploaded.Text = (dgv_history.RowCount - 1).ToString();
+                }
+
+                //----------------------------------------------------------------------------------------------------
+
+                // 10/01/2024 - BhaveshT : This will fetch and fill data from Batch_Transaction table for Bitumen
+
+                else if (plantType.Contains("Bit") || plantType.Contains("BT"))
+                {
+                    dgv_history.Columns["workcode"].Width = 80;
+                    //DataTable dt = clsFunctions.fillDatatable("select workcode, viplupload from tblHotmixPlant where viplupload=1 order by ID");
+                    DataTable dt = clsFunctions.fillDatatable("select workcode, tipper from tblHotmixPlant where viplupload=1 order by ID");
+
+                    dgv_history.Rows.Clear();
+                    foreach (DataRow row in dt.Rows)
+                    {
+                        //dgv_history.Rows.Add("", row["workcode"], row["viplupload"]);
+                        dgv_history.Rows.Add("", row["tipper"], row["workcode"]);
+                    }
+
+                    errorBatchCount.Text = clsFunctions_comman.loadSinglevalue("SELECT COUNT(*) AS BatchCount FROM tblHotMixPlant WHERE viplupload NOT IN (1, 0)");
+
+                    countUploaded.Text = (dgv_history.RowCount - 1).ToString();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                clsFunctions_comman.ErrorLog("mdiMain - getDataUploadStatus() : " + ex.Message);     //BhaveshT
+            }
+        }
+        private void getDataPendingStatus()     // pending
+        {
+            try
+            {
+                // 10/01/2024 - BhaveshT : This will fetch and fill data from Batch_Transaction table for RMC
+
+                if (plantType.Contains("RMC"))
+                {
+                    //DataTable dt = clsFunctions.fillDatatable("select WO_Code, tUpload1 from Batch_Dat_Trans where tUpload1=0 order by Batch_No");
+                    DataTable dt = clsFunctions.fillDatatable("select WO_Code, Batch_No from Batch_Dat_Trans where tUpload1=0 order by Batch_No");
+
+                    dgv_pending.Rows.Clear();
+                    foreach (DataRow row in dt.Rows)
+                    {
+                        //dgv_pending.Rows.Add("", row["WO_Code"], row["tUpload1"]);
+                        dgv_pending.Rows.Add("", row["Batch_No"], row["WO_Code"]);
+                    }
+                    countPending.Text = (dgv_pending.RowCount - 1).ToString();
+
+                }
+
+                //----------------------------------------------------------------------------------------------------
+                // 10/01/2024 - BhaveshT : This will fetch and fill data from Batch_Transaction table for Bitumen
+
+                else if (plantType.Contains("Bit") || plantType.Contains("BT"))
+                {
+                    dgv_pending.Columns["col_workcode"].Width = 80;
+                    //DataTable dt = clsFunctions.fillDatatable("select workcode, viplupload from tblHotmixPlant where viplupload=0 order by ID");
+                    DataTable dt = clsFunctions.fillDatatable("select workcode, tipper from tblHotmixPlant where viplupload=0 order by ID");
+
+                    dgv_pending.Rows.Clear();
+                    foreach (DataRow row in dt.Rows)
+                    {
+                        //dgv_pending.Rows.Add("", row["workcode"], row["viplupload"]);
+                        dgv_pending.Rows.Add("", row["tipper"], row["workcode"]);
+                    }
+                    countPending.Text = (dgv_pending.RowCount - 1).ToString();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                clsFunctions_comman.ErrorLog("mdiMain - getDataPendingStatus() : " + ex.Message);     //BhaveshT
+            }
+        }
+
+        private void btnWOfromAPI_Click(object sender, EventArgs e)
+        {
+            if (IsFormOpen("WO_API"))
+            {
+                MessageBox.Show("The form is already open!");
+            }
+            else
+            {
+                //UtilityTools.WO_API work = new WO_API();
+                WO_API work = new WO_API();
+                work.MdiParent = this;
+                work.Show();
+            }
+        }
+
+        private void btnPlcComm_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void SW_Config_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                // 05/12/2023 - BhaveshT
+                // Display a password prompt dialog to ask password after clicking on SW Configure Button
+
+                // Without password for testing
+                //Software_Configuration work = new Software_Configuration();
+                //work.Show();
+
+                string password = Prompt.ShowDialog("Enter password", "SW Config");
+
+                // Compare the entered password with the pre-defined password
+                if (password == "Unipro@73")
+                {
+                    if (IsFormOpen("QuickConfigure"))
+                    {
+                        MessageBox.Show("The form is already open!");
+                    }
+                    else
+                    {
+                        QuickConfigure q = new QuickConfigure();
+                        q.Show();
+                    }
+
+                    //if (IsFormOpen("Software_Configuration"))
+                    //{
+                    //    MessageBox.Show("The form is already open!");
+                    //}
+                    //else
+                    //{
+                    //    Software_Configuration sc = new Software_Configuration();
+                    //    sc.Show();
+                    //}
+                }
+                else
+                {
+                    // Password is incorrect, display an error message
+                    MessageBox.Show("Incorrect password");
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Exception at SWConfig_Click: " + ex.Message);
+            }
+        }
+
+        private void toolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+
         }
 
         //--------------------------------------------------------------------------------------------------------------------------------------------

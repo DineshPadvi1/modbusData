@@ -40,6 +40,9 @@
     <ApplicationIcon>exe.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="BouncyCastle.Cryptography, Version=2.0.0.0, Culture=neutral, PublicKeyToken=072edcf4a5328938, processorArchitecture=MSIL">
+      <HintPath>..\packages\BouncyCastle.Cryptography.2.5.1\lib\net461\BouncyCastle.Cryptography.dll</HintPath>
+    </Reference>
     <Reference Include="Dapper, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Dapper.2.1.66\lib\net461\Dapper.dll</HintPath>
     </Reference>
@@ -49,11 +52,29 @@
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.5.1\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="Google.Protobuf, Version=3.30.0.0, Culture=neutral, PublicKeyToken=a7d26565bac4d604, processorArchitecture=MSIL">
+      <HintPath>..\packages\Google.Protobuf.3.30.0\lib\net45\Google.Protobuf.dll</HintPath>
+    </Reference>
+    <Reference Include="K4os.Compression.LZ4, Version=1.3.8.0, Culture=neutral, PublicKeyToken=2186fa9121ef231d, processorArchitecture=MSIL">
+      <HintPath>..\packages\K4os.Compression.LZ4.1.3.8\lib\net462\K4os.Compression.LZ4.dll</HintPath>
+    </Reference>
+    <Reference Include="K4os.Compression.LZ4.Streams, Version=1.3.8.0, Culture=neutral, PublicKeyToken=2186fa9121ef231d, processorArchitecture=MSIL">
+      <HintPath>..\packages\K4os.Compression.LZ4.Streams.1.3.8\lib\net462\K4os.Compression.LZ4.Streams.dll</HintPath>
+    </Reference>
+    <Reference Include="K4os.Hash.xxHash, Version=1.0.8.0, Culture=neutral, PublicKeyToken=32cd54395057cec3, processorArchitecture=MSIL">
+      <HintPath>..\packages\K4os.Hash.xxHash.1.0.8\lib\net462\K4os.Hash.xxHash.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Bcl.AsyncInterfaces, Version=9.0.0.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Bcl.AsyncInterfaces.9.0.1\lib\net462\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
     </Reference>
+    <Reference Include="MySql.Data, Version=9.3.0.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
+      <HintPath>..\packages\MySql.Data.9.3.0\lib\net462\MySql.Data.dll</HintPath>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.13.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="SCADA_Library">
+      <HintPath>DLLs\SCADA_Library.dll</HintPath>
     </Reference>
     <Reference Include="Serilog, Version=4.2.0.0, Culture=neutral, PublicKeyToken=24c2f752a8e58a10, processorArchitecture=MSIL">
       <HintPath>..\packages\Serilog.4.2.0\lib\net471\Serilog.dll</HintPath>
@@ -78,6 +99,10 @@
       <HintPath>..\packages\System.Buffers.4.5.1\lib\net461\System.Buffers.dll</HintPath>
     </Reference>
     <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Configuration.ConfigurationManager, Version=8.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Configuration.ConfigurationManager.8.0.0\lib\net462\System.Configuration.ConfigurationManager.dll</HintPath>
+    </Reference>
     <Reference Include="System.Core" />
     <Reference Include="System.Data.SQLite, Version=1.0.119.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
       <HintPath>..\packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.119.0\lib\net46\System.Data.SQLite.dll</HintPath>
@@ -88,9 +113,17 @@
     <Reference Include="System.Data.SQLite.Linq, Version=1.0.119.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Data.SQLite.Linq.1.0.119.0\lib\net46\System.Data.SQLite.Linq.dll</HintPath>
     </Reference>
+    <Reference Include="System.Device" />
     <Reference Include="System.Diagnostics.DiagnosticSource, Version=8.0.0.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Diagnostics.DiagnosticSource.8.0.1\lib\net462\System.Diagnostics.DiagnosticSource.dll</HintPath>
     </Reference>
+    <Reference Include="System.Diagnostics.EventLog, Version=9.0.0.4, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Diagnostics.EventLog.9.0.4\lib\net462\System.Diagnostics.EventLog.dll</HintPath>
+    </Reference>
+    <Reference Include="System.IO.Pipelines, Version=5.0.0.2, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.IO.Pipelines.5.0.2\lib\net461\System.IO.Pipelines.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Management" />
     <Reference Include="System.Memory, Version=4.0.1.2, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Memory.4.5.5\lib\net461\System.Memory.dll</HintPath>
     </Reference>
@@ -101,12 +134,20 @@
     <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.6.0.0\lib\net461\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
     </Reference>
+    <Reference Include="System.Security.Principal.Windows, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.Principal.Windows.5.0.0\lib\net461\System.Security.Principal.Windows.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ServiceProcess" />
+    <Reference Include="System.ServiceProcess.ServiceController, Version=9.0.0.4, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ServiceProcess.ServiceController.9.0.4\lib\net462\System.ServiceProcess.ServiceController.dll</HintPath>
+    </Reference>
     <Reference Include="System.Threading.Channels, Version=8.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Threading.Channels.8.0.0\lib\net462\System.Threading.Channels.dll</HintPath>
     </Reference>
     <Reference Include="System.Threading.Tasks.Extensions, Version=4.2.0.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Threading.Tasks.Extensions.4.5.4\lib\net461\System.Threading.Tasks.Extensions.dll</HintPath>
     </Reference>
+    <Reference Include="System.Transactions" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -116,15 +157,35 @@
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
+    <Reference Include="ZstdSharp, Version=0.8.5.0, Culture=neutral, PublicKeyToken=8d151af33a4ad5cf, processorArchitecture=MSIL">
+      <HintPath>..\packages\ZstdSharp.Port.0.8.5\lib\net462\ZstdSharp.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Classes\captcha.cs" />
     <Compile Include="Classes\clsFunctions.cs" />
     <Compile Include="Classes\clsFunctions_comman.cs" />
     <Compile Include="Classes\clsSqLite.cs" />
     <Compile Include="Classes\clsVariables.cs" />
+    <Compile Include="Classes\getAllWO.cs" />
+    <Compile Include="Classes\GetPlantInstallDetails.cs" />
+    <Compile Include="Classes\getRegData.cs" />
     <Compile Include="Classes\LogService.cs" />
+    <Compile Include="Classes\Model\clsAlertSound.cs" />
+    <Compile Include="Classes\Model\clsErrorPercent_Calculation.cs" />
+    <Compile Include="Classes\Model\HeaderDataModel.cs" />
+    <Compile Include="Classes\Model\LocationService.cs" />
+    <Compile Include="Classes\Model\NetworkHelper.cs" />
+    <Compile Include="Classes\MotherDB\post_PlantLiveStatusHistory.cs" />
+    <Compile Include="Classes\NetworkInfo.cs" />
+    <Compile Include="Classes\PostWCPC.cs" />
+    <Compile Include="Classes\Prompt.cs" />
+    <Compile Include="Classes\RegisterSoftware.cs" />
+    <Compile Include="Classes\RegisterSoftware_Uni.cs" />
+    <Compile Include="Classes\RMC\clsSMSAlerts.cs" />
     <Compile Include="Classes\SingleApplication.cs" />
     <Compile Include="Classes\TimeHelper.cs" />
+    <Compile Include="Classes\TransactionDataModell.cs" />
     <Compile Include="Classes\UniBox.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -132,6 +193,7 @@
       <DependentUpon>UniBox.cs</DependentUpon>
     </Compile>
     <Compile Include="Classes\UniproDbContext.cs" />
+    <Compile Include="Classes\WODetails.cs" />
     <Compile Include="Masters\CustomerMaster.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -166,11 +228,71 @@
     <Compile Include="Model\UniproSetup.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RMC_ModBus.cs">
+    <Compile Include="Registration\Auto\UniRegister_Auto.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="RMC_ModBus.Designer.cs">
+    <Compile Include="Registration\Auto\UniRegister_Auto.designer.cs">
+      <DependentUpon>UniRegister_Auto.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Registration\NewFolder\frmRegistration.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Registration\NewFolder\frmRegistration.designer.cs">
+      <DependentUpon>frmRegistration.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Registration\RegistrationWizardForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Registration\RegistrationWizardForm.Designer.cs">
+      <DependentUpon>RegistrationWizardForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="RMC_Forms\RMC_ModBus.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="RMC_Forms\RMC_ModBus.Designer.cs">
       <DependentUpon>RMC_ModBus.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Software_Utility\Web_Browser.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Software_Utility\Web_Browser.Designer.cs">
+      <DependentUpon>Web_Browser.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Software_Utility\WO_API.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Software_Utility\WO_API.Designer.cs">
+      <DependentUpon>WO_API.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SW Configuration\QuickConfigure.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SW Configuration\QuickConfigure.Designer.cs">
+      <DependentUpon>QuickConfigure.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SW Configuration\SelectAliasForProduction.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SW Configuration\SelectAliasForProduction.Designer.cs">
+      <DependentUpon>SelectAliasForProduction.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SW Configuration\SelectClientDBVersion.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SW Configuration\SelectClientDBVersion.Designer.cs">
+      <DependentUpon>SelectClientDBVersion.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SW Configuration\Software Configuration.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SW Configuration\Software Configuration.designer.cs">
+      <DependentUpon>Software Configuration.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SW Configuration\Sync.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SW Configuration\Sync.Designer.cs">
+      <DependentUpon>Sync.cs</DependentUpon>
     </Compile>
     <EmbeddedResource Include="Classes\UniBox.resx">
       <DependentUpon>UniBox.cs</DependentUpon>
@@ -200,8 +322,38 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <EmbeddedResource Include="RMC_ModBus.resx">
+    <EmbeddedResource Include="Registration\Auto\UniRegister_Auto.resx">
+      <DependentUpon>UniRegister_Auto.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Registration\NewFolder\frmRegistration.resx">
+      <DependentUpon>frmRegistration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Registration\RegistrationWizardForm.resx">
+      <DependentUpon>RegistrationWizardForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RMC_Forms\RMC_ModBus.resx">
       <DependentUpon>RMC_ModBus.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Software_Utility\Web_Browser.resx">
+      <DependentUpon>Web_Browser.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Software_Utility\WO_API.resx">
+      <DependentUpon>WO_API.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SW Configuration\QuickConfigure.resx">
+      <DependentUpon>QuickConfigure.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SW Configuration\SelectAliasForProduction.resx">
+      <DependentUpon>SelectAliasForProduction.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SW Configuration\SelectClientDBVersion.resx">
+      <DependentUpon>SelectClientDBVersion.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SW Configuration\Software Configuration.resx">
+      <DependentUpon>Software Configuration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SW Configuration\Sync.resx">
+      <DependentUpon>Sync.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
@@ -249,6 +401,7 @@
     <None Include="Resources\report.jpg" />
     <None Include="Resources\icons8-remote-64.png" />
     <Content Include="exe.ico" />
+    <None Include="Resources\exe1.ico" />
     <Content Include="script.txt" />
   </ItemGroup>
   <ItemGroup />

@@ -1,9 +1,11 @@
-﻿using System;
+﻿using SCADA_Library;
+using System;
 using System.Data;
 using System.Data.OleDb;
 using System.IO;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
+using Uniproject.Classes.MotherDB;
 using Uniproject.UtilityTools;
 namespace Uniproject.Classes
 {
@@ -31,8 +33,8 @@ namespace Uniproject.Classes
         public static string FileType;
         public static string CSV_Version;
 
-        //public static string PC_ipAddress = NetworkInfo.GetIpAddress();
-        //public static string PC_macAddress = NetworkInfo.GetMacAddress();
+        public static string PC_ipAddress = NetworkInfo.GetIpAddress();
+        public static string PC_macAddress = NetworkInfo.GetMacAddress();
         public static string softwareStatus = "ON";
 
         public static string lastDate = "";                     // added by BhaveshT
@@ -48,8 +50,8 @@ namespace Uniproject.Classes
                 //loadForm = clsFunctions.loadSingleValueSetup("select FormName from Unipro_Setup where status='Y'");
                 // if (loadForm == null || loadForm == "")
                 //{
-                    loadForm = clsFunctions.loadSingleValueSetup("select FormName from DbInfo where status='Y'");
-                    ErrorLog(loadForm + " Selected into DbInfo where status = Y");
+                loadForm = clsFunctions.loadSingleValueSetup("select FormName from DbInfo where status='Y'");
+                ErrorLog(loadForm + " Selected into DbInfo where status = Y");
 
                 //}
                 //else
@@ -59,18 +61,11 @@ namespace Uniproject.Classes
                 //loadForm = clsFunctions.loadSingleValueSetup("select FormName from DbInfo where status='Y'");
                 return loadForm;
             }
-            catch 
+            catch
             {
                 loadForm = clsFunctions.loadSingleValueSetup("select FormName from DbInfo where status='Y'");
                 return loadForm;
             }
-        }
-
-        public static void UniBox(string message)
-        {
-            UniBox box = new UniBox(message);
-            box.ShowDialog();
-
         }
 
         //-----------------------------------------------------------------------------------------------------------------------------------------
@@ -93,7 +88,7 @@ namespace Uniproject.Classes
         {
 
             //------------------------------------------ 01/07/2024 : BhaveshT - changed Error_Log file name -----------------------------------------------
-            
+
             StreamWriter streamWriter = (StreamWriter)null;
             try
             {
@@ -371,7 +366,7 @@ namespace Uniproject.Classes
         {
             try
             {
-               // FillCombo_Upper(eqry, cmb);
+                FillCombo_Upper(eqry, cmb);
 
                 DataTable dt2 = clsFunctions_comman.fillDatatable(qry);
                 // cmb.Items.Clear();
@@ -409,7 +404,27 @@ namespace Uniproject.Classes
             }
         }
 
-         
+        public static void FillCombo_Upper(string Query, ComboBox cmb)
+        {
+            try
+            {
+                DataTable dt = clsFunctions_comman.fillDatatable(Query);
+                cmb.Items.Clear();
+                if (dt.Rows.Count > 0)
+                {
+                    foreach (DataRow dr in dt.Rows)
+                    {
+                        string str_U_En = clsSecurity.Decrypt(dr[0].ToString().Trim());
+                        cmb.Items.Add(str_U_En.ToUpper());
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("FillCombo : " + ex.Message);
+            }
+
+        }
         public static DataTable fillDatatable(string query)
         {
             DataTable dt = new DataTable();
@@ -560,12 +575,12 @@ namespace Uniproject.Classes
         //--------------------------------------------------------------------------
         // 08/12/2023 - BhaveshT : Created custom messageBox
 
-        //public static void UniBox(string message)
-        //{
-        //    UniBox box = new UniBox(message);
-        //    box.ShowDialog();
+        public static void UniBox(string message)
+        {
+            UniBox box = new UniBox(message);
+            box.ShowDialog();
 
-        //}
+        }
         //--------------------------------------------------------------------------
         // 25/12/2023 - BhaveshT : to get URL according selected dept. for Auto Registration
         public static string SetRegURLfromDept(string urlForReg)
@@ -603,7 +618,32 @@ namespace Uniproject.Classes
         //--------------------------------------------------------------------------
 
         // 09/04/2024 - BhaveshT : This method will insert Software Status and Date_Time in Software_Status table of Setup DB : Plant_LiveStatus_History
-        
+        public static void InsertSoftwareStatus(string deviceId, string pCode, string pType, string soft_status)
+        {
+            try
+            {
+                //clsFunctions.AdoData_setup("Delete * from Software_Status");
+
+                //clsFunctions.AdoData_setup("Insert into Software_Status (PlantCode, PlantType, Date_Time, Software_Status) " +
+                //    "values ( '" + pCode + "', '" + pType + "', '" + DateTime.Now + "', '" + soft_status + "' )");
+
+                clsFunctions.AdoData_setup("Insert into Plant_LiveStatus_History (DeviceID, PlantCode, PlantType, Date_Time, Software_Status) " +
+                    "values ( '" + deviceId + "','" + pCode + "', '" + pType + "', '" + DateTime.Now.ToString("dd/MM/yyyy hh:mm:ss tt") + "', '" + soft_status + "' )");
+
+                clsFunctions.AdoData_setup("Update PlantSetup SET Software_Status = '" + soft_status + "'");
+
+
+                //clsFunctions_comman.pingResponse = clsFunctions.CheckAPIStatus(baseurl);
+
+                if (clsFunctions_comman.pingResponse)
+                    post_PlantLiveStatusHistory.LiveStatus_Sync();
+            }
+            catch (Exception e)
+            {
+                clsFunctions_comman.ErrorLog("Error while inserting Plant_LiveStatus_History in database." + e.Message);
+            }
+
+        }
 
         //--------------------------------------------------------------------------
 
@@ -622,7 +662,7 @@ namespace Uniproject.Classes
         //---------------------- 12/02/2024 - BhaveshT : Validating vehicleNo ------------------------------
         public static string ReplaceSpecialCharactersForVehicle(string input)
         {
-            input = input.Replace(" ","");
+            input = input.Replace(" ", "");
 
             if (input == "-" || input == "NA")
                 input = "MH12AB1234";
@@ -662,9 +702,9 @@ namespace Uniproject.Classes
         {
             try
             {
-                DataTable dt = clsFunctions.fillDatatable("Select * from LastUpdateRecord where Dept = '"+ alias +"' ");
-                
-                if(dt != null)
+                DataTable dt = clsFunctions.fillDatatable("Select * from LastUpdateRecord where Dept = '" + alias + "' ");
+
+                if (dt != null)
                 {
                     DataRow row = dt.Rows[0];
 
