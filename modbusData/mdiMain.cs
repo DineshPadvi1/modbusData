@@ -213,7 +213,7 @@ namespace Uniproject
             try
             {
                 //clsFunctions.OpenAliasSelector();
-                //clsFunctions.SetSelectedAliasToVariables();
+                clsFunctions.SetSelectedAliasToVariables();
 
                 //clsPatch.CreateNewColumns();
                 fireWallChecker();
@@ -375,7 +375,7 @@ namespace Uniproject
 
             lb_macId.Text = "MacID: " + macId;
 
-            // uploadInstruction.Text = "Please upload data before " + clsFunctions.GetDocketHours() + " hrs. ";
+            uploadInstruction.Text = "Please upload data before " + clsFunctions.GetDocketHours() + " hrs. ";
 
             //-------------------------------
 

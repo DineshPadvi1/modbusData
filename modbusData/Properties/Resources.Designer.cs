@@ -373,6 +373,26 @@ namespace modbusData.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap RMC_LOADING {
+            get {
+                object obj = ResourceManager.GetObject("RMC_LOADING", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap splash_screen {
+            get {
+                object obj = ResourceManager.GetObject("splash screen", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap tipper {
             get {
                 object obj = ResourceManager.GetObject("tipper", resourceCulture);

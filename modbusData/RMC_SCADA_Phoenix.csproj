@@ -165,6 +165,7 @@
     <Compile Include="Classes\captcha.cs" />
     <Compile Include="Classes\clsFunctions.cs" />
     <Compile Include="Classes\clsFunctions_comman.cs" />
+    <Compile Include="Classes\clsPatch.cs" />
     <Compile Include="Classes\clsSqLite.cs" />
     <Compile Include="Classes\clsVariables.cs" />
     <Compile Include="Classes\getAllWO.cs" />
@@ -258,6 +259,12 @@
     <Compile Include="Software_Utility\Web_Browser.Designer.cs">
       <DependentUpon>Web_Browser.cs</DependentUpon>
     </Compile>
+    <Compile Include="Software_Utility\WelcomeScreen.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Software_Utility\WelcomeScreen.Designer.cs">
+      <DependentUpon>WelcomeScreen.cs</DependentUpon>
+    </Compile>
     <Compile Include="Software_Utility\WO_API.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -337,6 +344,9 @@
     <EmbeddedResource Include="Software_Utility\Web_Browser.resx">
       <DependentUpon>Web_Browser.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Software_Utility\WelcomeScreen.resx">
+      <DependentUpon>WelcomeScreen.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Software_Utility\WO_API.resx">
       <DependentUpon>WO_API.cs</DependentUpon>
     </EmbeddedResource>
@@ -402,6 +412,8 @@
     <None Include="Resources\icons8-remote-64.png" />
     <Content Include="exe.ico" />
     <None Include="Resources\exe1.ico" />
+    <None Include="Resources\splash screen.png" />
+    <None Include="Resources\RMC_LOADING.png" />
     <Content Include="script.txt" />
   </ItemGroup>
   <ItemGroup />

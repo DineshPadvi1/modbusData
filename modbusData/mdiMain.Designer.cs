@@ -50,12 +50,8 @@ namespace Uniproject
             this.internetStatusName = new System.Windows.Forms.ToolStripStatusLabel();
             this.lblHeading = new System.Windows.Forms.Label();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
-            this.expiryMessage = new System.Windows.Forms.Label();
-            this.lb_macId = new System.Windows.Forms.Label();
             this.toolTipExpiryDate = new System.Windows.Forms.ToolTip(this.components);
-            this.lb_workDept = new System.Windows.Forms.Label();
             this.updateBox = new System.Windows.Forms.RichTextBox();
-            this.uploadInstruction = new System.Windows.Forms.Label();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.pnl_left = new System.Windows.Forms.Panel();
             this.errorBatchCount = new System.Windows.Forms.Label();
@@ -83,6 +79,10 @@ namespace Uniproject
             this.button2 = new System.Windows.Forms.Button();
             this.btn_uplaoder = new System.Windows.Forms.Button();
             this.menuStrip2 = new System.Windows.Forms.MenuStrip();
+            this.uploadInstruction = new System.Windows.Forms.Label();
+            this.lb_workDept = new System.Windows.Forms.Label();
+            this.lb_macId = new System.Windows.Forms.Label();
+            this.expiryMessage = new System.Windows.Forms.Label();
             this.PlantInfo = new System.Windows.Forms.ToolStripMenuItem();
             this.WO_Mst = new System.Windows.Forms.ToolStripMenuItem();
             this.Customer_Contractor = new System.Windows.Forms.ToolStripMenuItem();
@@ -245,48 +245,6 @@ namespace Uniproject
             this.timer1.Interval = 5000;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
-            // expiryMessage
-            // 
-            this.expiryMessage.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.expiryMessage.AutoSize = true;
-            this.expiryMessage.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.expiryMessage.ForeColor = System.Drawing.Color.DarkGreen;
-            this.expiryMessage.Location = new System.Drawing.Point(1359, 29);
-            this.expiryMessage.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.expiryMessage.Name = "expiryMessage";
-            this.expiryMessage.Size = new System.Drawing.Size(388, 24);
-            this.expiryMessage.TabIndex = 24;
-            this.expiryMessage.Text = "Software is expired from days, please renew!";
-            this.expiryMessage.Visible = false;
-            // 
-            // lb_macId
-            // 
-            this.lb_macId.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.lb_macId.AutoSize = true;
-            this.lb_macId.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lb_macId.ForeColor = System.Drawing.Color.DarkGreen;
-            this.lb_macId.Location = new System.Drawing.Point(1359, 53);
-            this.lb_macId.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.lb_macId.Name = "lb_macId";
-            this.lb_macId.Size = new System.Drawing.Size(79, 24);
-            this.lb_macId.TabIndex = 26;
-            this.lb_macId.Text = "MacID : ";
-            this.lb_macId.Visible = false;
-            // 
-            // lb_workDept
-            // 
-            this.lb_workDept.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.lb_workDept.AutoSize = true;
-            this.lb_workDept.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lb_workDept.ForeColor = System.Drawing.Color.DarkGreen;
-            this.lb_workDept.Location = new System.Drawing.Point(1359, 77);
-            this.lb_workDept.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.lb_workDept.Name = "lb_workDept";
-            this.lb_workDept.Size = new System.Drawing.Size(117, 24);
-            this.lb_workDept.TabIndex = 28;
-            this.lb_workDept.Text = "Work Dept : ";
-            this.lb_workDept.Visible = false;
-            // 
             // updateBox
             // 
             this.updateBox.BackColor = System.Drawing.Color.AliceBlue;
@@ -301,20 +259,6 @@ namespace Uniproject
             this.updateBox.Text = "Unipro: v2.0.1.2\nUniUploader: v2.0.1.1\nIf You Not Having The Updated Version Then" +
     " Please Contact With Vasundhara Support Person";
             this.updateBox.Visible = false;
-            // 
-            // uploadInstruction
-            // 
-            this.uploadInstruction.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.uploadInstruction.AutoSize = true;
-            this.uploadInstruction.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.uploadInstruction.ForeColor = System.Drawing.Color.DarkGreen;
-            this.uploadInstruction.Location = new System.Drawing.Point(1359, 4);
-            this.uploadInstruction.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.uploadInstruction.Name = "uploadInstruction";
-            this.uploadInstruction.Size = new System.Drawing.Size(171, 24);
-            this.uploadInstruction.TabIndex = 32;
-            this.uploadInstruction.Text = "Please upload data";
-            this.uploadInstruction.Visible = false;
             // 
             // menuStrip1
             // 
@@ -640,6 +584,59 @@ namespace Uniproject
             this.menuStrip2.TabIndex = 35;
             this.menuStrip2.Text = "menuStrip2";
             // 
+            // uploadInstruction
+            // 
+            this.uploadInstruction.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.uploadInstruction.AutoSize = true;
+            this.uploadInstruction.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.uploadInstruction.ForeColor = System.Drawing.Color.DarkGreen;
+            this.uploadInstruction.Location = new System.Drawing.Point(1347, 9);
+            this.uploadInstruction.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.uploadInstruction.Name = "uploadInstruction";
+            this.uploadInstruction.Size = new System.Drawing.Size(171, 24);
+            this.uploadInstruction.TabIndex = 40;
+            this.uploadInstruction.Text = "Please upload data";
+            // 
+            // lb_workDept
+            // 
+            this.lb_workDept.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.lb_workDept.AutoSize = true;
+            this.lb_workDept.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lb_workDept.ForeColor = System.Drawing.Color.DarkGreen;
+            this.lb_workDept.Location = new System.Drawing.Point(1347, 82);
+            this.lb_workDept.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lb_workDept.Name = "lb_workDept";
+            this.lb_workDept.Size = new System.Drawing.Size(117, 24);
+            this.lb_workDept.TabIndex = 39;
+            this.lb_workDept.Text = "Work Dept : ";
+            // 
+            // lb_macId
+            // 
+            this.lb_macId.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.lb_macId.AutoSize = true;
+            this.lb_macId.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lb_macId.ForeColor = System.Drawing.Color.DarkGreen;
+            this.lb_macId.Location = new System.Drawing.Point(1347, 58);
+            this.lb_macId.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lb_macId.Name = "lb_macId";
+            this.lb_macId.Size = new System.Drawing.Size(79, 24);
+            this.lb_macId.TabIndex = 38;
+            this.lb_macId.Text = "MacID : ";
+            // 
+            // expiryMessage
+            // 
+            this.expiryMessage.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.expiryMessage.AutoSize = true;
+            this.expiryMessage.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.expiryMessage.ForeColor = System.Drawing.Color.DarkGreen;
+            this.expiryMessage.Location = new System.Drawing.Point(1347, 34);
+            this.expiryMessage.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.expiryMessage.Name = "expiryMessage";
+            this.expiryMessage.Size = new System.Drawing.Size(388, 24);
+            this.expiryMessage.TabIndex = 37;
+            this.expiryMessage.Text = "Software is expired from days, please renew!";
+            this.expiryMessage.Visible = false;
+            // 
             // PlantInfo
             // 
             this.PlantInfo.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -729,12 +726,12 @@ namespace Uniproject
             this.AutoSize = true;
             this.BackColor = System.Drawing.Color.WhiteSmoke;
             this.ClientSize = new System.Drawing.Size(1742, 878);
-            this.Controls.Add(this.menuStrip2);
-            this.Controls.Add(this.pnl_left);
             this.Controls.Add(this.uploadInstruction);
             this.Controls.Add(this.lb_workDept);
             this.Controls.Add(this.lb_macId);
             this.Controls.Add(this.expiryMessage);
+            this.Controls.Add(this.menuStrip2);
+            this.Controls.Add(this.pnl_left);
             this.Controls.Add(this.updateBox);
             this.Controls.Add(this.lblHeading);
             this.Controls.Add(this.menuStrip1);
@@ -774,21 +771,17 @@ namespace Uniproject
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel2;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel3;
         private System.Windows.Forms.ToolStripStatusLabel lblFirewallStatus;
-        private System.Windows.Forms.Label expiryMessage;
-        private System.Windows.Forms.Label lb_macId;
         private System.Windows.Forms.ToolStripStatusLabel stripAbout;
         private System.Windows.Forms.ToolTip toolTipExpiryDate;
         //private System.Windows.Forms.ToolStripStatusLabel lblDateRenewal;
         private System.Windows.Forms.ToolStripStatusLabel lblServiceStatus;
         public System.Windows.Forms.ToolStripStatusLabel lblservicestatus_;
-        private System.Windows.Forms.Label lb_workDept;
         private System.Windows.Forms.RichTextBox updateBox;
         private System.Windows.Forms.ToolStripStatusLabel lblServerStatus;
         public System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel5;
         private System.Windows.Forms.Label InstallDateLabel;
         private System.Windows.Forms.Label lbInstallationDate;
         private System.Windows.Forms.ToolStripStatusLabel lblServiceStatusPWD;
-        private System.Windows.Forms.Label uploadInstruction;
         private System.Windows.Forms.ToolStripStatusLabel stripHelp;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.Panel pnl_left;
@@ -825,6 +818,10 @@ namespace Uniproject
         private System.Windows.Forms.ToolStripMenuItem VehicleMst;
         private System.Windows.Forms.ToolStripMenuItem ReportShow;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
+        private System.Windows.Forms.Label uploadInstruction;
+        private System.Windows.Forms.Label lb_workDept;
+        private System.Windows.Forms.Label lb_macId;
+        private System.Windows.Forms.Label expiryMessage;
     }
 }
 

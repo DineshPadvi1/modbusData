@@ -1245,7 +1245,7 @@ namespace PDF_File_Reader
 
 
 
-            if (txtRDMBatchNO.InvokeRequired || dgv1.InvokeRequired)
+            if (txtRDMBatchNO.InvokeRequired)
             {
                 txtRDMBatchNO.Invoke(new MethodInvoker(() =>
                 {
