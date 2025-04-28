@@ -23,6 +23,7 @@ using System.Security.Policy;
 using System.Collections.Specialized;
 using System.Diagnostics;
 using System.Linq;
+using System.Drawing;
 
 namespace PDF_File_Reader
 {
@@ -66,6 +67,7 @@ namespace PDF_File_Reader
         }
         private void RMC_ModBus_Load_2(object sender, EventArgs e)
         {
+            //lblActual.Text = "A\nC\nT\nU";
             btnstop.Enabled = false;
             try
             {
@@ -593,7 +595,7 @@ namespace PDF_File_Reader
                                     );
                                 }
 
-
+                                Log.Information($@"Sub Batch End Value Matched: {row["f12"].ToString()}, Packet date: {datetime1}");
 
 
 
@@ -754,8 +756,8 @@ namespace PDF_File_Reader
 
                                     int rowCount = clsFunctions.loadRowCount(query1);
 
-                                    prodQty = (rowCount * batchSize); // Multiply safely and cast to int
-                                    var d = rowCount * batchSize;
+                                    //prodQty = (rowCount * batchSize); // Multiply safely and cast to int
+                                    //var d = rowCount * batchSize;
 
                                      prodQty = rowCount * batchSize;
                                     string formattedProdQty = prodQty % 1 == 0
@@ -828,16 +830,16 @@ namespace PDF_File_Reader
                 //}
 
 
-                if (length == "") // start/stop data
-                {
-                    string f4 = GetSafeValue(row, "f4");
-                    if (f4 == "512") { }
-                    string f23 = GetSafeValue(row, "f23");
-                    if (f4 == "512" && f23 == "4.591775E-40") // this means batch ended
-                    {
-                        //MessageBox.Show("Batch ended!");
-                    }
-                }
+                //if (length == "") // start/stop data
+                //{
+                //    string f4 = GetSafeValue(row, "f4");
+                //    if (f4 == "512") { }
+                //    string f23 = GetSafeValue(row, "f23");
+                //    if (f4 == "512" && f23 == "4.591775E-40") // this means batch ended
+                //    {
+                //        //MessageBox.Show("Batch ended!");
+                //    }
+                //}
 
                 // insert data into mdb microsoft access database.
 
@@ -847,7 +849,7 @@ namespace PDF_File_Reader
             }
             catch (Exception ex)
             {
-                Log.Error("InsertFloatValuesIntoDatabase error: {Message}", ex.Message);
+                Log.Error("InsertFloatValuesIntoDatabase error: {Message}", ex);
             }
         }
 
@@ -1534,6 +1536,11 @@ namespace PDF_File_Reader
             txtworkid.Enabled = true;
             cmbjobsite.Enabled = true;
             cmbRDMVehicle.Enabled = true;
+        }
+
+        private void lblActual_Paint(object sender, PaintEventArgs e)
+        {
+            
         }
     }
 

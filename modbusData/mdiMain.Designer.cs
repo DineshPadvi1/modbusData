@@ -65,6 +65,7 @@ namespace Uniproject
             this.SW_Config = new System.Windows.Forms.Button();
             this.btnPLCsetting = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
+            this.picPlantInfo = new System.Windows.Forms.PictureBox();
             this.btnWOfromAPI = new System.Windows.Forms.Button();
             this.button4 = new System.Windows.Forms.Button();
             this.btn_ScadaPortSetting = new System.Windows.Forms.Button();
@@ -79,10 +80,6 @@ namespace Uniproject
             this.button2 = new System.Windows.Forms.Button();
             this.btn_uplaoder = new System.Windows.Forms.Button();
             this.menuStrip2 = new System.Windows.Forms.MenuStrip();
-            this.uploadInstruction = new System.Windows.Forms.Label();
-            this.lb_workDept = new System.Windows.Forms.Label();
-            this.lb_macId = new System.Windows.Forms.Label();
-            this.expiryMessage = new System.Windows.Forms.Label();
             this.PlantInfo = new System.Windows.Forms.ToolStripMenuItem();
             this.WO_Mst = new System.Windows.Forms.ToolStripMenuItem();
             this.Customer_Contractor = new System.Windows.Forms.ToolStripMenuItem();
@@ -90,13 +87,16 @@ namespace Uniproject
             this.VehicleMst = new System.Windows.Forms.ToolStripMenuItem();
             this.ReportShow = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.picPlantInfo = new System.Windows.Forms.PictureBox();
+            this.uploadInstruction = new System.Windows.Forms.Label();
+            this.lb_workDept = new System.Windows.Forms.Label();
+            this.lb_macId = new System.Windows.Forms.Label();
+            this.expiryMessage = new System.Windows.Forms.Label();
             this.statusStrip1.SuspendLayout();
             this.pnl_left.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picPlantInfo)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_history)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_pending)).BeginInit();
             this.menuStrip2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.picPlantInfo)).BeginInit();
             this.SuspendLayout();
             // 
             // statusStrip1
@@ -267,7 +267,7 @@ namespace Uniproject
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Padding = new System.Windows.Forms.Padding(4, 2, 0, 2);
-            this.menuStrip1.Size = new System.Drawing.Size(1742, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(1742, 30);
             this.menuStrip1.TabIndex = 19;
             this.menuStrip1.Text = "Work Links";
             // 
@@ -293,10 +293,10 @@ namespace Uniproject
             this.pnl_left.Controls.Add(this.button2);
             this.pnl_left.Controls.Add(this.btn_uplaoder);
             this.pnl_left.Dock = System.Windows.Forms.DockStyle.Left;
-            this.pnl_left.Location = new System.Drawing.Point(0, 24);
+            this.pnl_left.Location = new System.Drawing.Point(0, 30);
             this.pnl_left.Margin = new System.Windows.Forms.Padding(2);
             this.pnl_left.Name = "pnl_left";
-            this.pnl_left.Size = new System.Drawing.Size(134, 847);
+            this.pnl_left.Size = new System.Drawing.Size(132, 841);
             this.pnl_left.TabIndex = 34;
             // 
             // errorBatchCount
@@ -383,7 +383,7 @@ namespace Uniproject
             this.btnSelectDept.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnSelectDept.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnSelectDept.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.btnSelectDept.Location = new System.Drawing.Point(4, 551);
+            this.btnSelectDept.Location = new System.Drawing.Point(2, 551);
             this.btnSelectDept.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnSelectDept.Name = "btnSelectDept";
             this.btnSelectDept.Size = new System.Drawing.Size(126, 34);
@@ -429,6 +429,17 @@ namespace Uniproject
             this.label2.Size = new System.Drawing.Size(339, 24);
             this.label2.TabIndex = 22;
             this.label2.Text = "Batching Data Synchronisation - SCADA";
+            // 
+            // picPlantInfo
+            // 
+            this.picPlantInfo.Image = global::modbusData.Properties.Resources.compLogo1;
+            this.picPlantInfo.Location = new System.Drawing.Point(0, 0);
+            this.picPlantInfo.Margin = new System.Windows.Forms.Padding(2);
+            this.picPlantInfo.Name = "picPlantInfo";
+            this.picPlantInfo.Size = new System.Drawing.Size(134, 109);
+            this.picPlantInfo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.picPlantInfo.TabIndex = 28;
+            this.picPlantInfo.TabStop = false;
             // 
             // btnWOfromAPI
             // 
@@ -577,65 +588,12 @@ namespace Uniproject
             this.VehicleMst,
             this.ReportShow,
             this.toolStripMenuItem1});
-            this.menuStrip2.Location = new System.Drawing.Point(134, 24);
+            this.menuStrip2.Location = new System.Drawing.Point(132, 30);
             this.menuStrip2.Name = "menuStrip2";
             this.menuStrip2.Padding = new System.Windows.Forms.Padding(4, 2, 0, 2);
-            this.menuStrip2.Size = new System.Drawing.Size(1608, 89);
+            this.menuStrip2.Size = new System.Drawing.Size(1610, 89);
             this.menuStrip2.TabIndex = 35;
             this.menuStrip2.Text = "menuStrip2";
-            // 
-            // uploadInstruction
-            // 
-            this.uploadInstruction.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.uploadInstruction.AutoSize = true;
-            this.uploadInstruction.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.uploadInstruction.ForeColor = System.Drawing.Color.DarkGreen;
-            this.uploadInstruction.Location = new System.Drawing.Point(1347, 9);
-            this.uploadInstruction.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.uploadInstruction.Name = "uploadInstruction";
-            this.uploadInstruction.Size = new System.Drawing.Size(171, 24);
-            this.uploadInstruction.TabIndex = 40;
-            this.uploadInstruction.Text = "Please upload data";
-            // 
-            // lb_workDept
-            // 
-            this.lb_workDept.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.lb_workDept.AutoSize = true;
-            this.lb_workDept.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lb_workDept.ForeColor = System.Drawing.Color.DarkGreen;
-            this.lb_workDept.Location = new System.Drawing.Point(1347, 82);
-            this.lb_workDept.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.lb_workDept.Name = "lb_workDept";
-            this.lb_workDept.Size = new System.Drawing.Size(117, 24);
-            this.lb_workDept.TabIndex = 39;
-            this.lb_workDept.Text = "Work Dept : ";
-            // 
-            // lb_macId
-            // 
-            this.lb_macId.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.lb_macId.AutoSize = true;
-            this.lb_macId.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lb_macId.ForeColor = System.Drawing.Color.DarkGreen;
-            this.lb_macId.Location = new System.Drawing.Point(1347, 58);
-            this.lb_macId.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.lb_macId.Name = "lb_macId";
-            this.lb_macId.Size = new System.Drawing.Size(79, 24);
-            this.lb_macId.TabIndex = 38;
-            this.lb_macId.Text = "MacID : ";
-            // 
-            // expiryMessage
-            // 
-            this.expiryMessage.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.expiryMessage.AutoSize = true;
-            this.expiryMessage.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.expiryMessage.ForeColor = System.Drawing.Color.DarkGreen;
-            this.expiryMessage.Location = new System.Drawing.Point(1347, 34);
-            this.expiryMessage.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.expiryMessage.Name = "expiryMessage";
-            this.expiryMessage.Size = new System.Drawing.Size(388, 24);
-            this.expiryMessage.TabIndex = 37;
-            this.expiryMessage.Text = "Software is expired from days, please renew!";
-            this.expiryMessage.Visible = false;
             // 
             // PlantInfo
             // 
@@ -708,16 +666,58 @@ namespace Uniproject
             this.toolStripMenuItem1.Visible = false;
             this.toolStripMenuItem1.Click += new System.EventHandler(this.toolStripMenuItem1_Click);
             // 
-            // picPlantInfo
+            // uploadInstruction
             // 
-            this.picPlantInfo.Image = global::modbusData.Properties.Resources.compLogo1;
-            this.picPlantInfo.Location = new System.Drawing.Point(0, 0);
-            this.picPlantInfo.Margin = new System.Windows.Forms.Padding(2);
-            this.picPlantInfo.Name = "picPlantInfo";
-            this.picPlantInfo.Size = new System.Drawing.Size(134, 109);
-            this.picPlantInfo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.picPlantInfo.TabIndex = 28;
-            this.picPlantInfo.TabStop = false;
+            this.uploadInstruction.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.uploadInstruction.AutoSize = true;
+            this.uploadInstruction.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.uploadInstruction.ForeColor = System.Drawing.Color.DarkGreen;
+            this.uploadInstruction.Location = new System.Drawing.Point(1347, 9);
+            this.uploadInstruction.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.uploadInstruction.Name = "uploadInstruction";
+            this.uploadInstruction.Size = new System.Drawing.Size(171, 24);
+            this.uploadInstruction.TabIndex = 40;
+            this.uploadInstruction.Text = "Please upload data";
+            // 
+            // lb_workDept
+            // 
+            this.lb_workDept.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.lb_workDept.AutoSize = true;
+            this.lb_workDept.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lb_workDept.ForeColor = System.Drawing.Color.DarkGreen;
+            this.lb_workDept.Location = new System.Drawing.Point(1347, 82);
+            this.lb_workDept.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lb_workDept.Name = "lb_workDept";
+            this.lb_workDept.Size = new System.Drawing.Size(117, 24);
+            this.lb_workDept.TabIndex = 39;
+            this.lb_workDept.Text = "Work Dept : ";
+            // 
+            // lb_macId
+            // 
+            this.lb_macId.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.lb_macId.AutoSize = true;
+            this.lb_macId.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lb_macId.ForeColor = System.Drawing.Color.DarkGreen;
+            this.lb_macId.Location = new System.Drawing.Point(1347, 58);
+            this.lb_macId.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lb_macId.Name = "lb_macId";
+            this.lb_macId.Size = new System.Drawing.Size(79, 24);
+            this.lb_macId.TabIndex = 38;
+            this.lb_macId.Text = "MacID : ";
+            // 
+            // expiryMessage
+            // 
+            this.expiryMessage.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.expiryMessage.AutoSize = true;
+            this.expiryMessage.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.expiryMessage.ForeColor = System.Drawing.Color.DarkGreen;
+            this.expiryMessage.Location = new System.Drawing.Point(1347, 34);
+            this.expiryMessage.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.expiryMessage.Name = "expiryMessage";
+            this.expiryMessage.Size = new System.Drawing.Size(388, 24);
+            this.expiryMessage.TabIndex = 37;
+            this.expiryMessage.Text = "Software is expired from days, please renew!";
+            this.expiryMessage.Visible = false;
             // 
             // mdiMain
             // 
@@ -750,11 +750,11 @@ namespace Uniproject
             this.statusStrip1.PerformLayout();
             this.pnl_left.ResumeLayout(false);
             this.pnl_left.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picPlantInfo)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_history)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_pending)).EndInit();
             this.menuStrip2.ResumeLayout(false);
             this.menuStrip2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.picPlantInfo)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 

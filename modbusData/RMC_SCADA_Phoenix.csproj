@@ -253,6 +253,9 @@
     <Compile Include="RMC_Forms\RMC_ModBus.Designer.cs">
       <DependentUpon>RMC_ModBus.cs</DependentUpon>
     </Compile>
+    <Compile Include="Services\VerticalLabel.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Software_Utility\Web_Browser.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -414,6 +417,7 @@
     <None Include="Resources\exe1.ico" />
     <None Include="Resources\splash screen.png" />
     <None Include="Resources\RMC_LOADING.png" />
+    <None Include="Resources\RMC_LOADING1.png" />
     <Content Include="script.txt" />
   </ItemGroup>
   <ItemGroup />
