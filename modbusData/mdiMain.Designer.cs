@@ -87,16 +87,34 @@ namespace Uniproject
             this.VehicleMst = new System.Windows.Forms.ToolStripMenuItem();
             this.ReportShow = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.uploadInstruction = new System.Windows.Forms.Label();
-            this.lb_workDept = new System.Windows.Forms.Label();
+            this.statusStrip2 = new System.Windows.Forms.StatusStrip();
+            this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripStatusLabel4 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripStatusLabel6 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripStatusLabel7 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripStatusLabel8 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripStatusLabel9 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripStatusLabel10 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripStatusLabel11 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripStatusLabel12 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripStatusLabel13 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripStatusLabel14 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripStatusLabel15 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripStatusLabel16 = new System.Windows.Forms.ToolStripStatusLabel();
             this.lb_macId = new System.Windows.Forms.Label();
             this.expiryMessage = new System.Windows.Forms.Label();
+            this.lb_workDept = new System.Windows.Forms.Label();
+            this.uploadInstruction = new System.Windows.Forms.Label();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.lblPLC_COMM = new System.Windows.Forms.Label();
             this.statusStrip1.SuspendLayout();
             this.pnl_left.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picPlantInfo)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_history)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_pending)).BeginInit();
             this.menuStrip2.SuspendLayout();
+            this.statusStrip2.SuspendLayout();
+            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // statusStrip1
@@ -267,7 +285,7 @@ namespace Uniproject
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Padding = new System.Windows.Forms.Padding(4, 2, 0, 2);
-            this.menuStrip1.Size = new System.Drawing.Size(1742, 30);
+            this.menuStrip1.Size = new System.Drawing.Size(1742, 24);
             this.menuStrip1.TabIndex = 19;
             this.menuStrip1.Text = "Work Links";
             // 
@@ -293,10 +311,10 @@ namespace Uniproject
             this.pnl_left.Controls.Add(this.button2);
             this.pnl_left.Controls.Add(this.btn_uplaoder);
             this.pnl_left.Dock = System.Windows.Forms.DockStyle.Left;
-            this.pnl_left.Location = new System.Drawing.Point(0, 30);
+            this.pnl_left.Location = new System.Drawing.Point(0, 24);
             this.pnl_left.Margin = new System.Windows.Forms.Padding(2);
             this.pnl_left.Name = "pnl_left";
-            this.pnl_left.Size = new System.Drawing.Size(132, 841);
+            this.pnl_left.Size = new System.Drawing.Size(132, 847);
             this.pnl_left.TabIndex = 34;
             // 
             // errorBatchCount
@@ -436,7 +454,7 @@ namespace Uniproject
             this.picPlantInfo.Location = new System.Drawing.Point(0, 0);
             this.picPlantInfo.Margin = new System.Windows.Forms.Padding(2);
             this.picPlantInfo.Name = "picPlantInfo";
-            this.picPlantInfo.Size = new System.Drawing.Size(134, 109);
+            this.picPlantInfo.Size = new System.Drawing.Size(132, 109);
             this.picPlantInfo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.picPlantInfo.TabIndex = 28;
             this.picPlantInfo.TabStop = false;
@@ -588,7 +606,7 @@ namespace Uniproject
             this.VehicleMst,
             this.ReportShow,
             this.toolStripMenuItem1});
-            this.menuStrip2.Location = new System.Drawing.Point(132, 30);
+            this.menuStrip2.Location = new System.Drawing.Point(132, 24);
             this.menuStrip2.Name = "menuStrip2";
             this.menuStrip2.Padding = new System.Windows.Forms.Padding(4, 2, 0, 2);
             this.menuStrip2.Size = new System.Drawing.Size(1610, 89);
@@ -630,6 +648,7 @@ namespace Uniproject
             this.ReceipeMst.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ReceipeMst.Image = global::modbusData.Properties.Resources.icons8_material_641;
             this.ReceipeMst.Name = "ReceipeMst";
+            this.ReceipeMst.ShowShortcutKeys = false;
             this.ReceipeMst.Size = new System.Drawing.Size(127, 85);
             this.ReceipeMst.Text = "Design/Recipe";
             this.ReceipeMst.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
@@ -666,31 +685,124 @@ namespace Uniproject
             this.toolStripMenuItem1.Visible = false;
             this.toolStripMenuItem1.Click += new System.EventHandler(this.toolStripMenuItem1_Click);
             // 
-            // uploadInstruction
+            // statusStrip2
             // 
-            this.uploadInstruction.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.uploadInstruction.AutoSize = true;
-            this.uploadInstruction.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.uploadInstruction.ForeColor = System.Drawing.Color.DarkGreen;
-            this.uploadInstruction.Location = new System.Drawing.Point(1347, 9);
-            this.uploadInstruction.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.uploadInstruction.Name = "uploadInstruction";
-            this.uploadInstruction.Size = new System.Drawing.Size(171, 24);
-            this.uploadInstruction.TabIndex = 40;
-            this.uploadInstruction.Text = "Please upload data";
+            this.statusStrip2.AutoSize = false;
+            this.statusStrip2.ImageScalingSize = new System.Drawing.Size(40, 40);
+            this.statusStrip2.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripStatusLabel1,
+            this.toolStripStatusLabel4,
+            this.toolStripStatusLabel6,
+            this.toolStripStatusLabel7,
+            this.toolStripStatusLabel8,
+            this.toolStripStatusLabel9,
+            this.toolStripStatusLabel10,
+            this.toolStripStatusLabel11,
+            this.toolStripStatusLabel12,
+            this.toolStripStatusLabel13,
+            this.toolStripStatusLabel14,
+            this.toolStripStatusLabel15,
+            this.toolStripStatusLabel16});
+            this.statusStrip2.Location = new System.Drawing.Point(132, 848);
+            this.statusStrip2.Name = "statusStrip2";
+            this.statusStrip2.Padding = new System.Windows.Forms.Padding(1, 0, 10, 0);
+            this.statusStrip2.RenderMode = System.Windows.Forms.ToolStripRenderMode.ManagerRenderMode;
+            this.statusStrip2.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.statusStrip2.Size = new System.Drawing.Size(1610, 23);
+            this.statusStrip2.TabIndex = 42;
+            this.statusStrip2.Visible = false;
             // 
-            // lb_workDept
+            // toolStripStatusLabel1
             // 
-            this.lb_workDept.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.lb_workDept.AutoSize = true;
-            this.lb_workDept.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lb_workDept.ForeColor = System.Drawing.Color.DarkGreen;
-            this.lb_workDept.Location = new System.Drawing.Point(1347, 82);
-            this.lb_workDept.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.lb_workDept.Name = "lb_workDept";
-            this.lb_workDept.Size = new System.Drawing.Size(117, 24);
-            this.lb_workDept.TabIndex = 39;
-            this.lb_workDept.Text = "Work Dept : ";
+            this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
+            this.toolStripStatusLabel1.Size = new System.Drawing.Size(0, 17);
+            // 
+            // toolStripStatusLabel4
+            // 
+            this.toolStripStatusLabel4.Name = "toolStripStatusLabel4";
+            this.toolStripStatusLabel4.Size = new System.Drawing.Size(0, 17);
+            // 
+            // toolStripStatusLabel6
+            // 
+            this.toolStripStatusLabel6.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.toolStripStatusLabel6.Name = "toolStripStatusLabel6";
+            this.toolStripStatusLabel6.Size = new System.Drawing.Size(62, 17);
+            this.toolStripStatusLabel6.Text = ":Firewall";
+            this.toolStripStatusLabel6.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // toolStripStatusLabel7
+            // 
+            this.toolStripStatusLabel7.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripStatusLabel7.Name = "toolStripStatusLabel7";
+            this.toolStripStatusLabel7.Size = new System.Drawing.Size(0, 17);
+            this.toolStripStatusLabel7.Text = "toolStripStatusLabel2";
+            // 
+            // toolStripStatusLabel8
+            // 
+            this.toolStripStatusLabel8.Name = "toolStripStatusLabel8";
+            this.toolStripStatusLabel8.Size = new System.Drawing.Size(0, 17);
+            this.toolStripStatusLabel8.Visible = false;
+            // 
+            // toolStripStatusLabel9
+            // 
+            this.toolStripStatusLabel9.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripStatusLabel9.Name = "toolStripStatusLabel9";
+            this.toolStripStatusLabel9.Size = new System.Drawing.Size(0, 17);
+            this.toolStripStatusLabel9.Text = "toolStripStatusLabel3";
+            // 
+            // toolStripStatusLabel10
+            // 
+            this.toolStripStatusLabel10.Name = "toolStripStatusLabel10";
+            this.toolStripStatusLabel10.Size = new System.Drawing.Size(0, 17);
+            // 
+            // toolStripStatusLabel11
+            // 
+            this.toolStripStatusLabel11.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.toolStripStatusLabel11.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.toolStripStatusLabel11.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.toolStripStatusLabel11.Name = "toolStripStatusLabel11";
+            this.toolStripStatusLabel11.RightToLeftAutoMirrorImage = true;
+            this.toolStripStatusLabel11.Size = new System.Drawing.Size(70, 17);
+            this.toolStripStatusLabel11.Text = ":Uploader";
+            this.toolStripStatusLabel11.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.toolStripStatusLabel11.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage;
+            // 
+            // toolStripStatusLabel12
+            // 
+            this.toolStripStatusLabel12.Name = "toolStripStatusLabel12";
+            this.toolStripStatusLabel12.Size = new System.Drawing.Size(0, 17);
+            // 
+            // toolStripStatusLabel13
+            // 
+            this.toolStripStatusLabel13.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.toolStripStatusLabel13.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.toolStripStatusLabel13.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.toolStripStatusLabel13.Name = "toolStripStatusLabel13";
+            this.toolStripStatusLabel13.RightToLeftAutoMirrorImage = true;
+            this.toolStripStatusLabel13.Size = new System.Drawing.Size(52, 17);
+            this.toolStripStatusLabel13.Text = ":Server";
+            this.toolStripStatusLabel13.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.toolStripStatusLabel13.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage;
+            // 
+            // toolStripStatusLabel14
+            // 
+            this.toolStripStatusLabel14.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.toolStripStatusLabel14.Name = "toolStripStatusLabel14";
+            this.toolStripStatusLabel14.Size = new System.Drawing.Size(52, 17);
+            this.toolStripStatusLabel14.Text = "ABOUT";
+            // 
+            // toolStripStatusLabel15
+            // 
+            this.toolStripStatusLabel15.Name = "toolStripStatusLabel15";
+            this.toolStripStatusLabel15.Size = new System.Drawing.Size(0, 17);
+            this.toolStripStatusLabel15.Visible = false;
+            // 
+            // toolStripStatusLabel16
+            // 
+            this.toolStripStatusLabel16.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.toolStripStatusLabel16.Name = "toolStripStatusLabel16";
+            this.toolStripStatusLabel16.Size = new System.Drawing.Size(38, 17);
+            this.toolStripStatusLabel16.Text = "HELP";
             // 
             // lb_macId
             // 
@@ -698,7 +810,7 @@ namespace Uniproject
             this.lb_macId.AutoSize = true;
             this.lb_macId.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lb_macId.ForeColor = System.Drawing.Color.DarkGreen;
-            this.lb_macId.Location = new System.Drawing.Point(1347, 58);
+            this.lb_macId.Location = new System.Drawing.Point(-2, 52);
             this.lb_macId.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lb_macId.Name = "lb_macId";
             this.lb_macId.Size = new System.Drawing.Size(79, 24);
@@ -711,13 +823,66 @@ namespace Uniproject
             this.expiryMessage.AutoSize = true;
             this.expiryMessage.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.expiryMessage.ForeColor = System.Drawing.Color.DarkGreen;
-            this.expiryMessage.Location = new System.Drawing.Point(1347, 34);
+            this.expiryMessage.Location = new System.Drawing.Point(-2, 28);
             this.expiryMessage.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.expiryMessage.Name = "expiryMessage";
             this.expiryMessage.Size = new System.Drawing.Size(388, 24);
             this.expiryMessage.TabIndex = 37;
             this.expiryMessage.Text = "Software is expired from days, please renew!";
             this.expiryMessage.Visible = false;
+            // 
+            // lb_workDept
+            // 
+            this.lb_workDept.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.lb_workDept.AutoSize = true;
+            this.lb_workDept.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lb_workDept.ForeColor = System.Drawing.Color.DarkGreen;
+            this.lb_workDept.Location = new System.Drawing.Point(-2, 76);
+            this.lb_workDept.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lb_workDept.Name = "lb_workDept";
+            this.lb_workDept.Size = new System.Drawing.Size(117, 24);
+            this.lb_workDept.TabIndex = 39;
+            this.lb_workDept.Text = "Work Dept : ";
+            // 
+            // uploadInstruction
+            // 
+            this.uploadInstruction.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.uploadInstruction.AutoSize = true;
+            this.uploadInstruction.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.uploadInstruction.ForeColor = System.Drawing.Color.DarkGreen;
+            this.uploadInstruction.Location = new System.Drawing.Point(-2, 3);
+            this.uploadInstruction.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.uploadInstruction.Name = "uploadInstruction";
+            this.uploadInstruction.Size = new System.Drawing.Size(171, 24);
+            this.uploadInstruction.TabIndex = 40;
+            this.uploadInstruction.Text = "Please upload data";
+            // 
+            // panel1
+            // 
+            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.panel1.Controls.Add(this.lblPLC_COMM);
+            this.panel1.Controls.Add(this.uploadInstruction);
+            this.panel1.Controls.Add(this.lb_workDept);
+            this.panel1.Controls.Add(this.expiryMessage);
+            this.panel1.Controls.Add(this.lb_macId);
+            this.panel1.Location = new System.Drawing.Point(1306, 6);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(430, 100);
+            this.panel1.TabIndex = 43;
+            // 
+            // lblPLC_COMM
+            // 
+            this.lblPLC_COMM.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblPLC_COMM.AutoSize = true;
+            this.lblPLC_COMM.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblPLC_COMM.ForeColor = System.Drawing.Color.DarkGreen;
+            this.lblPLC_COMM.Location = new System.Drawing.Point(240, 72);
+            this.lblPLC_COMM.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblPLC_COMM.Name = "lblPLC_COMM";
+            this.lblPLC_COMM.Size = new System.Drawing.Size(184, 24);
+            this.lblPLC_COMM.TabIndex = 41;
+            this.lblPLC_COMM.Text = "PLC Communication:";
             // 
             // mdiMain
             // 
@@ -726,10 +891,8 @@ namespace Uniproject
             this.AutoSize = true;
             this.BackColor = System.Drawing.Color.WhiteSmoke;
             this.ClientSize = new System.Drawing.Size(1742, 878);
-            this.Controls.Add(this.uploadInstruction);
-            this.Controls.Add(this.lb_workDept);
-            this.Controls.Add(this.lb_macId);
-            this.Controls.Add(this.expiryMessage);
+            this.Controls.Add(this.panel1);
+            this.Controls.Add(this.statusStrip2);
             this.Controls.Add(this.menuStrip2);
             this.Controls.Add(this.pnl_left);
             this.Controls.Add(this.updateBox);
@@ -744,6 +907,7 @@ namespace Uniproject
             this.Text = "RMC_SCADA_Phoenix";
             this.TransparencyKey = System.Drawing.Color.White;
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.mdiMain_FormClosing);
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.mdiMain_FormClosed);
             this.Load += new System.EventHandler(this.mdiMain_Load);
             this.statusStrip1.ResumeLayout(false);
@@ -755,6 +919,10 @@ namespace Uniproject
             ((System.ComponentModel.ISupportInitialize)(this.dgv_pending)).EndInit();
             this.menuStrip2.ResumeLayout(false);
             this.menuStrip2.PerformLayout();
+            this.statusStrip2.ResumeLayout(false);
+            this.statusStrip2.PerformLayout();
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -818,10 +986,26 @@ namespace Uniproject
         private System.Windows.Forms.ToolStripMenuItem VehicleMst;
         private System.Windows.Forms.ToolStripMenuItem ReportShow;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
-        private System.Windows.Forms.Label uploadInstruction;
-        private System.Windows.Forms.Label lb_workDept;
+        private System.Windows.Forms.StatusStrip statusStrip2;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel4;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel6;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel7;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel8;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel9;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel10;
+        public System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel11;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel12;
+        public System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel13;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel14;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel15;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel16;
         private System.Windows.Forms.Label lb_macId;
         private System.Windows.Forms.Label expiryMessage;
+        private System.Windows.Forms.Label lb_workDept;
+        private System.Windows.Forms.Label uploadInstruction;
+        private System.Windows.Forms.Panel panel1;
+        public System.Windows.Forms.Label lblPLC_COMM;
     }
 }
 

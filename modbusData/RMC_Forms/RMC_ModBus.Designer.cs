@@ -759,6 +759,7 @@ namespace PDF_File_Reader
             this.dgv1.RowTemplate.ReadOnly = true;
             this.dgv1.Size = new System.Drawing.Size(1908, 500);
             this.dgv1.TabIndex = 20;
+           // this.dgv1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv1_CellContentClick);
             // 
             // panel1
             // 

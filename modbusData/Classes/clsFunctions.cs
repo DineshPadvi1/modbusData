@@ -949,6 +949,26 @@ namespace Uniproject.Classes
                 return "0";
             }
         }
+        public static async Task<string> loadSingleValueAsync(string Query)
+        {
+            string str = "0";
+            try
+            {
+                if (clsFunctions.con.State == ConnectionState.Closed)
+                    await clsFunctions.con.OpenAsync();
+                OleDbDataAdapter oleDbDataAdapter = new OleDbDataAdapter(new OleDbCommand(Query, clsFunctions.con));
+                DataTable dataTable = new DataTable();
+                oleDbDataAdapter.Fill(dataTable);
+                if (dataTable.Rows.Count > 0)
+                    str = dataTable.Rows[0][0].ToString();
+                return str;
+            }
+            catch (Exception ex)
+            {
+                clsFunctions_comman.ErrorLog("FillCombo : " + ex.Message + "query Description " + Query);
+                return "0";
+            }
+        }
 
         public static string loadSinglevalue_HotMix(string query)
         {

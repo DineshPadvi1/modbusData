@@ -24,6 +24,7 @@ using System.Collections.Specialized;
 using System.Diagnostics;
 using System.Linq;
 using System.Drawing;
+using Uniproject;
 
 namespace PDF_File_Reader
 {
@@ -31,6 +32,7 @@ namespace PDF_File_Reader
     {
         public  string sqliteDbPath = System.IO.Path.Combine(Application.StartupPath, "Database\\UniproData.db");
         private BackgroundWorker backgroundWorker;
+   
         ConcurrentDictionary<string, object> dataDict = new ConcurrentDictionary<string, object>();  // Dictionary to store data
 
         // Remove BackgroundWorker from declarations
@@ -62,7 +64,9 @@ namespace PDF_File_Reader
             backgroundWorker.RunWorkerCompleted += BackgroundWorker_RunWorkerCompleted;
             backgroundWorker.WorkerReportsProgress = false;
             backgroundWorker.WorkerSupportsCancellation = true ;
-             
+
+           
+
 
         }
         private void RMC_ModBus_Load_2(object sender, EventArgs e)
@@ -276,6 +280,30 @@ namespace PDF_File_Reader
                             floatValues.Add((float)twelfthChunkSByteValue.Value);
                             continue;
                         }
+
+
+                        // Check for the 13th chunk (index 48, since chunk index * 4 = byte index)
+                        //if (i == 48) //f13
+                        //{
+                        //    Array.Copy(bytes, i, floatBytes, 0, 4);
+
+                        //    if (BitConverter.IsLittleEndian)
+                        //        Array.Reverse(floatBytes);
+
+                        //    // Extract first byte as sbyte (signed)
+                        //    twelfthChunkSByteValue = unchecked((sbyte)floatBytes[0]);
+
+                        //    stringValues.Add($"12th Chunk (sbyte): {twelfthChunkSByteValue.Value}");
+                        //    Console.WriteLine($"The 13th chunk value (sbyte) is: {twelfthChunkSByteValue.Value}");
+                        //    if (twelfthChunkSByteValue.Value == -125)
+                        //    {
+                        //        //for testing 
+                        //    }
+                        //    // Correctly convert sbyte to float and store
+                        //    floatValues.Add((float)twelfthChunkSByteValue.Value);
+                        //    continue;
+                        //}
+                        
 
 
                         // Ensure we don't go out of bounds
@@ -1542,6 +1570,10 @@ namespace PDF_File_Reader
         {
             
         }
+
+       
+
+
     }
 
 

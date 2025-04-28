@@ -1,6 +1,8 @@
 ﻿using PDF_File_Reader;
+using Serilog;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Data;
 using System.Diagnostics;
 using System.Drawing;
@@ -37,19 +39,35 @@ namespace Uniproject
 
         private const string PWDServiceName = "VasundharaUploaderClientPWD";
         // static private ServiceController PWDserviceController;
+        private BackgroundWorker PLC_COMM_WORKER;
+        public static mdiMain Instance { get; set; }
 
         //--------------------------------------------------------------------------------------------------------------------------------------------
 
         public mdiMain()
         {
             InitializeComponent();
-
+            Instance = this;
             //serviceController = new ServiceController(ServiceName);
             //PWDserviceController = new ServiceController(PWDServiceName);
 
             this.KeyPreview = true;
 
             clsFunctions_comman.loadForm = clsFunctions_comman.loadFormNameFromUniproSetup();
+
+            PLC_COMM_WORKER = new BackgroundWorker();
+            PLC_COMM_WORKER.DoWork += PLC_COMM_WORKER_DoWork;
+            PLC_COMM_WORKER.RunWorkerCompleted += BackgroundWorker_RunWorkerCompleted;
+            PLC_COMM_WORKER.WorkerReportsProgress = false;
+            PLC_COMM_WORKER.WorkerSupportsCancellation = true;
+            if (PLC_COMM_WORKER.IsBusy)
+            {
+                PLC_COMM_WORKER.CancelAsync();
+            }
+            else
+            {
+                PLC_COMM_WORKER.RunWorkerAsync();
+            }
         }
 
         //--------------------------------------------------------------------------------------------------------------------------------------------
@@ -1326,6 +1344,59 @@ namespace Uniproject
         {
 
         }
+        private async void PLC_COMM_WORKER_DoWork(object sender, DoWorkEventArgs e)
+        {
+            try
+            {
+                while (!PLC_COMM_WORKER.CancellationPending)
+                {
+                    var status = clsFunctions.loadSingleValueAsync("Select * from dataset where Status=0 and length=179");
+
+                    if (mdiMain.Instance != null && !mdiMain.Instance.IsDisposed)
+                    {
+                        mdiMain.Instance.Invoke(new Action(() =>
+                        {
+                            if (status.Result == "0")
+                            {
+                                mdiMain.Instance.lblPLC_COMM.Text = "PLC is not connected.";
+                                mdiMain.Instance.lblPLC_COMM.ForeColor = System.Drawing.Color.Red; // Color for not connected
+                            }
+                            else
+                            {
+                                mdiMain.Instance.lblPLC_COMM.Text = "PLC is connected.";
+                                mdiMain.Instance.lblPLC_COMM.ForeColor = System.Drawing.Color.Green; // Color for connected
+                            }
+
+                        }));
+                    }
+
+                    await Task.Delay(1000); // Add a small delay to prevent high CPU usage
+                }
+            }
+            catch (Exception ex)
+            {
+                Log.Error("PLC_COMM_WORKER_DoWork", ex);
+            }
+        }
+        private void BackgroundWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            if (e.Cancelled)
+            {
+                Log.Information("Background task cancelled.");
+            }
+            else if (e.Error != null)
+            {
+                Log.Error("BackgroundWorker Error: {Message}", e.Error.Message);
+            }
+            else
+            {
+                Log.Information("Background task completed successfully.");
+            }
+        }
+        private void BackgroundWorker_ProgressChanged(object sender, ProgressChangedEventArgs e)
+        {
+            // Handle progress updates here if needed
+        }
 
         private void SW_Config_Click(object sender, EventArgs e)
         {
@@ -1378,6 +1449,14 @@ namespace Uniproject
         private void toolStripMenuItem1_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void mdiMain_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            //if (PLC_COMM_WORKER.IsBusy)
+            //{
+            //    PLC_COMM_WORKER.CancelAsync();
+            //}
         }
 
         //--------------------------------------------------------------------------------------------------------------------------------------------
