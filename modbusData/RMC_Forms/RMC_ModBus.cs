@@ -30,7 +30,7 @@ namespace PDF_File_Reader
 {
     public partial class RMC_ModBus : Form
     {
-        public  string sqliteDbPath = System.IO.Path.Combine(Application.StartupPath, "Database\\UniproData.db");
+        public static string sqliteDbPath = System.IO.Path.Combine(Application.StartupPath, "Database\\UniproData.db");
         private BackgroundWorker backgroundWorker;
    
         ConcurrentDictionary<string, object> dataDict = new ConcurrentDictionary<string, object>();  // Dictionary to store data
@@ -84,7 +84,7 @@ namespace PDF_File_Reader
             }
             catch { }
             
-        txtRDMBatchNO.Text = clsFunctions_comman.GetMaxId("Select MAX(Batch_No) from Batch_Dat_Trans").ToString();
+        txtRDMBatchNO.Text = clsFunctions_comman.GetMaxId("Select MAX(Batch_No) from Batch_Transaction").ToString();
             
             loadComboData();
             addNameSetupToDGV();
@@ -283,27 +283,27 @@ namespace PDF_File_Reader
 
 
                         // Check for the 13th chunk (index 48, since chunk index * 4 = byte index)
-                        //if (i == 48) //f13
-                        //{
-                        //    Array.Copy(bytes, i, floatBytes, 0, 4);
+                        if (i == 48) //f13
+                        {
+                            Array.Copy(bytes, i, floatBytes, 0, 4);
 
-                        //    if (BitConverter.IsLittleEndian)
-                        //        Array.Reverse(floatBytes);
+                            if (BitConverter.IsLittleEndian)
+                                Array.Reverse(floatBytes);
 
-                        //    // Extract first byte as sbyte (signed)
-                        //    twelfthChunkSByteValue = unchecked((sbyte)floatBytes[0]);
+                            // Extract first byte as sbyte (signed)
+                            twelfthChunkSByteValue = unchecked((sbyte)floatBytes[0]);
 
-                        //    stringValues.Add($"12th Chunk (sbyte): {twelfthChunkSByteValue.Value}");
-                        //    Console.WriteLine($"The 13th chunk value (sbyte) is: {twelfthChunkSByteValue.Value}");
-                        //    if (twelfthChunkSByteValue.Value == -125)
-                        //    {
-                        //        //for testing 
-                        //    }
-                        //    // Correctly convert sbyte to float and store
-                        //    floatValues.Add((float)twelfthChunkSByteValue.Value);
-                        //    continue;
-                        //}
-                        
+                            stringValues.Add($"12th Chunk (sbyte): {twelfthChunkSByteValue.Value}");
+                            Console.WriteLine($"The 13th chunk value (sbyte) is: {twelfthChunkSByteValue.Value}");
+                            if (twelfthChunkSByteValue.Value == -125)
+                            {
+                                //for testing 
+                            }
+                            // Correctly convert sbyte to float and store
+                            floatValues.Add((float)twelfthChunkSByteValue.Value);
+                            continue;
+                        }
+
 
 
                         // Ensure we don't go out of bounds
@@ -1279,13 +1279,13 @@ namespace PDF_File_Reader
             {
                 txtRDMBatchNO.Invoke(new MethodInvoker(() =>
                 {
-                    txtRDMBatchNO.Text = clsFunctions_comman.GetMaxId("Select MAX(Batch_No) from Batch_Dat_Trans").ToString();
+                    txtRDMBatchNO.Text = clsFunctions_comman.GetMaxId("Select MAX(Batch_No) from Batch_Transaction").ToString();
                     //dgv1.Rows.Clear();
                 }));
             }
             else
             {
-                txtRDMBatchNO.Text = clsFunctions_comman.GetMaxId("Select MAX(Batch_No) from Batch_Dat_Trans").ToString();
+                txtRDMBatchNO.Text = clsFunctions_comman.GetMaxId("Select MAX(Batch_No) from Batch_Transaction").ToString();
                 //dgv1.Rows.Clear();
             }
 

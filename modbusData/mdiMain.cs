@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.SQLite;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
@@ -1348,30 +1349,68 @@ namespace Uniproject
         {
             try
             {
-                while (!PLC_COMM_WORKER.CancellationPending)
+                string connectionString = $"Data Source={RMC_ModBus.sqliteDbPath};Version=3;";
+                try
                 {
-                    var status = clsFunctions.loadSingleValueAsync("Select * from dataset where Status=0 and length=179");
+                    using (var connection = new SQLiteConnection(connectionString))
+                    {
+                        await connection.OpenAsync();
+
+                        while (!PLC_COMM_WORKER.CancellationPending)
+                        {
+                            try
+                            {
+                                string status = "";
+
+                                using (var command = new SQLiteCommand("SELECT plc_comm FROM status LIMIT 1", connection))
+                                {
+                                    var result = await command.ExecuteScalarAsync();
+                                    status = result?.ToString() ?? "0"; // Default to "0" if null
+                                }
+
+                                if (mdiMain.Instance != null && !mdiMain.Instance.IsDisposed)
+                                {
+                                    mdiMain.Instance.Invoke(new Action(() =>
+                                    {
+                                        if (status == "0")
+                                        {
+                                            mdiMain.Instance.lblPLC_COMM.Text = "PLC is not connected.";
+                                            mdiMain.Instance.lblPLC_COMM.ForeColor = System.Drawing.Color.Red;
+                                        }
+                                        else
+                                        {
+                                            mdiMain.Instance.lblPLC_COMM.Text = "PLC is connected.";
+                                            mdiMain.Instance.lblPLC_COMM.ForeColor = System.Drawing.Color.Green;
+                                        }
+                                    }));
+                                }
+                            }
+                            catch (Exception exInner)
+                            {
+                                // Optional: log this error
+                                Console.WriteLine($"Error reading PLC status: {exInner.Message}");
+                            }
+
+                            await Task.Delay(1000); // Prevents high CPU usage
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    // Handle initial connection errors
+                    Console.WriteLine($"Database connection failed: {ex.Message}");
 
                     if (mdiMain.Instance != null && !mdiMain.Instance.IsDisposed)
                     {
                         mdiMain.Instance.Invoke(new Action(() =>
                         {
-                            if (status.Result == "0")
-                            {
-                                mdiMain.Instance.lblPLC_COMM.Text = "PLC is not connected.";
-                                mdiMain.Instance.lblPLC_COMM.ForeColor = System.Drawing.Color.Red; // Color for not connected
-                            }
-                            else
-                            {
-                                mdiMain.Instance.lblPLC_COMM.Text = "PLC is connected.";
-                                mdiMain.Instance.lblPLC_COMM.ForeColor = System.Drawing.Color.Green; // Color for connected
-                            }
-
+                            mdiMain.Instance.lblPLC_COMM.Text = "DB connection failed.";
+                            mdiMain.Instance.lblPLC_COMM.ForeColor = System.Drawing.Color.DarkRed;
                         }));
                     }
-
-                    await Task.Delay(1000); // Add a small delay to prevent high CPU usage
                 }
+
+
             }
             catch (Exception ex)
             {
