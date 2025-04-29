@@ -883,6 +883,7 @@ namespace Uniproject
             this.lblPLC_COMM.Size = new System.Drawing.Size(184, 24);
             this.lblPLC_COMM.TabIndex = 41;
             this.lblPLC_COMM.Text = "PLC Communication:";
+            this.lblPLC_COMM.Visible = false;
             // 
             // mdiMain
             // 
