@@ -32,7 +32,7 @@ namespace PDF_File_Reader
     {
         public static string sqliteDbPath = System.IO.Path.Combine(Application.StartupPath, "Database\\UniproData.db");
         private BackgroundWorker backgroundWorker;
-   
+
         ConcurrentDictionary<string, object> dataDict = new ConcurrentDictionary<string, object>();  // Dictionary to store data
 
         // Remove BackgroundWorker from declarations
@@ -63,9 +63,9 @@ namespace PDF_File_Reader
             backgroundWorker.DoWork += BackgroundWorker_DoWork;
             backgroundWorker.RunWorkerCompleted += BackgroundWorker_RunWorkerCompleted;
             backgroundWorker.WorkerReportsProgress = false;
-            backgroundWorker.WorkerSupportsCancellation = true ;
+            backgroundWorker.WorkerSupportsCancellation = true;
 
-           
+
 
 
         }
@@ -83,9 +83,9 @@ namespace PDF_File_Reader
                 backgroundWorker.RunWorkerAsync();
             }
             catch { }
-            
-        txtRDMBatchNO.Text = clsFunctions_comman.GetMaxId("Select MAX(Batch_No) from Batch_Transaction").ToString();
-            
+
+            txtRDMBatchNO.Text = clsFunctions_comman.GetMaxId("Select MAX(Batch_No) from Batch_Transaction").ToString();
+
             loadComboData();
             addNameSetupToDGV();
         }
@@ -96,7 +96,7 @@ namespace PDF_File_Reader
             {
                 var dt = await LoadDataTo_DataTableAsync();
                 await ConvertDataAsync(dt);
-                 
+
             }
             catch (Exception ex)
             {
@@ -105,7 +105,7 @@ namespace PDF_File_Reader
         }
 
         public bool Stop_backgroundWorker = false;
-        private async Task ConvertDataAsync(DataTable dt)  
+        private async Task ConvertDataAsync(DataTable dt)
         {
             try
             {
@@ -118,7 +118,7 @@ namespace PDF_File_Reader
                         row["length"].ToString(),
                         Convert.ToInt32(row["id"])
                     );
-                     Task.Delay(100).Wait();
+                    Task.Delay(100).Wait();
 
                     if (Stop_backgroundWorker)
                     {
@@ -357,14 +357,14 @@ namespace PDF_File_Reader
         bool sub_Batch_Flag = false;
         int counter = 0;
         bool flagForTrans = false;
-        string Batch_Start_Time = string.Empty; 
+        string Batch_Start_Time = string.Empty;
         private async Task InsertFloatValuesIntoDatabaseAsync(List<float> floatValues, string datetime1, string length, int id)
         {
             try
             {
-                string datetime11="";
+                string datetime11 = "";
 
-                double length1=0;
+                double length1 = 0;
 
                 // Aggregates
                 double Agg1_Actual = 0;
@@ -473,8 +473,8 @@ namespace PDF_File_Reader
                 }
 
 
-                 
-                 
+
+
                 // Update UI only if safe, no nulls or exceptions
                 if (length == "179") // production data
                 {
@@ -584,16 +584,16 @@ namespace PDF_File_Reader
                     //UpdateActualValuestoUI(txtADM12_Act, "0");//GetSafeValue(row, "f30"));   //admix22
                     //admix12 = Convert.ToDouble(0);
                     //dataDict["Admix12"] = admix12;
-                    
 
-                     
-                    
-                    
+
+
+
+
 
                     string formatted = string.Empty;
                     if (DateTime.TryParse(datetime1, out DateTime date1))
                     {
-                         formatted = date1.ToString("yyyy-MM-dd HH:mm:ss.fffffff");
+                        formatted = date1.ToString("yyyy-MM-dd HH:mm:ss.fffffff");
                         Console.WriteLine(formatted); // Output: Apr 14, 2025 18:18:05.8720780
                     }
                     else
@@ -604,17 +604,17 @@ namespace PDF_File_Reader
                     {
                         // Read value
                         bool isRunning = SharedFlags.Flags.GetOrAdd("IsRunning", false);
-                        
+
                         if (isRunning)
                         {
-                            if(row["f12"].ToString() == "-125")
+                            if (row["f12"].ToString() == "-125")
                             {
 
                             }
                             // to store from here
                             if (row["f12"].ToString() == "-125" && SharedFlags.Temp_Batch_Stop_Hold.GetOrAdd("EndFlagForNewLogic", 0) != -125)
                             {
-                                if (SharedFlags.Temp_Batch_Stop_Hold.GetOrAdd("EndFlagForNewLogic",0) != -125)
+                                if (SharedFlags.Temp_Batch_Stop_Hold.GetOrAdd("EndFlagForNewLogic", 0) != -125)
                                 {
                                     SharedFlags.Temp_Batch_Stop_Hold.AddOrUpdate(
                                         "EndFlagForNewLogic",
@@ -685,20 +685,20 @@ namespace PDF_File_Reader
                                             );";
 
 
-                                    await clsFunctions.AdoDataAsync(query);
-                                    AddRowSafe(dgv1, subBatchEnd, GetTextSafe(txtRDMBatchNO), Convert.ToDateTime(datetime1).ToString("yyyy-MM-dd"), Convert.ToDateTime(datetime1).ToString("hh:mm:ss tt"), Agg1_Actual, Agg2_Actual, Agg3_Actual, Agg4_Actual, 0, 0,
-                                                            Cem1_Actual, Cem2_Actual, 0, 0, 0, Water1_Actual, Water2_Actual,
-                                                            admix11_Actual, admix12_Actual, 0, 0, 0, 0);
+                                await clsFunctions.AdoDataAsync(query);
+                                AddRowSafe(dgv1, subBatchEnd, GetTextSafe(txtRDMBatchNO), Convert.ToDateTime(datetime1).ToString("yyyy-MM-dd"), Convert.ToDateTime(datetime1).ToString("hh:mm:ss tt"), Agg1_Actual, Agg2_Actual, Agg3_Actual, Agg4_Actual, 0, 0,
+                                                        Cem1_Actual, Cem2_Actual, 0, 0, 0, Water1_Actual, Water2_Actual,
+                                                        admix11_Actual, admix12_Actual, 0, 0, 0, 0);
 
-                                    counter = 0;
-                                    sub_Batch_Flag = true;
-                                    flagForTrans = true;
+                                counter = 0;
+                                sub_Batch_Flag = true;
+                                flagForTrans = true;
 
-                                    if(subBatchEnd == 1) // we get batch start time here 
-                                    {
-                                        Batch_Start_Time = Convert.ToDateTime(datetime1).ToString("hh:mm:ss tt");
-                                    }
-                                    subBatchEnd++;
+                                if (subBatchEnd == 1) // we get batch start time here 
+                                {
+                                    Batch_Start_Time = Convert.ToDateTime(datetime1).ToString("hh:mm:ss tt");
+                                }
+                                subBatchEnd++;
 
 
 
@@ -721,7 +721,7 @@ namespace PDF_File_Reader
                                        );
                                 }
                             }
-                             
+
 
 
 
@@ -751,7 +751,7 @@ namespace PDF_File_Reader
 
 
 
-                             
+
 
 
                         }
@@ -759,7 +759,7 @@ namespace PDF_File_Reader
                         {
                             if (flagForTrans)
                             {
-                                string query ="Update Batch_Transaction set Balance_Wtr='1' " +
+                                string query = "Update Batch_Transaction set Balance_Wtr='1' " +
                                             "WHERE Batch_Index = (SELECT MAX(Batch_Index) FROM Batch_Transaction WHERE Batch_No = " + GetTextSafe(txtRDMBatchNO) + ") " +
                                             "AND Batch_No = " + GetTextSafe(txtRDMBatchNO);
 
@@ -787,7 +787,7 @@ namespace PDF_File_Reader
                                     //prodQty = (rowCount * batchSize); // Multiply safely and cast to int
                                     //var d = rowCount * batchSize;
 
-                                     prodQty = rowCount * batchSize;
+                                    prodQty = rowCount * batchSize;
                                     string formattedProdQty = prodQty % 1 == 0
                                         ? ((int)prodQty).ToString()          // whole number, no decimal
                                         : prodQty.ToString("0.##");          // up to two decimals, trimmed
@@ -810,10 +810,24 @@ namespace PDF_File_Reader
                                                     );
                                 DataRow row1 = dt1.Rows[0]; // Since you're using TOP 1
 
-                           
+
 
                                 string Batch_End_Time = Convert.ToDateTime(row1["Batch_Time"]).ToString("HH:mm:ss");
-                                
+
+
+                                //string insertToTransQuery = "insert into Batch_Dat_Trans (Batch_No,Batch_Date,Batch_Time,Batch_Time_Text,Batch_Start_Time,Batch_End_Time,Batch_Year,Batcher_Name,Batcher_User_Level,Customer_Code,Recipe_Code,"
+                                //  + "Recipe_Name,Mixing_Time,Mixer_Capacity,strength,Site,Truck_No,Truck_Driver,Production_Qty,Ordered_Qty,Returned_Qty,WithThisLoad,Batch_Size,Order_No,Schedule_Id,Gate1_Target,"
+                                //  + "Gate2_Target,Gate3_Target,Gate4_Target,Gate5_Target,Gate6_Target,Cement1_Target,Cement2_Target,Cement3_Target,Cement4_Target,Filler_Target,Water1_Target,slurry_Target,Water2_Target,"
+                                //  + "Silica_Target,Adm1_Target1,Adm1_Target2,Adm2_Target1,Adm2_Target2,Cost_Per_Mtr_Cube,Total_Cost,Plant_No,Weighed_Net_Weight,Weigh_Bridge_Stat,tExportStatus,tUpload1,tUpload2, WO_Code, Cust_Name, Site_ID, InsertType) values('" + GetTextSafe(txtRDMBatchNO)
+                                //  + "','" + Convert.ToDateTime(datetime1).ToString("yyyy-MM-dd") + "','" + Convert.ToDateTime(Batch_Start_Time).ToString("hh:mm:ss tt") + "','" + Convert.ToDateTime(Batch_Start_Time).ToString("hh:mm:ss tt") + "','" + Convert.ToDateTime(Batch_Start_Time).ToString("hh:mm:ss tt") + "','" + Convert.ToDateTime(Batch_End_Time).ToString("hh:mm:ss tt") + "','" + Convert.ToDateTime(datetime1).ToString("yyyy")
+                                //  + "','" + 0 + "','" + 0 + "','" + GetTextSafe(txtcontractorid) + "','" + GetTextSafe(cmbRecipe) + "','" + GetTextSafe(cmbRecipe) + "','" + /*clsVar.Mixing_Time*/ 0
+                                //  + "','" + GetTextSafe(txtMixerCapacity) + "','" + /*clsVar.strength*/0 + "','" + GetTextSafe(cmbjobsite) + "','" + GetTextSafe(cmbRDMVehicle) + "','" + "NA" + "','" + /*clsVar.Production_Qty*/prodQty
+                                //  + "','" + /*clsVar.Ordered_Qty*/0 + "','" + /*clsVar.Returned_Qty*/0 + "','" + /*clsVar.WithThisLoad*/0 + "','" + Batch_Size + "','" + /*clsVar.Order_No*/0 + "','" +/* clsVar.Schedule_Id */0 + "','" + Agg1_Target
+                                //  + "','" + Agg2_Target + "','" + Agg3_Target + "','" + Agg4_Target + "','" + 0 + "','" + 0 + "','" + Cem1_Target
+                                //  + "','" + Cem2_Target + "','" + Cem3_Target + "','" + Cem4_Target + "','" + /*clsVar.Filler_Target*/0 + "','" + Water1_Target + "','" + /*clsVar.slurry_Target*/0
+                                //  + "','" + Water2_Target + "','" + /*clsVar.Silica_Target*/0 + "','" + admix11_Target + "','" + admix12_Target + "','" +/* Convert.ToDouble(rowForTrans["ADMIX3TRG"])*/0 + "','" + /*clsVar.Adm2_Target2*/0
+                                //  + "','" + /*clsVar.Cost_Per_Mtr_Cube*/0 + "','" + /*clsVar.Total_Cost*/0 + "','" + GetTextSafe(txtplantcode) + "','" + /*clsVar.Weighed_Net_Weight*/0 + "','" + /*clsVar.Weigh_Bridge_Stat*/0 + "','N','0','0','" + GetTextSafe(txtworkid) + "','" + GetTextSafe(cmbContractor) + "',0, 'A')";
+
 
                                 string insertToTransQuery = "insert into Batch_Dat_Trans (Batch_No,Batch_Date,Batch_Time,Batch_Time_Text,Batch_Start_Time,Batch_End_Time,Batch_Year,Batcher_Name,Batcher_User_Level,Customer_Code,Recipe_Code,"
                                   + "Recipe_Name,Mixing_Time,Mixer_Capacity,strength,Site,Truck_No,Truck_Driver,Production_Qty,Ordered_Qty,Returned_Qty,WithThisLoad,Batch_Size,Order_No,Schedule_Id,Gate1_Target,"
@@ -822,15 +836,16 @@ namespace PDF_File_Reader
                                   + "','" + Convert.ToDateTime(datetime1).ToString("yyyy-MM-dd") + "','" + Convert.ToDateTime(Batch_Start_Time).ToString("hh:mm:ss tt") + "','" + Convert.ToDateTime(Batch_Start_Time).ToString("hh:mm:ss tt") + "','" + Convert.ToDateTime(Batch_Start_Time).ToString("hh:mm:ss tt") + "','" + Convert.ToDateTime(Batch_End_Time).ToString("hh:mm:ss tt") + "','" + Convert.ToDateTime(datetime1).ToString("yyyy")
                                   + "','" + 0 + "','" + 0 + "','" + GetTextSafe(txtcontractorid) + "','" + GetTextSafe(cmbRecipe) + "','" + GetTextSafe(cmbRecipe) + "','" + /*clsVar.Mixing_Time*/ 0
                                   + "','" + GetTextSafe(txtMixerCapacity) + "','" + /*clsVar.strength*/0 + "','" + GetTextSafe(cmbjobsite) + "','" + GetTextSafe(cmbRDMVehicle) + "','" + "NA" + "','" + /*clsVar.Production_Qty*/prodQty
-                                  + "','" + /*clsVar.Ordered_Qty*/0 + "','" + /*clsVar.Returned_Qty*/0 + "','" + /*clsVar.WithThisLoad*/0 + "','" + Batch_Size + "','" + /*clsVar.Order_No*/0 + "','" +/* clsVar.Schedule_Id */0 + "','" + Agg1_Target
-                                  + "','" + Agg2_Target + "','" + Agg3_Target + "','" + Agg4_Target + "','" + 0 + "','" + 0 + "','" + Cem1_Target
-                                  + "','" + Cem2_Target + "','" + Cem3_Target + "','" + Cem4_Target + "','" + /*clsVar.Filler_Target*/0 + "','" + Water1_Target + "','" + /*clsVar.slurry_Target*/0
-                                  + "','" + Water2_Target + "','" + /*clsVar.Silica_Target*/0 + "','" + admix11_Target + "','" + admix12_Target + "','" +/* Convert.ToDouble(rowForTrans["ADMIX3TRG"])*/0 + "','" + /*clsVar.Adm2_Target2*/0
+                                  + "','" + /*clsVar.Ordered_Qty*/0 + "','" + /*clsVar.Returned_Qty*/0 + "','" + /*clsVar.WithThisLoad*/0 + "','" + Batch_Size + "','" + /*clsVar.Order_No*/0 + "','" +/* clsVar.Schedule_Id */0 + "','" + Agg1_Target / Batch_Size
+                                  + "','" + Agg2_Target / Batch_Size + "','" + Agg3_Target / Batch_Size + "','" + Agg4_Target / Batch_Size + "','" + 0 + "','" + 0 + "','" + Cem1_Target / Batch_Size
+                                  + "','" + Cem2_Target / Batch_Size + "','" + Cem3_Target / Batch_Size + "','" + Cem4_Target / Batch_Size + "','" + /*clsVar.Filler_Target*/0 + "','" + Water1_Target / Batch_Size + "','" + /*clsVar.slurry_Target*/0
+                                  + "','" + Water2_Target / Batch_Size + "','" + /*clsVar.Silica_Target*/0 + "','" + admix11_Target / Batch_Size + "','" + admix12_Target / Batch_Size + "','" +/* Convert.ToDouble(rowForTrans["ADMIX3TRG"])*/0 + "','" + /*clsVar.Adm2_Target2*/0
                                   + "','" + /*clsVar.Cost_Per_Mtr_Cube*/0 + "','" + /*clsVar.Total_Cost*/0 + "','" + GetTextSafe(txtplantcode) + "','" + /*clsVar.Weighed_Net_Weight*/0 + "','" + /*clsVar.Weigh_Bridge_Stat*/0 + "','N','0','0','" + GetTextSafe(txtworkid) + "','" + GetTextSafe(cmbContractor) + "',0, 'A')";
 
 
+
                                 int status = await clsFunctions.AdoDataAsync(insertToTransQuery);
-                                if(status==1)
+                                if (status == 1)
                                     MessageBox.Show("Batch saved successfully!", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
                                 else
                                     MessageBox.Show("Batch not saved!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -839,11 +854,12 @@ namespace PDF_File_Reader
                                 flagForTrans = false;
                                 subBatchEnd = 1;
                             }
-                             
+
                         }
-                        
+
                     }
-                    catch(Exception ex) {
+                    catch (Exception ex)
+                    {
 
                         Log.Error("at isRunning ", ex);
 
@@ -854,7 +870,7 @@ namespace PDF_File_Reader
 
                 //if (length == "137") // start/stop data
                 //{
-                     
+
                 //}
 
 
@@ -1084,7 +1100,7 @@ namespace PDF_File_Reader
             {
                 if (targetTextBox.InvokeRequired)
                 {
-                    targetTextBox.Invoke(new Action(() =>  UpdateActualValuestoUI(targetTextBox, value)));
+                    targetTextBox.Invoke(new Action(() => UpdateActualValuestoUI(targetTextBox, value)));
                     return;
                 }
 
@@ -1317,9 +1333,9 @@ namespace PDF_File_Reader
             dgv1.Rows.Clear();
             //// Set value
             //SharedFlags.Flags["IsRunning"] = true;
-             sub_Batch_Flag = false;
-             counter = 0;
-             //flagForTrans = false;
+            sub_Batch_Flag = false;
+            counter = 0;
+            //flagForTrans = false;
 
 
             // Toggle value safely (example)
@@ -1357,9 +1373,9 @@ namespace PDF_File_Reader
             {
                 //clsFunctions_comman.FillCombo_D_ASIT("Select Distinct ContractorName from workorder", cmbContractor);
 
-               
-                        SetDateTimeToController();
-                  
+
+                SetDateTimeToController();
+
 
                 //------------------
                 clsFunctions.checknewcolumn("iscompleted", "Text(255)", "workorder");
@@ -1378,14 +1394,14 @@ namespace PDF_File_Reader
             }
         }
         public DateTime DateToday;
-        public void SetDateTimeToController()             
+        public void SetDateTimeToController()
         {
             try
-            { 
+            {
 
                 DateToday = DateTime.Now.Date; // assign only the date part (no time)
                 txtDateToday.Text = DateToday.ToString("yyyy-MM-dd", System.Globalization.CultureInfo.InvariantCulture);
-                 
+
                 Thread.Sleep(500);
             }
             catch (Exception ex)
@@ -1399,14 +1415,14 @@ namespace PDF_File_Reader
         {
             try
             {
-                
+
                 DataTable dt = clsFunctions.fillDatatable("select Gate1Name,Gate2Name,Gate3Name,Gate4Name,Gate5Name,Gate6Name,Cem1Name,Cem2Name,Cem3Name,Cem4Name,FillName,Wtr1Name,wtr2Name,Admix1Name,Admix2Name from NameSetup where tInfo='O' and Batch_No=2"); //WHERE Batch_No=3
 
                 dgv1.Columns.Add("Sr_No", "SrNo");
                 dgv1.Columns.Add("_batchNo", "BatchNo");
                 dgv1.Columns.Add("_date", "Date");
 
-               
+
                 dgv1.Columns.Add("_time", "Time");
 
                 foreach (DataColumn col in dt.Columns)
@@ -1421,7 +1437,7 @@ namespace PDF_File_Reader
                     }
                 }
                 dgv1.Columns.Add("WtrCorr", "WtrCorr");
-                
+
             }
             catch (Exception ex)
             {
@@ -1487,7 +1503,7 @@ namespace PDF_File_Reader
 
         private void btnClear_Click(object sender, EventArgs e)
         {
-          
+
         }
 
         private void btnRecipe_Click(object sender, EventArgs e)
@@ -1533,7 +1549,7 @@ namespace PDF_File_Reader
 
         private void cmbRecipe_SelectedIndexChanged(object sender, EventArgs e)
         {
-            txtMixerCapacity.Text = clsFunctions.loadSingleValue("Select Mixer_Capacity From Recipe_Master where Recipe_Name='"+cmbRecipe.Text+"'");
+            txtMixerCapacity.Text = clsFunctions.loadSingleValue("Select Mixer_Capacity From Recipe_Master where Recipe_Name='" + cmbRecipe.Text + "'");
         }
 
         private void cmbRDMVehicle_SelectedIndexChanged(object sender, EventArgs e)
@@ -1568,10 +1584,10 @@ namespace PDF_File_Reader
 
         private void lblActual_Paint(object sender, PaintEventArgs e)
         {
-            
+
         }
 
-       
+
 
 
     }
@@ -1581,7 +1597,7 @@ namespace PDF_File_Reader
     public static class SharedFlags
     {
         public static ConcurrentDictionary<string, bool> Flags = new ConcurrentDictionary<string, bool>();
-        public static ConcurrentDictionary<string,float> Temp_Batch_Stop_Hold = new ConcurrentDictionary<string, float>();
+        public static ConcurrentDictionary<string, float> Temp_Batch_Stop_Hold = new ConcurrentDictionary<string, float>();
     }
 
 }
