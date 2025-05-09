@@ -623,6 +623,13 @@ namespace Uniproject.Classes
         public string col_Tank1_Temp = "0";
         public string col_Tank2_Temp = "0";
 
+        public static int maxMixTemp = 0;
+        public static int maxBitumenTemp = 0;
+        public static int maxExhaustTemp = 0;
+
+        public static int minMixTemp = 0;
+        public static int minBitumenTemp = 0;
+        public static int minExhaustTemp = 0;
         //------------------------
 
         //------------------------

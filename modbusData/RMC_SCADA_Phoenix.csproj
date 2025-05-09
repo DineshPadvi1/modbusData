@@ -67,6 +67,11 @@
     <Reference Include="Microsoft.Bcl.AsyncInterfaces, Version=9.0.0.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Bcl.AsyncInterfaces.9.0.1\lib\net462\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.VisualBasic" />
+    <Reference Include="Microsoft.VisualBasic.PowerPacks.Vs, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>DLLs\Microsoft.VisualBasic.PowerPacks.Vs.dll</HintPath>
+    </Reference>
     <Reference Include="MySql.Data, Version=9.3.0.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
       <HintPath>..\packages\MySql.Data.9.3.0\lib\net462\MySql.Data.dll</HintPath>
     </Reference>
@@ -162,7 +167,15 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BT Forms\LoadDetails.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BT Forms\LoadDetails.designer.cs">
+      <DependentUpon>LoadDetails.cs</DependentUpon>
+    </Compile>
     <Compile Include="Classes\captcha.cs" />
+    <Compile Include="Classes\clsBTdata.cs" />
+    <Compile Include="Classes\clsBTvar.cs" />
     <Compile Include="Classes\clsFunctions.cs" />
     <Compile Include="Classes\clsFunctions_comman.cs" />
     <Compile Include="Classes\clsPatch.cs" />
@@ -200,6 +213,12 @@
     </Compile>
     <Compile Include="Masters\CustomerMaster.Designer.cs">
       <DependentUpon>CustomerMaster.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Masters\frmEagleBatchMAster.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Masters\frmEagleBatchMAster.designer.cs">
+      <DependentUpon>frmEagleBatchMAster.cs</DependentUpon>
     </Compile>
     <Compile Include="Masters\ReceipeMaster_RMC.cs">
       <SubType>Form</SubType>
@@ -304,11 +323,18 @@
     <Compile Include="SW Configuration\Sync.Designer.cs">
       <DependentUpon>Sync.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="BT Forms\LoadDetails.resx">
+      <DependentUpon>LoadDetails.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BT Forms\LoadDetails_BM.resx" />
     <EmbeddedResource Include="Classes\UniBox.resx">
       <DependentUpon>UniBox.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Masters\CustomerMaster.resx">
       <DependentUpon>CustomerMaster.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Masters\frmEagleBatchMAster.resx">
+      <DependentUpon>frmEagleBatchMAster.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Masters\ReceipeMaster_RMC.resx">
       <DependentUpon>ReceipeMaster_RMC.cs</DependentUpon>
@@ -418,6 +444,7 @@
     <None Include="Resources\splash screen.png" />
     <None Include="Resources\RMC_LOADING.png" />
     <None Include="Resources\RMC_LOADING1.png" />
+    <None Include="Resources\BT.png" />
     <Content Include="script.txt" />
   </ItemGroup>
   <ItemGroup />

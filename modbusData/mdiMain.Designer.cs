@@ -285,7 +285,7 @@ namespace Uniproject
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Padding = new System.Windows.Forms.Padding(4, 2, 0, 2);
-            this.menuStrip1.Size = new System.Drawing.Size(1742, 30);
+            this.menuStrip1.Size = new System.Drawing.Size(1742, 24);
             this.menuStrip1.TabIndex = 19;
             this.menuStrip1.Text = "Work Links";
             // 
@@ -311,10 +311,10 @@ namespace Uniproject
             this.pnl_left.Controls.Add(this.button2);
             this.pnl_left.Controls.Add(this.btn_uplaoder);
             this.pnl_left.Dock = System.Windows.Forms.DockStyle.Left;
-            this.pnl_left.Location = new System.Drawing.Point(0, 30);
+            this.pnl_left.Location = new System.Drawing.Point(0, 24);
             this.pnl_left.Margin = new System.Windows.Forms.Padding(2);
             this.pnl_left.Name = "pnl_left";
-            this.pnl_left.Size = new System.Drawing.Size(132, 841);
+            this.pnl_left.Size = new System.Drawing.Size(132, 847);
             this.pnl_left.TabIndex = 34;
             // 
             // errorBatchCount
@@ -606,7 +606,7 @@ namespace Uniproject
             this.VehicleMst,
             this.ReportShow,
             this.toolStripMenuItem1});
-            this.menuStrip2.Location = new System.Drawing.Point(132, 30);
+            this.menuStrip2.Location = new System.Drawing.Point(132, 24);
             this.menuStrip2.Name = "menuStrip2";
             this.menuStrip2.Padding = new System.Windows.Forms.Padding(4, 2, 0, 2);
             this.menuStrip2.Size = new System.Drawing.Size(1610, 89);

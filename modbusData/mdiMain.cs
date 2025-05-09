@@ -702,19 +702,35 @@ namespace Uniproject
             //-------------------------------------------------------------------
 
             //--- 
-            if (IsFormOpen("RMC_ModBus"))
+            if (loadForm == "RMC_ModBus")
             {
-                MessageBox.Show("The form is already open!");
+                if (IsFormOpen("RMC_ModBus"))
+                {
+                    MessageBox.Show("The form is already open!");
+                }
+                else
+                {
+                    RMC_ModBus rmc = new RMC_ModBus();
+                    rmc.MdiParent = this;
+                    rmc.Show();
+                }
             }
-            else
+            if (loadForm == "LoadDetails")
             {
-                RMC_ModBus rmc = new RMC_ModBus();
-                rmc.MdiParent = this;
-                rmc.Show();
+                if (IsFormOpen("LoadDetails"))
+                {
+                    MessageBox.Show("The form is already open!");
+                }
+                else
+                {
+                    LoadDetails ld = new LoadDetails();
+                    ld.MdiParent = this;
+                    ld.Show();
+                }
             }
 
             //-------------------------------------------------------------------
-            
+
         }
 
         //------------------------------------------------------------------- Work Master -------------------------------------------------------------------------

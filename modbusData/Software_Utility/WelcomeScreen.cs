@@ -16,6 +16,15 @@ namespace Uniproject.UtilityTools
         {
             try
             {
+                string mode = clsFunctions.loadSingleValueSetup("Select PlantType from PlantSetup");
+                if (mode.Contains("Bit"))
+                {
+                    this.BackgroundImage = modbusData.Properties.Resources.BT; // Set the background image
+                }
+                else
+                {
+                    this.BackgroundImage = modbusData.Properties.Resources.RMC_LOADING1; // Set the background image
+                }
                 clsFunctions_comman.ErrorLog("Inside WelcomeScreen.cs");
 
                 lb_version.Text = "| v" + System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString();
