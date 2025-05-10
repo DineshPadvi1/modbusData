@@ -623,6 +623,7 @@
             // 
             // tabPage1
             // 
+            this.tabPage1.BackColor = System.Drawing.Color.MistyRose;
             this.tabPage1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.tabPage1.Controls.Add(this.panel3);
             this.tabPage1.Controls.Add(this.dgvloaddetails);
@@ -632,7 +633,6 @@
             this.tabPage1.Padding = new System.Windows.Forms.Padding(4);
             this.tabPage1.Size = new System.Drawing.Size(1555, 374);
             this.tabPage1.TabIndex = 0;
-            this.tabPage1.UseVisualStyleBackColor = true;
             // 
             // panel3
             // 
@@ -713,7 +713,7 @@
             this.txtTime.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.txtTime.MaximumSize = new System.Drawing.Size(93, 28);
             this.txtTime.Name = "txtTime";
-            this.txtTime.Size = new System.Drawing.Size(90, 28);
+            this.txtTime.Size = new System.Drawing.Size(93, 28);
             this.txtTime.TabIndex = 2;
             // 
             // txtBatchNo
@@ -726,7 +726,7 @@
             this.txtBatchNo.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.txtBatchNo.MaximumSize = new System.Drawing.Size(93, 28);
             this.txtBatchNo.Name = "txtBatchNo";
-            this.txtBatchNo.Size = new System.Drawing.Size(90, 28);
+            this.txtBatchNo.Size = new System.Drawing.Size(93, 28);
             this.txtBatchNo.TabIndex = 11;
             // 
             // txtBatchDuration
@@ -735,7 +735,7 @@
             this.txtBatchDuration.BackColor = System.Drawing.SystemColors.InactiveBorder;
             this.txtBatchDuration.Enabled = false;
             this.txtBatchDuration.Font = new System.Drawing.Font("Calibri", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtBatchDuration.Location = new System.Drawing.Point(124, 22);
+            this.txtBatchDuration.Location = new System.Drawing.Point(132, 22);
             this.txtBatchDuration.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.txtBatchDuration.MaximumSize = new System.Drawing.Size(73, 28);
             this.txtBatchDuration.Name = "txtBatchDuration";
@@ -748,7 +748,7 @@
             this.txtHB1.BackColor = System.Drawing.SystemColors.InactiveBorder;
             this.txtHB1.Enabled = false;
             this.txtHB1.Font = new System.Drawing.Font("Calibri", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtHB1.Location = new System.Drawing.Point(203, 22);
+            this.txtHB1.Location = new System.Drawing.Point(211, 22);
             this.txtHB1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.txtHB1.MaximumSize = new System.Drawing.Size(79, 28);
             this.txtHB1.Name = "txtHB1";
@@ -763,7 +763,7 @@
             this.txtHB2.BackColor = System.Drawing.SystemColors.InactiveBorder;
             this.txtHB2.Enabled = false;
             this.txtHB2.Font = new System.Drawing.Font("Calibri", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtHB2.Location = new System.Drawing.Point(288, 22);
+            this.txtHB2.Location = new System.Drawing.Point(296, 22);
             this.txtHB2.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.txtHB2.MaximumSize = new System.Drawing.Size(79, 28);
             this.txtHB2.Name = "txtHB2";
@@ -778,7 +778,7 @@
             this.txtHB3.BackColor = System.Drawing.SystemColors.InactiveBorder;
             this.txtHB3.Enabled = false;
             this.txtHB3.Font = new System.Drawing.Font("Calibri", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtHB3.Location = new System.Drawing.Point(373, 22);
+            this.txtHB3.Location = new System.Drawing.Point(381, 22);
             this.txtHB3.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.txtHB3.MaximumSize = new System.Drawing.Size(79, 28);
             this.txtHB3.Name = "txtHB3";
@@ -793,7 +793,7 @@
             this.txtHB4.BackColor = System.Drawing.SystemColors.InactiveBorder;
             this.txtHB4.Enabled = false;
             this.txtHB4.Font = new System.Drawing.Font("Calibri", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtHB4.Location = new System.Drawing.Point(458, 22);
+            this.txtHB4.Location = new System.Drawing.Point(466, 22);
             this.txtHB4.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.txtHB4.MaximumSize = new System.Drawing.Size(79, 28);
             this.txtHB4.Name = "txtHB4";
@@ -808,7 +808,7 @@
             this.txtHB5.BackColor = System.Drawing.SystemColors.InactiveBorder;
             this.txtHB5.Enabled = false;
             this.txtHB5.Font = new System.Drawing.Font("Calibri", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtHB5.Location = new System.Drawing.Point(543, 22);
+            this.txtHB5.Location = new System.Drawing.Point(551, 22);
             this.txtHB5.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.txtHB5.MaximumSize = new System.Drawing.Size(79, 28);
             this.txtHB5.Name = "txtHB5";
@@ -823,7 +823,7 @@
             this.txtHB6.BackColor = System.Drawing.SystemColors.InactiveBorder;
             this.txtHB6.Enabled = false;
             this.txtHB6.Font = new System.Drawing.Font("Calibri", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtHB6.Location = new System.Drawing.Point(628, 22);
+            this.txtHB6.Location = new System.Drawing.Point(636, 22);
             this.txtHB6.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.txtHB6.MaximumSize = new System.Drawing.Size(79, 28);
             this.txtHB6.Name = "txtHB6";
@@ -838,7 +838,7 @@
             this.txtFiller.BackColor = System.Drawing.SystemColors.InactiveBorder;
             this.txtFiller.Enabled = false;
             this.txtFiller.Font = new System.Drawing.Font("Calibri", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtFiller.Location = new System.Drawing.Point(713, 22);
+            this.txtFiller.Location = new System.Drawing.Point(721, 22);
             this.txtFiller.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.txtFiller.MaximumSize = new System.Drawing.Size(79, 28);
             this.txtFiller.Name = "txtFiller";
@@ -853,7 +853,7 @@
             this.txtRAP.BackColor = System.Drawing.SystemColors.InactiveBorder;
             this.txtRAP.Enabled = false;
             this.txtRAP.Font = new System.Drawing.Font("Calibri", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtRAP.Location = new System.Drawing.Point(798, 22);
+            this.txtRAP.Location = new System.Drawing.Point(806, 22);
             this.txtRAP.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.txtRAP.MaximumSize = new System.Drawing.Size(79, 28);
             this.txtRAP.Name = "txtRAP";
@@ -868,7 +868,7 @@
             this.txtAsphalt.BackColor = System.Drawing.SystemColors.InactiveBorder;
             this.txtAsphalt.Enabled = false;
             this.txtAsphalt.Font = new System.Drawing.Font("Calibri", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtAsphalt.Location = new System.Drawing.Point(883, 22);
+            this.txtAsphalt.Location = new System.Drawing.Point(891, 22);
             this.txtAsphalt.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.txtAsphalt.MaximumSize = new System.Drawing.Size(79, 28);
             this.txtAsphalt.Name = "txtAsphalt";
@@ -882,7 +882,7 @@
             this.txtMixMatTemp.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.txtMixMatTemp.Enabled = false;
             this.txtMixMatTemp.Font = new System.Drawing.Font("Calibri", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtMixMatTemp.Location = new System.Drawing.Point(968, 22);
+            this.txtMixMatTemp.Location = new System.Drawing.Point(976, 22);
             this.txtMixMatTemp.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.txtMixMatTemp.MaximumSize = new System.Drawing.Size(79, 28);
             this.txtMixMatTemp.Name = "txtMixMatTemp";
@@ -896,7 +896,7 @@
             this.txtSmoke.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.txtSmoke.Enabled = false;
             this.txtSmoke.Font = new System.Drawing.Font("Calibri", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtSmoke.Location = new System.Drawing.Point(1053, 22);
+            this.txtSmoke.Location = new System.Drawing.Point(1061, 22);
             this.txtSmoke.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.txtSmoke.MaximumSize = new System.Drawing.Size(79, 28);
             this.txtSmoke.Name = "txtSmoke";
@@ -910,7 +910,7 @@
             this.txtHotBinTemp.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.txtHotBinTemp.Enabled = false;
             this.txtHotBinTemp.Font = new System.Drawing.Font("Calibri", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtHotBinTemp.Location = new System.Drawing.Point(1138, 22);
+            this.txtHotBinTemp.Location = new System.Drawing.Point(1146, 22);
             this.txtHotBinTemp.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.txtHotBinTemp.MaximumSize = new System.Drawing.Size(79, 28);
             this.txtHotBinTemp.Name = "txtHotBinTemp";
@@ -948,7 +948,7 @@
             this.label23.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.label23.AutoSize = true;
             this.label23.Font = new System.Drawing.Font("Calibri", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label23.Location = new System.Drawing.Point(139, 54);
+            this.label23.Location = new System.Drawing.Point(147, 54);
             this.label23.MaximumSize = new System.Drawing.Size(64, 26);
             this.label23.Name = "label23";
             this.label23.Size = new System.Drawing.Size(46, 15);
@@ -961,7 +961,7 @@
             this.txtTank1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.txtTank1.Enabled = false;
             this.txtTank1.Font = new System.Drawing.Font("Calibri", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtTank1.Location = new System.Drawing.Point(1223, 22);
+            this.txtTank1.Location = new System.Drawing.Point(1231, 22);
             this.txtTank1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.txtTank1.MaximumSize = new System.Drawing.Size(79, 28);
             this.txtTank1.Name = "txtTank1";
@@ -975,7 +975,7 @@
             this.txtBatchSize.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.txtBatchSize.Enabled = false;
             this.txtBatchSize.Font = new System.Drawing.Font("Calibri", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtBatchSize.Location = new System.Drawing.Point(124, 75);
+            this.txtBatchSize.Location = new System.Drawing.Point(132, 75);
             this.txtBatchSize.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.txtBatchSize.MaximumSize = new System.Drawing.Size(73, 28);
             this.txtBatchSize.Name = "txtBatchSize";
@@ -988,7 +988,7 @@
             // 
             this.label17.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.label17.Font = new System.Drawing.Font("Calibri", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label17.Location = new System.Drawing.Point(131, 104);
+            this.label17.Location = new System.Drawing.Point(139, 104);
             this.label17.MaximumSize = new System.Drawing.Size(64, 26);
             this.label17.Name = "label17";
             this.label17.Size = new System.Drawing.Size(61, 21);
@@ -1001,7 +1001,7 @@
             this.txtTruckNo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.txtTruckNo.Enabled = false;
             this.txtTruckNo.Font = new System.Drawing.Font("Calibri", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtTruckNo.Location = new System.Drawing.Point(1138, 75);
+            this.txtTruckNo.Location = new System.Drawing.Point(1146, 75);
             this.txtTruckNo.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.txtTruckNo.MaximumSize = new System.Drawing.Size(79, 28);
             this.txtTruckNo.Name = "txtTruckNo";
@@ -1014,7 +1014,7 @@
             // 
             this.label20.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.label20.Font = new System.Drawing.Font("Calibri", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label20.Location = new System.Drawing.Point(1145, 105);
+            this.label20.Location = new System.Drawing.Point(1153, 105);
             this.label20.MaximumSize = new System.Drawing.Size(64, 26);
             this.label20.Name = "label20";
             this.label20.Size = new System.Drawing.Size(64, 18);
@@ -1027,7 +1027,7 @@
             this.txtCount.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.txtCount.Enabled = false;
             this.txtCount.Font = new System.Drawing.Font("Calibri", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtCount.Location = new System.Drawing.Point(1308, 75);
+            this.txtCount.Location = new System.Drawing.Point(1316, 75);
             this.txtCount.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.txtCount.MaximumSize = new System.Drawing.Size(64, 28);
             this.txtCount.Name = "txtCount";
@@ -1040,7 +1040,7 @@
             // 
             this.textBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.textBox1.Font = new System.Drawing.Font("Calibri", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox1.Location = new System.Drawing.Point(1357, 22);
+            this.textBox1.Location = new System.Drawing.Point(1365, 22);
             this.textBox1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.textBox1.MaximumSize = new System.Drawing.Size(137, 28);
             this.textBox1.Name = "textBox1";
@@ -1052,7 +1052,7 @@
             this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Calibri", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(1309, 25);
+            this.label3.Location = new System.Drawing.Point(1317, 25);
             this.label3.MaximumSize = new System.Drawing.Size(64, 26);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(42, 21);
@@ -1065,7 +1065,7 @@
             this.txtAggWt.BackColor = System.Drawing.SystemColors.InactiveBorder;
             this.txtAggWt.Enabled = false;
             this.txtAggWt.Font = new System.Drawing.Font("Calibri", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtAggWt.Location = new System.Drawing.Point(968, 75);
+            this.txtAggWt.Location = new System.Drawing.Point(976, 75);
             this.txtAggWt.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.txtAggWt.MaximumSize = new System.Drawing.Size(79, 28);
             this.txtAggWt.Name = "txtAggWt";
@@ -1078,7 +1078,7 @@
             // 
             this.label26.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.label26.Font = new System.Drawing.Font("Calibri", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label26.Location = new System.Drawing.Point(976, 104);
+            this.label26.Location = new System.Drawing.Point(984, 104);
             this.label26.MaximumSize = new System.Drawing.Size(64, 26);
             this.label26.Name = "label26";
             this.label26.Size = new System.Drawing.Size(64, 21);
@@ -1092,7 +1092,7 @@
             this.txtTruckCount.BackColor = System.Drawing.SystemColors.InactiveBorder;
             this.txtTruckCount.Enabled = false;
             this.txtTruckCount.Font = new System.Drawing.Font("Calibri", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtTruckCount.Location = new System.Drawing.Point(1223, 75);
+            this.txtTruckCount.Location = new System.Drawing.Point(1231, 75);
             this.txtTruckCount.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.txtTruckCount.MaximumSize = new System.Drawing.Size(79, 28);
             this.txtTruckCount.Name = "txtTruckCount";
@@ -1105,7 +1105,7 @@
             // 
             this.label27.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.label27.Font = new System.Drawing.Font("Calibri", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label27.Location = new System.Drawing.Point(1263, 107);
+            this.label27.Location = new System.Drawing.Point(1271, 107);
             this.label27.MaximumSize = new System.Drawing.Size(64, 26);
             this.label27.Name = "label27";
             this.label27.Size = new System.Drawing.Size(61, 18);
@@ -1119,7 +1119,7 @@
             this.txtHB1Per.BackColor = System.Drawing.SystemColors.InactiveBorder;
             this.txtHB1Per.Enabled = false;
             this.txtHB1Per.Font = new System.Drawing.Font("Calibri", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtHB1Per.Location = new System.Drawing.Point(203, 75);
+            this.txtHB1Per.Location = new System.Drawing.Point(211, 75);
             this.txtHB1Per.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.txtHB1Per.MaximumSize = new System.Drawing.Size(79, 28);
             this.txtHB1Per.Name = "txtHB1Per";
@@ -1134,7 +1134,7 @@
             this.txtHB2Per.BackColor = System.Drawing.SystemColors.InactiveBorder;
             this.txtHB2Per.Enabled = false;
             this.txtHB2Per.Font = new System.Drawing.Font("Calibri", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtHB2Per.Location = new System.Drawing.Point(288, 75);
+            this.txtHB2Per.Location = new System.Drawing.Point(296, 75);
             this.txtHB2Per.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.txtHB2Per.MaximumSize = new System.Drawing.Size(79, 28);
             this.txtHB2Per.Name = "txtHB2Per";
@@ -1149,7 +1149,7 @@
             this.txtHB3Per.BackColor = System.Drawing.SystemColors.InactiveBorder;
             this.txtHB3Per.Enabled = false;
             this.txtHB3Per.Font = new System.Drawing.Font("Calibri", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtHB3Per.Location = new System.Drawing.Point(373, 75);
+            this.txtHB3Per.Location = new System.Drawing.Point(381, 75);
             this.txtHB3Per.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.txtHB3Per.MaximumSize = new System.Drawing.Size(79, 28);
             this.txtHB3Per.Name = "txtHB3Per";
@@ -1164,7 +1164,7 @@
             this.txtHB4Per.BackColor = System.Drawing.SystemColors.InactiveBorder;
             this.txtHB4Per.Enabled = false;
             this.txtHB4Per.Font = new System.Drawing.Font("Calibri", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtHB4Per.Location = new System.Drawing.Point(458, 75);
+            this.txtHB4Per.Location = new System.Drawing.Point(466, 75);
             this.txtHB4Per.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.txtHB4Per.MaximumSize = new System.Drawing.Size(79, 28);
             this.txtHB4Per.Name = "txtHB4Per";
@@ -1179,7 +1179,7 @@
             this.txtHB5Per.BackColor = System.Drawing.SystemColors.InactiveBorder;
             this.txtHB5Per.Enabled = false;
             this.txtHB5Per.Font = new System.Drawing.Font("Calibri", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtHB5Per.Location = new System.Drawing.Point(543, 75);
+            this.txtHB5Per.Location = new System.Drawing.Point(551, 75);
             this.txtHB5Per.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.txtHB5Per.MaximumSize = new System.Drawing.Size(79, 28);
             this.txtHB5Per.Name = "txtHB5Per";
@@ -1194,7 +1194,7 @@
             this.txtHB6Per.BackColor = System.Drawing.SystemColors.InactiveBorder;
             this.txtHB6Per.Enabled = false;
             this.txtHB6Per.Font = new System.Drawing.Font("Calibri", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtHB6Per.Location = new System.Drawing.Point(628, 75);
+            this.txtHB6Per.Location = new System.Drawing.Point(636, 75);
             this.txtHB6Per.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.txtHB6Per.MaximumSize = new System.Drawing.Size(79, 28);
             this.txtHB6Per.Name = "txtHB6Per";
@@ -1209,7 +1209,7 @@
             this.txtFillerPer.BackColor = System.Drawing.SystemColors.InactiveBorder;
             this.txtFillerPer.Enabled = false;
             this.txtFillerPer.Font = new System.Drawing.Font("Calibri", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtFillerPer.Location = new System.Drawing.Point(713, 75);
+            this.txtFillerPer.Location = new System.Drawing.Point(721, 75);
             this.txtFillerPer.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.txtFillerPer.MaximumSize = new System.Drawing.Size(79, 28);
             this.txtFillerPer.Name = "txtFillerPer";
@@ -1224,7 +1224,7 @@
             this.txtAsphaltPer.BackColor = System.Drawing.SystemColors.InactiveBorder;
             this.txtAsphaltPer.Enabled = false;
             this.txtAsphaltPer.Font = new System.Drawing.Font("Calibri", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtAsphaltPer.Location = new System.Drawing.Point(883, 75);
+            this.txtAsphaltPer.Location = new System.Drawing.Point(891, 75);
             this.txtAsphaltPer.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.txtAsphaltPer.MaximumSize = new System.Drawing.Size(79, 28);
             this.txtAsphaltPer.Name = "txtAsphaltPer";
@@ -1239,7 +1239,7 @@
             this.txtRAPPer.BackColor = System.Drawing.SystemColors.InactiveBorder;
             this.txtRAPPer.Enabled = false;
             this.txtRAPPer.Font = new System.Drawing.Font("Calibri", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtRAPPer.Location = new System.Drawing.Point(798, 75);
+            this.txtRAPPer.Location = new System.Drawing.Point(806, 75);
             this.txtRAPPer.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.txtRAPPer.MaximumSize = new System.Drawing.Size(79, 28);
             this.txtRAPPer.Name = "txtRAPPer";
@@ -1254,7 +1254,7 @@
             this.txtNet.BackColor = System.Drawing.SystemColors.InactiveBorder;
             this.txtNet.Enabled = false;
             this.txtNet.Font = new System.Drawing.Font("Calibri", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtNet.Location = new System.Drawing.Point(1053, 75);
+            this.txtNet.Location = new System.Drawing.Point(1061, 75);
             this.txtNet.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.txtNet.MaximumSize = new System.Drawing.Size(79, 28);
             this.txtNet.Name = "txtNet";
@@ -1267,7 +1267,7 @@
             // 
             this.label28.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.label28.Font = new System.Drawing.Font("Calibri", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label28.Location = new System.Drawing.Point(1063, 104);
+            this.label28.Location = new System.Drawing.Point(1071, 104);
             this.label28.MaximumSize = new System.Drawing.Size(64, 26);
             this.label28.Name = "label28";
             this.label28.Size = new System.Drawing.Size(52, 21);
@@ -1279,7 +1279,7 @@
             // 
             this.panel2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.panel2.BackColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.panel2.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.panel2.Controls.Add(this.lb_validateExhaustTemp);
             this.panel2.Controls.Add(this.lb_validateBitumenTemp);
             this.panel2.Controls.Add(this.lb_validateMixTemp);
@@ -1350,7 +1350,7 @@
             this.lb_validateExhaustTemp.AutoSize = true;
             this.lb_validateExhaustTemp.Font = new System.Drawing.Font("Calibri", 7.8F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lb_validateExhaustTemp.ForeColor = System.Drawing.Color.Red;
-            this.lb_validateExhaustTemp.Location = new System.Drawing.Point(1067, 0);
+            this.lb_validateExhaustTemp.Location = new System.Drawing.Point(1075, 0);
             this.lb_validateExhaustTemp.Name = "lb_validateExhaustTemp";
             this.lb_validateExhaustTemp.Size = new System.Drawing.Size(10, 15);
             this.lb_validateExhaustTemp.TabIndex = 463;
@@ -1361,7 +1361,7 @@
             this.lb_validateBitumenTemp.AutoSize = true;
             this.lb_validateBitumenTemp.Font = new System.Drawing.Font("Calibri", 7.8F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lb_validateBitumenTemp.ForeColor = System.Drawing.Color.Red;
-            this.lb_validateBitumenTemp.Location = new System.Drawing.Point(1238, 0);
+            this.lb_validateBitumenTemp.Location = new System.Drawing.Point(1246, 0);
             this.lb_validateBitumenTemp.Name = "lb_validateBitumenTemp";
             this.lb_validateBitumenTemp.Size = new System.Drawing.Size(10, 15);
             this.lb_validateBitumenTemp.TabIndex = 462;
@@ -1372,7 +1372,7 @@
             this.lb_validateMixTemp.AutoSize = true;
             this.lb_validateMixTemp.Font = new System.Drawing.Font("Calibri", 7.8F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lb_validateMixTemp.ForeColor = System.Drawing.Color.Red;
-            this.lb_validateMixTemp.Location = new System.Drawing.Point(980, 0);
+            this.lb_validateMixTemp.Location = new System.Drawing.Point(988, 0);
             this.lb_validateMixTemp.Name = "lb_validateMixTemp";
             this.lb_validateMixTemp.Size = new System.Drawing.Size(10, 15);
             this.lb_validateMixTemp.TabIndex = 461;
@@ -1381,7 +1381,7 @@
             // label33
             // 
             this.label33.Font = new System.Drawing.Font("Calibri", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label33.Location = new System.Drawing.Point(1236, 54);
+            this.label33.Location = new System.Drawing.Point(1244, 54);
             this.label33.Name = "label33";
             this.label33.Size = new System.Drawing.Size(55, 17);
             this.label33.TabIndex = 79;
@@ -1391,7 +1391,7 @@
             // label34
             // 
             this.label34.Font = new System.Drawing.Font("Calibri", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label34.Location = new System.Drawing.Point(1138, 54);
+            this.label34.Location = new System.Drawing.Point(1146, 54);
             this.label34.Name = "label34";
             this.label34.Size = new System.Drawing.Size(79, 17);
             this.label34.TabIndex = 78;
@@ -1401,7 +1401,7 @@
             // label35
             // 
             this.label35.Font = new System.Drawing.Font("Calibri", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label35.Location = new System.Drawing.Point(1053, 53);
+            this.label35.Location = new System.Drawing.Point(1061, 53);
             this.label35.Name = "label35";
             this.label35.Size = new System.Drawing.Size(74, 17);
             this.label35.TabIndex = 77;
@@ -1411,7 +1411,7 @@
             // label36
             // 
             this.label36.Font = new System.Drawing.Font("Calibri", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label36.Location = new System.Drawing.Point(968, 54);
+            this.label36.Location = new System.Drawing.Point(976, 54);
             this.label36.Name = "label36";
             this.label36.Size = new System.Drawing.Size(79, 17);
             this.label36.TabIndex = 76;
@@ -1421,7 +1421,7 @@
             // label14
             // 
             this.label14.Font = new System.Drawing.Font("Calibri", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label14.Location = new System.Drawing.Point(888, 54);
+            this.label14.Location = new System.Drawing.Point(896, 54);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(74, 17);
             this.label14.TabIndex = 75;
@@ -1431,7 +1431,7 @@
             // label11
             // 
             this.label11.Font = new System.Drawing.Font("Calibri", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label11.Location = new System.Drawing.Point(798, 54);
+            this.label11.Location = new System.Drawing.Point(806, 54);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(79, 17);
             this.label11.TabIndex = 74;
@@ -1441,7 +1441,7 @@
             // label12
             // 
             this.label12.Font = new System.Drawing.Font("Calibri", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label12.Location = new System.Drawing.Point(713, 54);
+            this.label12.Location = new System.Drawing.Point(721, 54);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(79, 17);
             this.label12.TabIndex = 73;
@@ -1451,7 +1451,7 @@
             // label9
             // 
             this.label9.Font = new System.Drawing.Font("Calibri", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label9.Location = new System.Drawing.Point(644, 54);
+            this.label9.Location = new System.Drawing.Point(652, 54);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(45, 17);
             this.label9.TabIndex = 72;
@@ -1461,7 +1461,7 @@
             // label6
             // 
             this.label6.Font = new System.Drawing.Font("Calibri", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(546, 54);
+            this.label6.Location = new System.Drawing.Point(554, 54);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(76, 17);
             this.label6.TabIndex = 71;
@@ -1471,7 +1471,7 @@
             // label21
             // 
             this.label21.Font = new System.Drawing.Font("Calibri", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label21.Location = new System.Drawing.Point(290, 54);
+            this.label21.Location = new System.Drawing.Point(298, 54);
             this.label21.Name = "label21";
             this.label21.Size = new System.Drawing.Size(76, 17);
             this.label21.TabIndex = 68;
@@ -1481,7 +1481,7 @@
             // label22
             // 
             this.label22.Font = new System.Drawing.Font("Calibri", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label22.Location = new System.Drawing.Point(206, 54);
+            this.label22.Location = new System.Drawing.Point(214, 54);
             this.label22.Name = "label22";
             this.label22.Size = new System.Drawing.Size(76, 17);
             this.label22.TabIndex = 67;
@@ -1491,7 +1491,7 @@
             // label8
             // 
             this.label8.Font = new System.Drawing.Font("Calibri", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.Location = new System.Drawing.Point(457, 54);
+            this.label8.Location = new System.Drawing.Point(465, 54);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(80, 17);
             this.label8.TabIndex = 70;
@@ -1501,7 +1501,7 @@
             // label19
             // 
             this.label19.Font = new System.Drawing.Font("Calibri", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label19.Location = new System.Drawing.Point(373, 54);
+            this.label19.Location = new System.Drawing.Point(381, 54);
             this.label19.Name = "label19";
             this.label19.Size = new System.Drawing.Size(78, 17);
             this.label19.TabIndex = 69;
@@ -1512,7 +1512,7 @@
             // 
             this.lblerrperindecator.AutoSize = true;
             this.lblerrperindecator.ForeColor = System.Drawing.Color.Red;
-            this.lblerrperindecator.Location = new System.Drawing.Point(1380, 4);
+            this.lblerrperindecator.Location = new System.Drawing.Point(1388, 4);
             this.lblerrperindecator.Name = "lblerrperindecator";
             this.lblerrperindecator.Size = new System.Drawing.Size(0, 21);
             this.lblerrperindecator.TabIndex = 66;
@@ -1568,6 +1568,7 @@
             this.label5.Size = new System.Drawing.Size(50, 24);
             this.label5.TabIndex = 20;
             this.label5.Text = "Date";
+            this.label5.Visible = false;
             // 
             // txtdate
             // 
@@ -1583,6 +1584,7 @@
             this.txtdate.Name = "txtdate";
             this.txtdate.Size = new System.Drawing.Size(152, 32);
             this.txtdate.TabIndex = 26;
+            this.txtdate.Visible = false;
             // 
             // txttipperno
             // 
@@ -1646,7 +1648,7 @@
             // 
             // panel1
             // 
-            this.panel1.BackColor = System.Drawing.Color.White;
+            this.panel1.BackColor = System.Drawing.SystemColors.MenuHighlight;
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel1.Controls.Add(this.lblisLive);
             this.panel1.Controls.Add(this.btnClose);
@@ -1814,6 +1816,8 @@
             this.time.Name = "time";
             this.time.Size = new System.Drawing.Size(143, 29);
             this.time.TabIndex = 48;
+            this.time.Visible = false;
+            this.time.WordWrap = false;
             // 
             // label31
             // 
@@ -1840,6 +1844,7 @@
             this.button2.TabIndex = 42;
             this.button2.Text = "@";
             this.button2.UseVisualStyleBackColor = true;
+            this.button2.Visible = false;
             this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // btnstart

@@ -8,6 +8,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Data.OleDb;
 using System.Data.SQLite;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -231,7 +232,7 @@ namespace Uniproject.Masters
                     batchtime = txtTime.Text;
                     string tempbno = txtBatchNo.Text;
 
-
+                    await UpdateActualValuestoUI(textBox1, tdate);
                     //SetTextBoxTextSafe(txtBatchNo, "1");
 
 
@@ -490,7 +491,7 @@ namespace Uniproject.Masters
                                         //                fillerper_val, mixtemp_val, exhausttemp_val, tank1_val, tank2_val, aggregateinkg, Commulativebitumen, aggregatetph_val,
                                         //                bitumenkgmin_val, fillerkgmin_val, moisture_val, aggregateton_val, netmix_val);
 
-                                        AddRowSafe(dgvloaddetails, srno, batchtime, batchno, Batch_Duration_InSec, Weight_KgPerBatch,
+                                        InsertRowAtTopSafe(dgvloaddetails, srno, batchtime, batchno, Batch_Duration_InSec, Weight_KgPerBatch,
     F1_InPer_val, F2_InPer_val, F3_InPer_val, F4_InPer_val, F1_InKg_val, F2_Inkg_val, F3_Inkg_val, F4_Inkg_val,
     bitumenkg_val, bitumenper_val, fillerkg_val, fillerper_val, mixtemp_val, exhausttemp_val, tank1_val, tank2_val,
     aggregateinkg, Commulativebitumen, aggregatetph_val, bitumenkgmin_val, fillerkgmin_val, moisture_val,
@@ -672,6 +673,18 @@ namespace Uniproject.Masters
                 dgv.Rows.Add(values);
             }
         }
+        private void InsertRowAtTopSafe(DataGridView dgv, params object[] values)
+        {
+            if (dgv.InvokeRequired)
+            {
+                dgv.Invoke(new Action(() => dgv.Rows.Insert(0, values)));
+            }
+            else
+            {
+                dgv.Rows.Insert(0, values);
+            }
+        }
+
 
 
         private async Task<DataTable> LoadDataTo_DataTableAsync()
@@ -809,11 +822,13 @@ namespace Uniproject.Masters
                 }
                 catch { }
 
+                string path = Path.Combine(Application.StartupPath, "Database\\Jayshiv.exe");
+                StartExeIfNotRunning(path);
 
                 //string time2;
                 //int maxbatch = clsFunctions.GetMaxId("Select MAX(batchno), MAX(ttime) from tblHotMixPlant where  tipper='" + cmbtipper.Text + "'");//clsFunctions.loadSingleValue("select MAX(batchnno) from tblHotMixPlant where tipper = '" + cmbtipper.SelectedItem.ToString() + "'");
                 //string tippettime = clsFunctions.loadSingleValue("Select MAX(ttime) from tblHotMixPlant where batchno = " + maxbatch + " AND tipper = '" + cmbtipper.Text + "'");
-                //txtTruckCount.Text = Convert.ToInt32(clsFunctions.GetMaxId("select Max(loadno)+1  from tblHotMixPlant ")).ToString();
+                txtTruckCount.Text = Convert.ToInt32(clsFunctions.GetMaxId("select Max(loadno)+1  from tblHotMixPlant ")).ToString();
 
                 //if (tippettime == "")
                 //{
@@ -3700,6 +3715,37 @@ namespace Uniproject.Masters
             {
                 //MessageBox.Show(ex.Message, "VIPL SaveDataToHotMixScadaFromXLS", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 clsFunctions.ErrorLog("Exception in SaveDataToHotMixScadaFromXLS: " + ex.Message);
+            }
+        }
+
+        public static void StartExeIfNotRunning(string exePath, string arguments = "")
+        {
+            try
+            {
+                string exeNameWithoutExtension = Path.GetFileNameWithoutExtension(exePath);
+
+                // Check if any process with this name is already running
+                bool isRunning = Process.GetProcessesByName(exeNameWithoutExtension).Any();
+
+                if (!isRunning)
+                {
+                    ProcessStartInfo startInfo = new ProcessStartInfo
+                    {
+                        FileName = exePath,
+                        Arguments = arguments,
+                        UseShellExecute = true
+                    };
+
+                    Process.Start(startInfo);
+                }
+                else
+                {
+                    //MessageBox.Show($"{exeNameWithoutExtension} is already running.", "Info");
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error starting executable: " + ex.Message, "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
         private void SaveDataToHotMixScadaFromXLS()     // For Linnhoff
